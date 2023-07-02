@@ -1,0 +1,18 @@
+span {
+  color: aquamarine;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cultify {
+  text-decoration: none;
+}
+
+.nav,
+.link {
+  text-decoration: none;
+  margin: 2px;
+}
