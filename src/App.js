@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 // import './App.css';
-import Login from './pages/login/components/Login';
+import Login from './pages/login/components/login';
 import Otp from './pages/registration/components/otp';
 import RegistrationRouter from './pages/registration/components/registrationRouter';
 import ConsumerRegistration from './pages/registration/components/consumerRegistration';
