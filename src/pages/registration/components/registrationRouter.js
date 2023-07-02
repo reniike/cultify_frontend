@@ -24,7 +24,6 @@ const RegistrationRouter = () => {
       <button type="button" onClick={clickConsumer}>Consumer</button>
       <button type="button" onClick={clickFarmer}>Farmer</button>
       <button type="button" onClick={clickTransporter}>Transporter</button>
-      
     </div>
   );
 };

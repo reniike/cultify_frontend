@@ -1,47 +1,44 @@
-import {React, useState}from 'react';
-import Modal from 'react-modal';
+import React, { useState } from "react";
+import '../styles/otp.css'
 
 const Otp = () => {
-    const[otp, setOtp] = useState ("")
-    const[openModal, setOpenModal] = useState(false)
-    const[otpVerificationtionStatus, setOtpVerificationtionStatus] = useState("")
+  const [otp, setOtp] = useState("");
+  const [error, setError] = useState("");
 
-    const modalIsOpen = (event) =>{
-        setOpenModal(true)
-    }
-    const modalIsClose = (event) =>{
-        setOpenModal(false)
-        setOtp("")
-        setOtpVerificationtionStatus("")
-    }
-    const handleOtp = (event) => {
-        setOtp(event.target.value)
-    }
-    const handleOtpSubmit = (event) =>{
-        event.preventDefault();
+  const handleOtpChange = (e) => {
+    setOtp(e.target.value);
+    setError("");
+  };
 
-        const genetatedOtp = "12345"
-        if(otp === genetatedOtp){
-            setOtpVerificationtionStatus("Verified")
-        }else
-        setOtpVerificationtionStatus("Wrong Otp! Try again")
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    return(
-        <div className='otp'>
-            
-            <Modal isOpen={modalIsOpen} onRequestClose={modalIsClose}>
-                <h2>Enter OTP</h2>
-                <form onSubmit={handleOtpSubmit}>
-                <input type="text" value={otp} onChange={handleOtp} placeholder="Enter OTP"
-                />
-                <button type="submit">Submit</button>
-                <button onClick={modalIsClose}>Close</button>
-                </form>
-                {otpVerificationtionStatus && <p>{otpVerificationtionStatus}</p>}
-            </Modal>
+    if (otp.length !== 6 || !/^\d+$/.test(otp)) {
+      setError("Invalid OTP. Please enter a 6-digit numeric OTP.");
+      return;
+    }
+    setOtp("");
+  };
+
+  return (
+    <div className="container">
+      <h1>OTP Verification</h1>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="otp">OTP:</label>
+          <input
+            type="text"
+            id="otp"
+            value={otp}
+            onChange={handleOtpChange}
+            maxLength={6}
+          />
         </div>
-    )
-}
-export default Otp;
+        <p className="error">{error}</p>
+        <button type="submit">Verify</button>
+      </form>
+    </div>
+  );
+};
 
+export default Otp;

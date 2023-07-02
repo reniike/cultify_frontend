@@ -1,4 +1,5 @@
 import {React, useState}from 'react';
+import '../styles/login.css';
 
 const Login = () => {
     const[email, setUsername] = useState("")
@@ -37,7 +38,7 @@ const Login = () => {
             </form> 
             <button onClick={handleSubmit}>Login</button>
             <h5>Don't have an account Yet? </h5>
-            <a href="#">Sign in</a> 
+            <a href="/registration">Sign up</a> 
         </div>
     </div>  
         
