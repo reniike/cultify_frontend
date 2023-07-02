@@ -1,7 +1,5 @@
-
 import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-import './registrationRouter.css';
+import '../styles/registrationRouter.css';
 import { useNavigate } from 'react-router-dom';
 
 const RegistrationRouter = () => {
@@ -23,7 +21,7 @@ const RegistrationRouter = () => {
   return (
     <div className='welcome'>
       <h2>Choose Your Category</h2>
-      <button type="button" onClick={clickConsumer}>Customer</button>
+      <button type="button" onClick={clickConsumer}>Consumer</button>
       <button type="button" onClick={clickFarmer}>Farmer</button>
       <button type="button" onClick={clickTransporter}>Transporter</button>
       
