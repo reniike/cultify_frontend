@@ -6,7 +6,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../../../api/axios";
-import Dropdown from "../components/Dropdown";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
@@ -15,11 +14,14 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const REGISTER_URL = "/register";
 
-const Register = () => {
+const FarmerRegistration = () => {
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const emailRef = useRef();
   const phoneRef = useRef();
+  const fileRef = useRef();
+  const picRef = useRef();
+
   const errRef = useRef();
 
   const [firstName, setFirstName] = useState("");
@@ -38,7 +40,7 @@ const Register = () => {
   const [validPhoneNumber, setValidPhoneNumber] = useState(false);
   const [phoneFocus, setPhoneFocus] = useState(false);
 
-  const [selectedOption, setSelectedOption] = useState("");
+  const [address, setAddress] = useState("");
 
   const [pwd, setPwd] = useState("");
   const [validPwd, setValidPwd] = useState(false);
@@ -53,6 +55,10 @@ const Register = () => {
 
   const handlePhoneNumberChange = (event) => {
     setPhoneNumber(event.target.value);
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
   };
 
   useEffect(() => {
@@ -105,12 +111,9 @@ const Register = () => {
           withCredentials: true,
         }
       );
-      console.log(response?.data);
-      console.log(response?.accessToken);
-      console.log(JSON.stringify(response));
+
       setSuccess(true);
-      //clear state and controlled inputs
-      //need value attrib on inputs for this
+
       setFirstName("");
       setLastName("");
       setEmail("");
@@ -130,7 +133,7 @@ const Register = () => {
   };
 
   return (
-    <div className="register">
+    <div className="farmer">
       {success ? (
         <section>
           <h1>Success!</h1>
@@ -147,7 +150,7 @@ const Register = () => {
           >
             {errMsg}
           </p>
-          <h1>Register</h1>
+          <h1>Farmer</h1>
           <form onSubmit={handleSubmit}>
             <label htmlFor="firstName">
               First Name:
@@ -173,21 +176,6 @@ const Register = () => {
               onFocus={() => setFirstNameFocus(true)}
               onBlur={() => setFirstNameFocus(false)}
             />
-            <p
-              id="firstName"
-              className={
-                firstNameFocus && firstName && !validFirstName
-                  ? "instructions"
-                  : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              4 to 24 characters.
-              <br />
-              Must begin with a letter.
-              <br />
-              Letters, numbers, underscores, hyphens allowed.
-            </p>
 
             <label htmlFor="lastName">
               Last Name:
@@ -213,21 +201,6 @@ const Register = () => {
               onFocus={() => setLastNameFocus(true)}
               onBlur={() => setLastNameFocus(false)}
             />
-            <p
-              id="lastName"
-              className={
-                lastNameFocus && lastName && !validLastName
-                  ? "instructions"
-                  : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              4 to 24 characters.
-              <br />
-              Must begin with a letter.
-              <br />
-              Letters, numbers, underscores, hyphens allowed.
-            </p>
 
             <label htmlFor="email">
               Email:
@@ -253,25 +226,6 @@ const Register = () => {
               onFocus={() => setEmailFocus(true)}
               onBlur={() => setEmailFocus(false)}
             />
-            <p
-              id="email"
-              className={
-                emailFocus && email && !validEmail
-                  ? "instructions"
-                  : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              One or more uppercase or lowercase letters and
-              <br />
-              Optionaly include dot(.), (%), (+) before @ symbol
-              <br />
-              further include at least 2 or more uppercase or lowercase letters{" "}
-              <br />
-              to represent the (TLD)
-            </p>
-
-            {/* <Dropdown /> */}
 
             <label htmlFor="phone">
               Phone Number:
@@ -301,6 +255,34 @@ const Register = () => {
               onBlur={() => setPhoneFocus(false)}
             />
 
+            <label htmlFor="file"> Select File:</label>
+            <input
+              type="file"
+              id="file"
+              ref={fileRef}
+              onChange={handleFileChange}
+              accept=".pdf,application/pdf"
+            />
+
+            <label htmlFor="file"> Upload picture:</label>
+            <input
+              type="file"
+              id="file"
+              ref={fileRef}
+              onChange={handleFileChange}
+              accept="image/*"
+              capture="user"
+            />
+
+            <label htmlFor="address">Address:</label>
+            <input
+              type="text"
+              id="address"
+              onChange={(e) => setAddress(e.target.value)}
+              value={address}
+              required
+            />
+
             <label htmlFor="password">
               Password:
               <FontAwesomeIcon
@@ -323,23 +305,6 @@ const Register = () => {
               onFocus={() => setPwdFocus(true)}
               onBlur={() => setPwdFocus(false)}
             />
-            <p
-              id="pwdnote"
-              className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              8 to 24 characters.
-              <br />
-              Must include uppercase and lowercase letters, a number and a
-              special character.
-              <br />
-              Allowed special characters:{" "}
-              <span aria-label="exclamation mark">!</span>{" "}
-              <span aria-label="at symbol">@</span>{" "}
-              <span aria-label="hashtag">#</span>{" "}
-              <span aria-label="dollar sign">$</span>{" "}
-              <span aria-label="percent">%</span>
-            </p>
 
             <label htmlFor="confirm_pwd">
               Confirm Password:
@@ -401,4 +366,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default FarmerRegistration;

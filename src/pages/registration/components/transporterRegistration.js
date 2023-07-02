@@ -14,7 +14,7 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const REGISTER_URL = "/register";
 
-const TransporterRistration = () => {
+const TransporterRegistration = () => {
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const emailRef = useRef();
@@ -365,4 +365,4 @@ const TransporterRistration = () => {
   );
 };
 
-export default TransporterRistration;
+export default TransporterRegistration;

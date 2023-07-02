@@ -1,20 +1,30 @@
-import "./App.css";
-import FarmerRistration from "./pages/dashboard/components/FarmerRegistration";
-import Header from "./pages/dashboard/components/Header";
-import TransporterRistration from "./pages/dashboard/components/TransporterRegistration";
-import Register from "./pages/dashboard/components/Register";
-import { Routes, Route } from "react-router-dom";
+
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import './App.css';
+import Login from './pages/login/components/Login';
+import Otp from './pages/registration/components/otp';
+import RegistrationRouter from './pages/registration/components/registrationRouter';
+import ConsumerRegistration from './pages/registration/components/consumerRegistration';
+import FarmerRegistration from './pages/registration/components/FarmerRegistration';
+import TransporterRegistration from './pages/registration/components/transporterRegistration';
 
 function App() {
   return (
-    <div className="App">
-      <Header />
+    <div className='app'>
+    <Router>
       <Routes>
-        <Route path="/" element={<Register />} />
-        <Route path="/farmer" element={<FarmerRistration />} />
-        <Route path="/transporter" element={<TransporterRistration />} />
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/otp" element={<Otp/>}/>
+          <Route path="/registration" element={<RegistrationRouter/>}/>
+          
+          <Route path="/registration/consumer" element={<ConsumerRegistration />} />
+          <Route path="/registration/farmer" element={<FarmerRegistration />} />
+          <Route path="/registration/transporter" element={<TransporterRegistration />} />
+      
       </Routes>
+    </Router>
     </div>
+
   );
 }
 
