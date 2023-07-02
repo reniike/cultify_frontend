@@ -1,6 +1,5 @@
-
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import './App.css';
+// import './App.css';
 import Login from './pages/login/components/Login';
 import Otp from './pages/registration/components/otp';
 import RegistrationRouter from './pages/registration/components/registrationRouter';
@@ -17,14 +16,13 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/otp" element={<Otp/>}/>
           <Route path="/registration" element={<RegistrationRouter/>}/>
-          <Route path="/registration/consumer" element={<ConsumerRegistration />} />
-          <Route path="/registration/farmer" element={<FarmerRegistration />} />
-          <Route path="/registration/transporter" element={<TransporterRegistration />}/>
-          <Route path="/consumer/dashboard" element={<ConsumerDashboard />}/>
+          <Route path="/registration/consumer" element={<ConsumerRegistration/>} />
+          <Route path="/registration/farmer" element={<FarmerRegistration/>}/>
+          <Route path="/registration/transporter" element={<TransporterRegistration/>}/>
+          <Route path="/dashboard/consumer" element={<ConsumerDashboard/>}/>
       </Routes>
     </Router>
     </div>
-
   );
 }
 
