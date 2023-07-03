@@ -1,0 +1,92 @@
+  /* .farmerStockUploadingPageContainer {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+  } */
+  
+  h1 {
+    color: #2e7743;
+    text-align: center;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    color: #2e7743;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  input,
+  textarea {
+    padding: 10px;
+    border: 1px solid #b2d8b2;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    resize: vertical;
+  }
+  
+  input[type="file"] {
+    margin-bottom: 24px;
+  }
+  
+ button {
+    background-color: #2e7743;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  button:hover {
+    background-color: #1e552f;
+  }
+  
+  /* File input label */
+  input[type="file"] + label {
+    color: #2e7743;
+    font-weight: bold;
+    margin-bottom: 16px;
+    display: block;
+    cursor: pointer;
+  }
+  
+  /* File input display */
+  input[type="file"] {
+    display: none;
+  }
+  
+  /* Custom file input display */
+  .file-input-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    border: 2px dashed #b2d8b2;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .file-input-display img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Error message */
+  .error {
+    color: red;
+    margin-top: -8px;
+    margin-bottom: 16px;
+  }
+  

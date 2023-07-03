@@ -1,4 +1,4 @@
-.container {
+.otpContainer {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
@@ -7,7 +7,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  h1 {
+  .otpContainer h1 {
     text-align: center;
     margin-bottom: 20px;
     color: #333;
@@ -23,14 +23,14 @@
     margin-bottom: 5px;
   }
   
-  input[type="text"] {
+  .otpContainer input[type="text"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
   
-  button[type="submit"] {
+  .otpContainer button[type="submit"] {
     display: block;
     width: 100%;
     padding: 10px;
@@ -46,9 +46,5 @@
     color: red;
     margin-top: 5px;
   }
-  
-  /* Background color */
-  body {
-    background-color: #f9f9f9;
-  }
+
   
