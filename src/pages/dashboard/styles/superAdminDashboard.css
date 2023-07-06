@@ -1,0 +1,28 @@
+.cultify-super-admin-dashboard{
+    background-color: #F6FBF7;
+    height: 100%;
+
+}
+
+.cultify-super-admin-dashboard .options{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4%;
+    height: 100%;
+}
+
+.cultify-super-admin-dashboard .board{
+    border: 2pt solid #55a049;;
+    height: 140px;
+    color: white;
+    text-align: center;
+    background-color: #42b830;
+    font-family: Verdana;
+    font-weight: 900;
+    font-size: 150%;
+}
+
+.cultify-super-admin-dashboard .board:hover{
+    background-color: #29881a;
+    color: aliceblue;
+}
