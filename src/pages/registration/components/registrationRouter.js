@@ -1,10 +1,9 @@
-import React from 'react';
-import '../styles/registrationRouter.css';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import "../styles/registrationRouter.css";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationRouter = () => {
-    const navigate = useNavigate();
-
+  const navigate = useNavigate();
 
   const clickFarmer = (event) => {
     navigate("/registration/farmer");
@@ -19,15 +18,19 @@ const RegistrationRouter = () => {
   };
 
   return (
-    <div className='welcome'>
+    <div className="welcome">
       <h2>Choose Your Category</h2>
-      <button type="button" onClick={clickConsumer}>Consumer</button>
-      <button type="button" onClick={clickFarmer}>Farmer</button>
-      <button type="button" onClick={clickTransporter}>Transporter</button>
-      
+      <button type="button" onClick={clickConsumer}>
+        Consumer
+      </button>
+      <button type="button" onClick={clickFarmer}>
+        Farmer
+      </button>
+      <button type="button" onClick={clickTransporter}>
+        Transporter
+      </button>
     </div>
   );
 };
 
 export default RegistrationRouter;
-
