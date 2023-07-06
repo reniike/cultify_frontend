@@ -1,65 +1,55 @@
 import React, { useState } from "react";
-import "../styles/userRegistration.css";
+import "../styles/registrationPage.css";
+import axios from "../../../api/axios";
+import { useNavigate } from "react-router-dom";
 
-const FarmerRegistration = () => {
+const InvestorRegistrationPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [address, setAddress] = useState("");
-  const [farmlandDocument, setFarmlandDocument] = useState(null);
-  const [farmlandPicture, setFarmlandPicture] = useState(null);
   const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Validate the form fields
+    
     const formErrors = {};
     if (!firstName) {
-      formErrors.firstName = "First name is required";
+      formErrors.firstName = "*First name is required";
     }
     if (!lastName) {
-      formErrors.lastName = "Last name is required";
+      formErrors.lastName = "*Last name is required";
     }
     if (!email) {
-      formErrors.email = "Email is required";
+      formErrors.email = "*Email is required";
     } else if (!isValidEmail(email)) {
-      formErrors.email = "Invalid email address";
+      formErrors.email = "*Invalid email address i.e example@gmail.com";
     }
     if (!phone) {
-      formErrors.phone = "Phone number is required";
+      formErrors.phone = "*Phone number is required";
     } else if (!isValidPhoneNumber(phone)) {
-      formErrors.phone = "Invalid phone number";
+      formErrors.phone = "*Invalid phone number";
     }
     if (!password) {
-      formErrors.password = "Password is required";
+      formErrors.password = "*Password is required";
     } else if (!isValidPassword(password)) {
       formErrors.password =
-        "Password must be 8-24 characters and include at least one uppercase letter, one lowercase letter, one number, and one special character";
+        "*Password must be 8-24 characters and include at least one uppercase letter, one lowercase letter, one number, and one special character";
     }
     if (!confirmPassword) {
-      formErrors.confirmPassword = "Confirm password is required";
+      formErrors.confirmPassword = "*Confirm password is required";
     } else if (password !== confirmPassword) {
-      formErrors.confirmPassword = "Passwords do not match";
-    }
-    if (!address) {
-      formErrors.address = "Address is required";
-    }
-    if (!farmlandDocument) {
-      formErrors.farmlandDocument = "Farmland document is required";
-    }
-    if (!farmlandPicture) {
-      formErrors.farmlandPicture = "Farmland picture is required";
+      formErrors.confirmPassword = "*Passwords do not match";
     }
 
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
     } else {
-      // Form is valid, proceed with submission or further processing
-      // ...
+      registerInvestor();
     }
   };
 
@@ -78,17 +68,29 @@ const FarmerRegistration = () => {
     return passwordRegex.test(password);
   };
 
-  const handleFarmlandDocumentChange = (e) => {
-    setFarmlandDocument(e.target.files[0]);
-  };
+  const registerInvestor = async () => {
+    const request = {
+      "firstName": firstName,
+      "lastName": lastName,
+      "emailAddress": email,
+      "phoneNumber": phone,
+      "password": password
+    };
+      try {
+        const response = await axios.post('/investor/registration', request);
+        alert("Registration successful!")
+        console.log(response.data)
+        navigate("/otp");
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  const handleFarmlandPictureChange = (e) => {
-    setFarmlandPicture(e.target.files[0]);
-  };
 
   return (
-    <div className="container">
-      <h1>Farmer Registration</h1>
+    <div className="registrationPageContainer">
+      <h1>Register</h1>
+      <br/>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="first-name">First Name:</label>
@@ -99,7 +101,7 @@ const FarmerRegistration = () => {
             onChange={(e) => setFirstName(e.target.value)}
             className={errors.firstName ? "input-error" : ""}
           />
-          {errors.firstName && <p className="error">{errors.firstName}</p>}
+          <p className="error">{errors.firstName}</p>
         </div>
 
         <div className="form-group">
@@ -111,7 +113,7 @@ const FarmerRegistration = () => {
             onChange={(e) => setLastName(e.target.value)}
             className={errors.lastName ? "input-error" : ""}
           />
-          {errors.lastName && <p className="error">{errors.lastName}</p>}
+          <p className="error">{errors.lastName}</p>
         </div>
 
         <div className="form-group">
@@ -123,7 +125,7 @@ const FarmerRegistration = () => {
             onChange={(e) => setEmail(e.target.value)}
             className={errors.email ? "input-error" : ""}
           />
-          {errors.email && <p className="error">{errors.email}</p>}
+          <p className="error">{errors.email}</p>
         </div>
 
         <div className="form-group">
@@ -135,7 +137,7 @@ const FarmerRegistration = () => {
             onChange={(e) => setPhone(e.target.value)}
             className={errors.phone ? "input-error" : ""}
           />
-          {errors.phone && <p className="error">{errors.phone}</p>}
+          <p className="error">{errors.phone}</p>
         </div>
 
         <div className="form-group">
@@ -147,7 +149,7 @@ const FarmerRegistration = () => {
             onChange={(e) => setPassword(e.target.value)}
             className={errors.password ? "input-error" : ""}
           />
-          {errors.password && <p className="error">{errors.password}</p>}
+          <p className="error">{errors.password}</p>
         </div>
 
         <div className="form-group">
@@ -159,47 +161,9 @@ const FarmerRegistration = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             className={errors.confirmPassword ? "input-error" : ""}
           />
-          {errors.confirmPassword && (
-            <p className="error">{errors.confirmPassword}</p>
-          )}
-        </div>
+          <p className="error">{errors.confirmPassword}</p>
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="address">Address:</label>
-          <textarea
-            id="address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            className={errors.address ? "input-error" : ""}
-          />
-          {errors.address && <p className="error">{errors.address}</p>}
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="farmland-document">Farmland Document:</label>
-          <input
-            type="file"
-            id="farmland-document"
-            onChange={handleFarmlandDocumentChange}
-            className={errors.farmlandDocument ? "input-error" : ""}
-          />
-          {errors.farmlandDocument && (
-            <p className="error">{errors.farmlandDocument}</p>
-          )}
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="farmland-picture">Farmland Picture:</label>
-          <input
-            type="file"
-            id="farmland-picture"
-            onChange={handleFarmlandPictureChange}
-            className={errors.farmlandPicture ? "input-error" : ""}
-          />
-          {errors.farmlandPicture && (
-            <p className="error">{errors.farmlandPicture}</p>
-          )}
-        </div>
         <button type="submit" className="btn-submit">
           Register
         </button>
@@ -208,4 +172,4 @@ const FarmerRegistration = () => {
   );
 };
 
-export default FarmerRegistration;
+export default InvestorRegistrationPage;

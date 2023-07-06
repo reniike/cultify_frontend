@@ -21,7 +21,7 @@ const Otp = () => {
   };
 
   return (
-    <div className="container">
+    <div className="otpContainer">
       <h1>OTP Verification</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">

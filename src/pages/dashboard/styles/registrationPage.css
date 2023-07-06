@@ -1,4 +1,4 @@
-.container {
+.registrationPageContainer {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -7,33 +7,33 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+.registrationPageContainer h1 {
   text-align: center;
   margin-bottom: 20px;
-  color: #333;
+  color: #044d20;
 }
 
-.form-group {
+.registrationPageContainer .form-group {
   margin-bottom: 20px;
 }
 
-label {
+.registrationPageContainer label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="password"] {
+.registrationPageContainer input[type="text"],
+.registrationPageContainer input[type="email"],
+.registrationPageContainer input[type="tel"],
+.registrationPageContainer input[type="password"] {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.btn-submit {
+.registrationPageContainer .btn-submit {
   display: block;
   width: 100%;
   padding: 10px;
@@ -47,37 +47,30 @@ input[type="password"] {
   transition: background-color 0.3s ease;
 }
 
-.btn-submit:hover {
+.registrationPageContainer .btn-submit:hover {
   background-color: #0056b3;
 }
 
-.errors {
+.registrationPageContainer .errors {
   margin-top: 20px;
   background-color: #ffe3e3;
   padding: 10px;
   border-radius: 4px;
 }
 
-.error {
+.registrationPageContainer .error {
   margin: 0 0 10px;
   color: #ff0000;
 }
 
-.errors ul {
+.registrationPageContainer .errors ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
 
-.errors li {
+.registrationPageContainer .errors li {
   color: #ff0000;
   margin-bottom: 5px;
 }
 
-body {
-  background-image: url("https://example.com/background-image.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
