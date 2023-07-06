@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "../styles/registrationPage.css";
+import axios from "../../../api/axios";
+import { useNavigate } from "react-router-dom";
 
-const RegistrationPage = () => {
+const InvestorRegistrationPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -9,6 +11,8 @@ const RegistrationPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,8 +49,7 @@ const RegistrationPage = () => {
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
     } else {
-      // Form is valid, proceed with submission or further processing
-      // ...
+      registerInvestor();
     }
   };
 
@@ -65,9 +68,28 @@ const RegistrationPage = () => {
     return passwordRegex.test(password);
   };
 
+  const registerInvestor = async () => {
+    const request = {
+      "firstName": firstName,
+      "lastName": lastName,
+      "emailAddress": email,
+      "phoneNumber": phone,
+      "password": password
+    };
+      try {
+        const response = await axios.post('/investor/registration', request);
+        alert("Registration successful!")
+        console.log(response.data)
+        navigate("/otp");
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+
   return (
-    <div className="userContainer">
-      <h1>Consumer Registration</h1>
+    <div className="registrationPageContainer">
+      <h1>Register</h1>
       <br/>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -150,4 +172,4 @@ const RegistrationPage = () => {
   );
 };
 
-export default RegistrationPage;
+export default InvestorRegistrationPage;

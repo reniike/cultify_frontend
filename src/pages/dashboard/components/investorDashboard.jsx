@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import ConsumerTopNav from "./consumerTopNav";
-import "../styles/consumerDashboard.css";
+import TopNav from "./topNav";
+import "../styles/investorDashboard.css";
 
-const ConsumerDashboard = () => {
-  const [farmProduce, setFarmProduce] = useState([]);
+const InvestorDashboard = () => {
+  const [farmProjects, setFarmProduce] = useState([]);
 
   useEffect(() => {
     fetchFarmProduce();
@@ -15,16 +15,38 @@ const ConsumerDashboard = () => {
     setFarmProduce(data);
   };
 
+  const topNav = <TopNav links={
+    [
+      {
+        "name": "Dashboard",
+        "url": "/dashboard"
+      },
+      {
+        "name": "Transactions",
+        "url": "/transactions"
+      },
+      {
+        "name": "Profile",
+        "url": "/profile"
+      },
+      {
+        "name": "Logout",
+        "url": "/logout"
+      }
+    ]
+  }/>
+  
+
   return (
-    <div className="consumerDashboard">
-      <ConsumerTopNav/>
+    <div className="investorDashboard">
+      {topNav}
       <div className="content">
-        <h2>Available Farm Produce</h2>
-        {farmProduce.length === 0 ? (
-          <p>No farm produce available at the moment.</p>
+        <h2>Available Farm Projects</h2>
+        {farmProjects.length === 0 ? (
+          <p>No farm project available at the moment.</p>
         ) : (
           <ul className="farm-produce-list">
-            {farmProduce.map((item) => (
+            {farmProjects.map((item) => (
               <li key={item.id}>
                 <div className="item-image">
                   <img src={item.picture} alt={item.name} />
@@ -46,4 +68,4 @@ const ConsumerDashboard = () => {
   );
 };
 
-export default ConsumerDashboard;
+export default InvestorDashboard;

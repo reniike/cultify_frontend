@@ -1,9 +1,9 @@
 
-  h1, h2, h3, h4, h5, h6 {
+.investorDashboard h1, h2, h3, h4, h5, h6 {
     margin: 0;
   }
   
-  .consumerDashboard {
+  .investorDashboard {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
@@ -12,45 +12,15 @@
     background-color: #f5f5f5;
   }
   
-  .top-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #55a049;
-    padding: 20px;
-    color: #fff;
-  }
-  
   .logo {
     font-size: 24px;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .nav-links li {
-    margin-right: 10px;
-  }
-  
-  .nav-links a {
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .nav-links a:hover {
-    color: #ddd;
   }
   
   .content {
     margin-top: 30px;
   }
   
-  h2 {
+  .investorDashboard h2 {
     color: #55a049;
     margin-bottom: 20px;
   }

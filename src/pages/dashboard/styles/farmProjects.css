@@ -1,31 +1,22 @@
-  /* .farmerStockUploadingPageContainer {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-    padding: 40px;
-    max-width: 400px;
-    width: 100%;
-  } */
   
-  h1 {
+  .farmerStockUploadingPageContainer h1 {
     color: #2e7743;
     text-align: center;
   }
   
-  form {
+  .farmerStockUploadingPageContainer form {
     display: flex;
     flex-direction: column;
   }
   
-  label {
+  .farmerStockUploadingPageContainer label {
     color: #2e7743;
     font-weight: bold;
     margin-bottom: 8px;
   }
   
-  input,
-  textarea {
+  .farmerStockUploadingPageContainer input,
+  .farmerStockUploadingPageContainer textarea {
     padding: 10px;
     border: 1px solid #b2d8b2;
     border-radius: 4px;
@@ -52,7 +43,6 @@
     background-color: #1e552f;
   }
   
-  /* File input label */
   input[type="file"] + label {
     color: #2e7743;
     font-weight: bold;
@@ -61,12 +51,10 @@
     cursor: pointer;
   }
   
-  /* File input display */
   input[type="file"] {
     display: none;
   }
   
-  /* Custom file input display */
   .file-input-display {
     display: flex;
     align-items: center;
@@ -83,7 +71,6 @@
     object-fit: cover;
   }
   
-  /* Error message */
   .error {
     color: red;
     margin-top: -8px;

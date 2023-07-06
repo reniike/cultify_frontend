@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import '../styles/farmerStockUploading.css';
+import '../styles/farmProjects.css';
 
-const UploadFarmProducePage = () => {
+const FarmProjects = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -71,4 +71,4 @@ const UploadFarmProducePage = () => {
   );
 };
 
-export default UploadFarmProducePage;
+export default FarmProjects;
