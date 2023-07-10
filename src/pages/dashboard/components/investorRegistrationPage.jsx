@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles/registrationPage.css";
 import axios from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
+import CultifyTopNav from "../../dashboard/components/cultifyTopNav";
 
 const InvestorRegistrationPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -16,7 +17,7 @@ const InvestorRegistrationPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     const formErrors = {};
     if (!firstName) {
       formErrors.firstName = "*First name is required";
@@ -64,111 +65,145 @@ const InvestorRegistrationPage = () => {
   };
 
   const isValidPassword = (password) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
     return passwordRegex.test(password);
   };
 
   const registerInvestor = async () => {
     const request = {
-      "firstName": firstName,
-      "lastName": lastName,
-      "emailAddress": email,
-      "phoneNumber": phone,
-      "password": password
+      firstName: firstName,
+      lastName: lastName,
+      emailAddress: email,
+      phoneNumber: phone,
+      password: password,
     };
-      try {
-        const response = await axios.post('/investor/registration', request);
-        alert("Registration successful!")
-        console.log(response.data)
-        navigate("/otp");
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
+    try {
+      const response = await axios.post("/investor/registration", request);
+      alert("Registration successful!");
+      console.log(response.data);
+      navigate("/otp");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <div className="registrationPageContainer">
-      <h1>Register</h1>
-      <br/>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="first-name">First Name:</label>
-          <input
-            type="text"
-            id="first-name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            className={errors.firstName ? "input-error" : ""}
-          />
-          <p className="error">{errors.firstName}</p>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="last-name">Last Name:</label>
-          <input
-            type="text"
-            id="last-name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            className={errors.lastName ? "input-error" : ""}
-          />
-          <p className="error">{errors.lastName}</p>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="text"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={errors.email ? "input-error" : ""}
-          />
-          <p className="error">{errors.email}</p>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="phone">Phone Number:</label>
-          <input
-            type="text"
-            id="phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            className={errors.phone ? "input-error" : ""}
-          />
-          <p className="error">{errors.phone}</p>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className={errors.password ? "input-error" : ""}
-          />
-          <p className="error">{errors.password}</p>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="confirm-password">Confirm Password:</label>
-          <input
-            type="password"
-            id="confirm-password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            className={errors.confirmPassword ? "input-error" : ""}
-          />
-          <p className="error">{errors.confirmPassword}</p>
+    <CultifyTopNav
+      content={
+        <div className="registrationPageContainer">
+          <div className="sign-in">
+            <div>
+              <p>
+                Welcome to <span>Cultify</span>
+              </p>
+              <h1 className="b">Sign up</h1>
+            </div>
+            <div className="account">
+              <p>No account ?</p>
+              <>
+                <span>Sign in</span>
+              </>
+            </div>
           </div>
 
-        <button type="submit" className="btn-submit">
-          Register
-        </button>
-      </form>
-    </div>
+          <form onSubmit={handleSubmit}>
+            <div className="userName  ">
+              <div>
+                <label htmlFor="first-name">First Name:</label>
+                <input
+                  type="text"
+                  id="first-name"
+                  value={firstName}
+                  placeholder="First name"
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className={`userName-input1  ${
+                    errors.firstName ? "input-error " : ""
+                  }`}
+                />
+                <p className="error">{errors.firstName}</p>
+              </div>
+
+              <div>
+                <label htmlFor="last-name">Last Name:</label>
+                <input
+                  type="text"
+                  id="last-name"
+                  value={lastName}
+                  placeholder="Last name"
+                  onChange={(e) => setLastName(e.target.value)}
+                  className={`userName-input2 ${
+                    errors.lastName ? "input-error " : ""
+                  }`}
+                />
+                <p className="error">{errors.lastName}</p>
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="phone">Phone Number:</label>
+              <input
+                type="number"
+                id="phone"
+                value={phone}
+                placeholder="Phone number"
+                onChange={(e) => setPhone(e.target.value)}
+                className={` number ${errors.phone ? "input-error" : ""}`}
+              />
+
+              <p className="error">{errors.phone}</p>
+            </div>
+
+            <div>
+              <label htmlFor="email">Email:</label>
+              <input
+                type="text"
+                id="email"
+                value={email}
+                placeholder="example@gmail.com"
+                onChange={(e) => setEmail(e.target.value)}
+                className={`email mb-0 ${errors.email ? "input-error" : ""}`}
+              />
+              <p className="error">{errors.email}</p>
+            </div>
+
+            <div>
+              <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                className={` password mb-0 ${
+                  errors.password ? "input-error" : ""
+                }`}
+              />
+              <p className="error">{errors.password}</p>
+            </div>
+
+            <div>
+              <label htmlFor="confirm-password">Confirm Password:</label>
+              <input
+                type="password"
+                id="confirm-password"
+                value={confirmPassword}
+                placeholder="Comfirm password"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className={`password ${
+                  errors.confirmPassword ? "input-error" : ""
+                }`}
+              />
+              <p className="error">{errors.confirmPassword}</p>
+            </div>
+
+            <button type="submit" className="btn-submit">
+              Register
+            </button>
+          </form>
+        </div>
+      }
+    />
   );
 };
 
