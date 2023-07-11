@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import './App.css';
 import Login from './pages/login/components/login';
 import Otp from './pages/dashboard/components/otp';
@@ -11,10 +11,10 @@ import SuperAdminDashboardOptions from './pages/dashboard/components/superAdminD
 import Admins from './pages/dashboard/components/admins';
 import PaystackPayment from './pages/dashboard/components/paystackPayment';
 import PaymentTransfer from './pages/dashboard/components/paystackTransfer';
+import CultifyTopNav from "./pages/dashboard/components/cultifyTopNav";
 
 function App() {
   return (
-    <div className='app'>
     <Router>
       <Routes>
           <Route path='*' Component={ErrorPage}/>
@@ -28,10 +28,9 @@ function App() {
           <Route path="/super-admin/dashboard/admins" element={<Admins/>}/>
           <Route path="/paystackPayment" element={<PaystackPayment/>}/>
           <Route path="/paystackTransfer" element={<PaymentTransfer/>}/>
+          <Route path="/topNav" element={<CultifyTopNav />} />
       </Routes>
     </Router>
-    </div>
-  );
+  )
 }
-
 export default App;

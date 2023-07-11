@@ -1,49 +1,70 @@
-import {React, useState}from 'react';
-import '../styles/login.css';
+import { React, useState } from "react";
+import CultifyTopNav from "../../dashboard/components/cultifyTopNav";
+import "../styles/login.css";
 
 const Login = () => {
-    const[email, setUsername] = useState("")
-    const[password, setPassword] = useState("")
-    
+  const [email, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
+  const handChangeEmail = (event) => {
+    setUsername(event.target.value);
+  };
+  const handleChangePassword = (event) => {
+    setPassword(event.target.value);
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (email === "email" && password === "password") {
+      console.log("Successful");
+    } else console.log("Invalid Email or Password");
+  };
 
-    const handChangeEmail =(event)=>{
-        setUsername(event.target.value)
-    }
-    const handleChangePassword = (event) => {
-        setPassword(event.target.value)
-    }
-    const handleSubmit = (event)=>{
-        event.preventDefault()
-        if (email === "email" && password === "password"){
-            console.log("Successful")
-        }else
-        console.log("Invalid Email or Password")
-    }
-
-    
-    return (
-        <div> 
-        <div className='login-page'> 
-            <h2>  Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="email" ></label>
-                    <input type='text' id='email' value={email} onChange={handChangeEmail} placeholder="Enter E-mail"/>
-                </div>
-                <div>
-                    <label htmlFor="password" ></label>
-                    <input type="text" id='password' value={password} onChange={handleChangePassword} placeholder="Enter Password"></input>
-                </div>
-            </form> 
-            <button onClick={handleSubmit}>Login</button>
-            <h5>Don't have an account Yet? </h5>
-            <a href="/registration">Sign up</a> 
+  return (
+    <CultifyTopNav
+      content={
+        <div className="login-page ">
+          <div className="sign-in">
+            <div>
+              <p>
+                Welcome to <span>Cultify</span>
+              </p>
+              <h1 className="b">Sign in</h1>
+            </div>
+            <div className="account">
+              <p>No account ?</p>
+              <>
+                <span>Sign up</span>
+              </>
+            </div>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="email">
+              <label htmlFor="email">Enter your email address</label>
+              <input
+                type="text"
+                id="email"
+                value={email}
+                onChange={handChangeEmail}
+                placeholder="example@gmail.com"
+              />
+            </div>
+            <div className="password">
+              <label htmlFor="password">Enter your password</label>
+              <input
+                type="text"
+                id="password"
+                value={password}
+                onChange={handleChangePassword}
+                placeholder="Enter your password"
+              ></input>
+            </div>
+          </form>
+          <a href="#">Forgot password</a>
+          <button onClick={handleSubmit}>Sign in</button>
         </div>
-    </div>  
-        
-    );
+      }
+    />
+  );
 };
-
 
 export default Login;
