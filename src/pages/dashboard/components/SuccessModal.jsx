@@ -8,7 +8,7 @@ const SuccessModal = ({ isOpen, onRequestClose, text, failed }) => {
   return (
     <Modal className="modal" isOpen={isOpen} onRequestClose={onRequestClose}>
       <img src={failed ? error : ok} alt="" />
-      <h1>Registration Successful!</h1>
+      <h1>{text}</h1>
       <button onClick={onRequestClose}>Close</button>
     </Modal>
   );
