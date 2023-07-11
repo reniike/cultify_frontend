@@ -3,6 +3,10 @@ import "../styles/registrationPage.css";
 import axios from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 import CultifyTopNav from "../../dashboard/components/cultifyTopNav";
+import SuccessModal from "./SuccessModal";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const InvestorRegistrationPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -11,8 +15,23 @@ const InvestorRegistrationPage = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showModal, setShowModal] = useState(false);
   const [errors, setErrors] = useState({});
-  const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalIsFailed, setModalIsFailed] = useState(true);
+
+  const notify = (args) => {
+    toast.success(args, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
 
   const navigate = useNavigate();
 
@@ -20,6 +39,21 @@ const InvestorRegistrationPage = () => {
     e.preventDefault();
 
     const formErrors = {};
+    const isValidEmail = (email) => {
+      const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+      return emailRegex.test(email);
+    };
+
+    const isValidPhoneNumber = (phone) => {
+      const phoneRegex = /^[0-9]{11}$/;
+      return phoneRegex.test(phone);
+    };
+
+    const isValidPassword = (password) => {
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+      return passwordRegex.test(password);
+    };
     if (!firstName) {
       formErrors.firstName = "*First name is required";
     }
@@ -51,25 +85,8 @@ const InvestorRegistrationPage = () => {
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
     } else {
-      setButtonIsDisabled(true);
       registerInvestor();
     }
-  };
-
-  const isValidEmail = (email) => {
-    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-    return emailRegex.test(email);
-  };
-
-  const isValidPhoneNumber = (phone) => {
-    const phoneRegex = /^[0-9]{11}$/;
-    return phoneRegex.test(phone);
-  };
-
-  const isValidPassword = (password) => {
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-    return passwordRegex.test(password);
   };
 
   const registerInvestor = async () => {
@@ -82,10 +99,17 @@ const InvestorRegistrationPage = () => {
     };
     try {
       const response = await axios.post("/investor/registration", request);
-      alert("Registration successful!");
+      if (response.message === "Check your mail for your otp!") {
+        notify("Registration successful!");
+      }
+      setShowModal(true);
       console.log(response.data);
       navigate("/otp");
     } catch (error) {
+      if (error.response.status === 400) {
+        setModalText(error.response.data);
+        setShowModal(true);
+      }
       console.log(error);
     }
   };
@@ -163,10 +187,7 @@ const InvestorRegistrationPage = () => {
                 id="email"
                 value={email}
                 placeholder="example@gmail.com"
-                onChange={(e) => {
-                  localStorage.setItem("email", e.target.value)
-                  setEmail(e.target.value)
-                }}
+                onChange={(e) => setEmail(e.target.value)}
                 className={`email mb-0 ${errors.email ? "input-error" : ""}`}
               />
               <p className="error">{errors.email}</p>
@@ -202,10 +223,28 @@ const InvestorRegistrationPage = () => {
               <p className="error">{errors.confirmPassword}</p>
             </div>
 
-            <button type="submit" className="btn-submit" disabled={buttonIsDisabled} onClick={handleSubmit}>
+            <button type="submit" className="btn-submit" onClick={handleSubmit}>
               Register
             </button>
           </div>
+
+          {showModal && (
+            <SuccessModal
+              isOpen={showModal}
+              onRequestClose={() => {
+                setShowModal(false);
+              }}
+              text={modalText}
+              failed={modalIsFailed}
+            />
+          )}
+          <button
+            onClick={(e) => {
+              setShowModal(true);
+            }}
+          >
+            testing
+          </button>
         </div>
       }
     />
