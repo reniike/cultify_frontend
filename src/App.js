@@ -9,6 +9,8 @@ import FarmProjectDetails from './pages/dashboard/components/farmProjectDetails'
 import FarmProjects from './pages/dashboard/components/farmProjects';
 import SuperAdminDashboardOptions from './pages/dashboard/components/superAdminDashboardOptions';
 import Admins from './pages/dashboard/components/admins';
+import PaystackPayment from './pages/dashboard/components/paystackPayment';
+import PaymentTransfer from './pages/dashboard/components/paystackTransfer';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path="/admin/dashboard/produceUpload" element={<FarmProjects/>}/>
           <Route path="/super-admin/dashboard" element={<SuperAdminDashboardOptions/>}/>
           <Route path="/super-admin/dashboard/admins" element={<Admins/>}/>
+          <Route path="/paystackPayment" element={<PaystackPayment/>}/>
+          <Route path="/paystackTransfer" element={<PaymentTransfer/>}/>
       </Routes>
     </Router>
     </div>
