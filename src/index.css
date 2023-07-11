@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+@tailwind base;
+@tailwind components;
+<<<<<<< HEAD
+@tailwind utilities;
+=======
+@tailwind utilities;
+>>>>>>> b0ed0bd94ffb239f79a470613bb99f1d08f828fd
+=======
 
 
 @import 'tailwindcss/base';
@@ -11,3 +20,4 @@
   min-height: 100vh;
   padding: 1rem 0.5rem;
 } */
+>>>>>>> 51e540cac27976dd0f2e4dc95596dc002fb6f933

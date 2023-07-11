@@ -9,7 +9,12 @@ import FarmProjectDetails from './pages/dashboard/components/farmProjectDetails'
 import FarmProjects from './pages/dashboard/components/farmProjects';
 import SuperAdminDashboardOptions from './pages/dashboard/components/superAdminDashboardOptions';
 import Admins from './pages/dashboard/components/admins';
+<<<<<<< HEAD
+import NavBar from './pages/homepage/components/navBar';
+import HeroSection from './pages/homepage/components/heroSection';
+=======
 import TopNavBar from './pages/dashboard/components/investorDash';
+>>>>>>> 51e540cac27976dd0f2e4dc95596dc002fb6f933
 import PaystackPayment from './pages/dashboard/components/paystackPayment';
 import PaymentTransfer from './pages/dashboard/components/paystackTransfer';
 import CultifyTopNav from "./pages/dashboard/components/cultifyTopNav";
@@ -19,6 +24,8 @@ function App() {
     <Router>
       <Routes>
           <Route path='*' Component={ErrorPage}/>
+          <Route path='/home' element={<HeroSection/>}/>
+          <Route path='/navbar' element={<NavBar/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/otp" element={<Otp/>}/>
           <Route path="/registration" element={<InvestorRegistrationPage/>} />
