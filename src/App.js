@@ -9,6 +9,9 @@ import FarmProjectDetails from './pages/dashboard/components/farmProjectDetails'
 import FarmProjects from './pages/dashboard/components/farmProjects';
 import SuperAdminDashboardOptions from './pages/dashboard/components/superAdminDashboardOptions';
 import Admins from './pages/dashboard/components/admins';
+import NavBar from './pages/homepage/components/navBar';
+import HeroSection from './pages/homepage/components/heroSection';
+
 
 function App() {
   return (
@@ -16,6 +19,8 @@ function App() {
     <Router>
       <Routes>
           <Route path='*' Component={ErrorPage}/>
+          <Route path='/home' element={<HeroSection/>}/>
+          <Route path='/navbar' element={<NavBar/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/otp" element={<Otp/>}/>
           <Route path="/registration" element={<InvestorRegistrationPage/>} />
