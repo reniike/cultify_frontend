@@ -9,15 +9,11 @@ import FarmProjectDetails from './pages/dashboard/components/farmProjectDetails'
 import FarmProjects from './pages/dashboard/components/farmProjects';
 import SuperAdminDashboardOptions from './pages/dashboard/components/superAdminDashboardOptions';
 import Admins from './pages/dashboard/components/admins';
-<<<<<<< HEAD
 import NavBar from './pages/homepage/components/navBar';
 import HeroSection from './pages/homepage/components/heroSection';
-
-=======
 import PaystackPayment from './pages/dashboard/components/paystackPayment';
 import PaymentTransfer from './pages/dashboard/components/paystackTransfer';
 import CultifyTopNav from "./pages/dashboard/components/cultifyTopNav";
->>>>>>> b0ed0bd94ffb239f79a470613bb99f1d08f828fd
 
 function App() {
   return (
