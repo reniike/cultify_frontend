@@ -17,6 +17,7 @@ const InvestorRegistrationPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [errors, setErrors] = useState({});
+  const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
 
   const notify = (args) => {
     toast.success(args, {
@@ -83,6 +84,7 @@ const InvestorRegistrationPage = () => {
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
     } else {
+      setButtonIsDisabled(true);
       registerInvestor();
     }
   };
@@ -130,7 +132,7 @@ const InvestorRegistrationPage = () => {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit}>
+          <div>
             <div className="userName  ">
               <div>
                 <label htmlFor="first-name">First Name:</label>
@@ -184,7 +186,10 @@ const InvestorRegistrationPage = () => {
                 id="email"
                 value={email}
                 placeholder="example@gmail.com"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  localStorage.setItem("email", e.target.value)
+                  setEmail(e.target.value)
+                }}
                 className={`email mb-0 ${errors.email ? "input-error" : ""}`}
               />
               <p className="error">{errors.email}</p>
@@ -220,9 +225,10 @@ const InvestorRegistrationPage = () => {
               <p className="error">{errors.confirmPassword}</p>
             </div>
 
-            <button type="submit" className="btn-submit">
+            <button type="submit" className="btn-submit" disabled={buttonIsDisabled} onClick={handleSubmit}>
               Register
             </button>
+<<<<<<< HEAD
             <ToastContainer />
           </form>
 
@@ -233,6 +239,9 @@ const InvestorRegistrationPage = () => {
             />
           )}
           <button onClick={(e) => setShowModal(true)}>testing</button>
+=======
+          </div>
+>>>>>>> 45917fd34c683e020505b0e6931d0d8e78a8ab97
         </div>
       }
     />
