@@ -3,6 +3,10 @@ import "../styles/registrationPage.css";
 import axios from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 import CultifyTopNav from "../../dashboard/components/cultifyTopNav";
+import SuccessModal from "./SuccessModal";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const InvestorRegistrationPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -11,7 +15,21 @@ const InvestorRegistrationPage = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showModal, setShowModal] = useState(false);
   const [errors, setErrors] = useState({});
+
+  const notify = (args) => {
+    toast.success(args, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
 
   const navigate = useNavigate();
 
@@ -19,6 +37,21 @@ const InvestorRegistrationPage = () => {
     e.preventDefault();
 
     const formErrors = {};
+    const isValidEmail = (email) => {
+      const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+      return emailRegex.test(email);
+    };
+
+    const isValidPhoneNumber = (phone) => {
+      const phoneRegex = /^[0-9]{11}$/;
+      return phoneRegex.test(phone);
+    };
+
+    const isValidPassword = (password) => {
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+      return passwordRegex.test(password);
+    };
     if (!firstName) {
       formErrors.firstName = "*First name is required";
     }
@@ -54,22 +87,6 @@ const InvestorRegistrationPage = () => {
     }
   };
 
-  const isValidEmail = (email) => {
-    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-    return emailRegex.test(email);
-  };
-
-  const isValidPhoneNumber = (phone) => {
-    const phoneRegex = /^[0-9]{11}$/;
-    return phoneRegex.test(phone);
-  };
-
-  const isValidPassword = (password) => {
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-    return passwordRegex.test(password);
-  };
-
   const registerInvestor = async () => {
     const request = {
       firstName: firstName,
@@ -80,9 +97,15 @@ const InvestorRegistrationPage = () => {
     };
     try {
       const response = await axios.post("/investor/registration", request);
-      alert("Registration successful!");
+      // if (response.message === "Check your mail for your otp!") {
+      //   notify("Registration successful!");
+      // }
+      setShowModal(true);
       console.log(response.data);
-      navigate("/otp");
+      setTimeout(() => {
+        navigate("/otp");
+      }, 2000);
+      // navigate("/otp");
     } catch (error) {
       console.log(error);
     }
@@ -200,7 +223,16 @@ const InvestorRegistrationPage = () => {
             <button type="submit" className="btn-submit">
               Register
             </button>
+            <ToastContainer />
           </form>
+
+          {showModal && (
+            <SuccessModal
+              isOpen={showModal}
+              onRequestClose={() => setShowModal(false)}
+            />
+          )}
+          <button onClick={(e) => setShowModal(true)}>testing</button>
         </div>
       }
     />
