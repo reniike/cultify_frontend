@@ -3,48 +3,72 @@
   margin: 0 auto;
   padding: 20px;
   background-color: #f5f5f5;
-  border-radius: 8px;
+  border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* margin-top: 50px; */
 }
-
+/* 
 .registrationPageContainer h1 {
   text-align: center;
   margin-bottom: 20px;
   color: #044d20;
-}
-
+} */
+/* 
 .registrationPageContainer .form-group {
   margin-bottom: 20px;
-}
-
+} */
+/* 
 .registrationPageContainer label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
+} */
+
+.registrationPageContainer .email {
+  width: 100%;
+  padding: 7px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.registrationPageContainer input[type="text"],
-.registrationPageContainer input[type="email"],
-.registrationPageContainer input[type="tel"],
-.registrationPageContainer input[type="password"] {
+.registrationPageContainer .password {
   width: 100%;
-  padding: 10px;
+  padding: 7px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.registrationPageContainer .number {
+  width: 40%;
+  padding: 7px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.registrationPageContainer .userName-input1 {
+  width: 80%;
+  padding: 7px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.registrationPageContainer .userName-input2 {
+  width: 80%;
+
+  padding: 7px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 .registrationPageContainer .btn-submit {
   display: block;
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
+  width: 150px;
+  padding: 5px;
+  background-color: #008000;
   color: #fff;
   border: none;
   border-radius: 4px;
-  font-weight: bold;
   cursor: pointer;
-  text-align: center;
-  transition: background-color 0.3s ease;
+  margin-left: 100px;
 }
 
 .registrationPageContainer .btn-submit:hover {
@@ -52,25 +76,51 @@
 }
 
 .registrationPageContainer .errors {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   background-color: #ffe3e3;
-  padding: 10px;
+  padding: 7px;
   border-radius: 4px;
 }
 
 .registrationPageContainer .error {
-  margin: 0 0 10px;
+  /* margin: 0 0 10px; */
   color: #ff0000;
 }
 
 .registrationPageContainer .errors ul {
-  margin: 0;
-  padding: 0;
+  /* margin: 0;
+  padding: 0; */
   list-style-type: none;
 }
 
 .registrationPageContainer .errors li {
   color: #ff0000;
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
 }
 
+span {
+  color: #779341;
+}
+
+.sign-in {
+  display: flex;
+  /* margin: 10px; */
+  /* margin-bottom: 50px; */
+}
+.sign-in h1 {
+  font-size: 48px;
+}
+
+.account {
+  margin-left: 100px;
+  font-size: 12px;
+}
+
+label {
+  font-size: 12px;
+}
+
+form .userName {
+  display: flex;
+  /* width: 100%; */
+}

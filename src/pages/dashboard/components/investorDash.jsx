@@ -1,5 +1,5 @@
 import React from 'react';
-import "../styles/investorDash.css";
+// import "../styles/investorDash.css"; 
 import cultifyLogo from '../assets/logo.svg';
 import dropDown from '../assets/dropDownIcon.svg';
 
@@ -12,34 +12,33 @@ const TopNavBar = () => {
             <img src={dropDown} className="drop" alt="drop" />
         </div >
         <div className="all flex justify-between">
-            <div className="left-nav p-12 text-lg font-medium font-sans bg-green-800 w-19 flex rounded-none md:rounded-tr-2xl flex-col gap-6 h-1701 ">
-                <l className="dash hover:bg-emerald-900"><a href="/dashboard" >Dashboard</a></l>
-                <l className="dash hover:bg-emerald-900"><a href="/investments">Investments</a></l>
-                <l className="dash hover:bg-emerald-900"><a href="/farm-projects">Farm Projects</a></l>
-                <l className="dash hover:bg-emerald-900"><a href="/profile">Profile</a></l>
+      
+          
+            <div className="left-nav list-none text-lg font-sans bg-green-800 w-1/6 rounded-none md:rounded-tr-2xl flex-col gap-6 items-start pl-0">
+                <ul class= "pl-0 pt-6 gap-3">
+                    <li className="dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200" href="/dashboard" >Dashboard</li>
+                    <li className="dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200"href="/investments">Investments</li>
+                    <li className="dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200" href="/farm-projects">Projects</li>
+                    <li className="dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200" href="/profile">Profile</li>
+                </ul>
             </div>
-        <div className="right-nav">
-        <h3 className="dash-board"> DashBoard</h3>
+            
+        <div className="right-nav pt-4 pr-10 top-15 right-20">
+                    <h3 className="dash-board font-bold text-green-500 text-2xl pl-10"> DashBoard</h3>
             <div className="upper-boxes">
-                    <h3> Welcome User </h3>
-                <div className="investors-details grid grid-cols-3 h-180 gap-x-15 mr-7">
-                    <div className="number border-1.1 bg-lime-200 w-80 h-40 rounded-xl">
-                        Total Number of Investment</div>
-                    <div className="amount border-1.1 bg-lime-200 w-80 rounded-xl">
-                        Total Amount Invested</div>
-                    <div className="payments  border-1.1 bg-lime-200 w-80 rounded-xl">
-                        UpComing Payments</div>
+                    <h3 className="welcome font-bold text-black-500 text-lg pl-10 pt-6" > Welcome User </h3>
+                <div className="investors-details grid grid-cols-3 h-13 gap-x-20 mr-6 p-6">
+                    <div className="number border-1.1 bg-lime-200 w-80 h-40 rounded-xl">Total Number of Investment</div>
+                    <div className="amount border-1.1 bg-lime-200 w-80 rounded-xl">Total Amount Invested</div>
+                    <div className="payments border-1.1 bg-lime-200 w-80 rounded-xl">UpComing Payments</div>
                 </div>
             </div>
-            <h3> Farm Projects</h3>
-            <div className="product-details grid grid-cols-2 h-180 gap-x-8 mr-70">
-                <div className="project-one bg-lime-200 w-90 rounded-xl h-72">
-                    The Maize Project</div>
-                <div className="project-two  bg-lime-200 w-90 rounded-xl h-72">
-                    The Yam Project</div>
+                    <h3 className="project font-bold text-black-600 text-lg pl-10 pt-6"> Farm Projects</h3>
+            <div className="product-details grid grid-cols-2 h-22 gap-x-14 ml p-8">
+                <div className="project-one bg-lime-200  rounded-xl h-96 pl-20">The Maize Project</div>
+                <div className="project-two  bg-lime-200  rounded-xl h-96 pl-22">The Yam Project</div>
             
             </div>
-            
         </div>
         </div>
     </nav>

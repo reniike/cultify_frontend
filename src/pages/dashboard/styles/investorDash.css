@@ -16,14 +16,14 @@
     display: flex;
     justify-content: space-between;
   } */
-  .right-nav {
+  /* .right-nav {
     padding-top: 10%;
     padding-right: 7%;
     top: 15%;
     right: 2%;
-  } 
+  }  */
 
- /* .left-nav {
+  /* .left-nav {
     padding: 150px;
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
@@ -35,14 +35,14 @@
     flex-direction: column;
     gap: 30px;
     background-color: green;
-    height: 115px;
+    height: 100vh;
   }   */
-  .upper-boxes{
+  /* .upper-boxes{
     height: 40%;
     width: 115%;
     position: relative;
     bottom: 10%;
-  }
+  } */
   /* .investors-details{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -53,9 +53,9 @@
   
   /* .left-nav a:hover {
     background-color: #ddd;
-  } */
+  }
 
-  /* .product-details{
+  .product-details{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     height: 360px;
@@ -104,4 +104,5 @@
     border-radius: 17px;
     height: 360px;
 } */
-  
+
+                    
