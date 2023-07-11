@@ -1,14 +1,14 @@
 import React from "react";
 import Modal from "react-modal";
+import "../styles/modal.css";
+import ok from "../../../assets/images/ok.png";
+import error from "../../../assets/images/error.jpg";
 
-const SuccessModal = ({ isOpen, onRequestClose }) => {
+const SuccessModal = ({ isOpen, onRequestClose, text, failed }) => {
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      contentLabel="Registration Success"
-    >
-      <h2>Registration Successful!</h2>
+    <Modal className="modal" isOpen={isOpen} onRequestClose={onRequestClose}>
+      <img src={failed ? error : ok} alt="" />
+      <h1>Registration Successful!</h1>
       <button onClick={onRequestClose}>Close</button>
     </Modal>
   );

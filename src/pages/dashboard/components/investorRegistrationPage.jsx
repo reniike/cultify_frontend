@@ -17,6 +17,8 @@ const InvestorRegistrationPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [errors, setErrors] = useState({});
+  const [modalText, setModalText] = useState("");
+  const [modalIsFailed, setModalIsFailed] = useState(true);
 
   const notify = (args) => {
     toast.success(args, {
@@ -104,6 +106,10 @@ const InvestorRegistrationPage = () => {
       console.log(response.data);
       navigate("/otp");
     } catch (error) {
+      if (error.response.status === 400) {
+        setModalText(error.response.data);
+        setShowModal(true);
+      }
       console.log(error);
     }
   };
@@ -225,10 +231,20 @@ const InvestorRegistrationPage = () => {
           {showModal && (
             <SuccessModal
               isOpen={showModal}
-              onRequestClose={() => setShowModal(false)}
+              onRequestClose={() => {
+                setShowModal(false);
+              }}
+              text={modalText}
+              failed={modalIsFailed}
             />
           )}
-          <button onClick={(e) => setShowModal(true)}>testing</button>
+          <button
+            onClick={(e) => {
+              setShowModal(true);
+            }}
+          >
+            testing
+          </button>
         </div>
       }
     />
