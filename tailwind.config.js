@@ -20,5 +20,11 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+<<<<<<< HEAD
 };
 >>>>>>> b0ed0bd94ffb239f79a470613bb99f1d08f828fd
+=======
+
+}
+
+>>>>>>> 51e540cac27976dd0f2e4dc95596dc002fb6f933
