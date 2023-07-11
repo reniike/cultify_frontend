@@ -3,10 +3,10 @@ import "../styles/registrationPage.css";
 import axios from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 import CultifyTopNav from "../../dashboard/components/cultifyTopNav";
-import SuccessModal from "./SuccessModal";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const InvestorRegistrationPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -15,21 +15,30 @@ const InvestorRegistrationPage = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [showModal, setShowModal] = useState(false);
   const [errors, setErrors] = useState({});
-  const [modalText, setModalText] = useState("");
-  const [modalIsFailed, setModalIsFailed] = useState(true);
 
-  const notify = (args) => {
-    toast.success(args, {
-      position: "top-right",
-      autoClose: 5000,
+  const showToast = () => {
+    toast("Registration successfull!", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
       hideProgressBar: true,
       closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
+      pauseOnHover: false,
+      draggable: false,
       theme: "dark",
+    });
+  };
+
+  const showErroToast = () => {
+    toast("Check the credentials supplied !", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      theme: "dark",
+      icon: <FontAwesomeIcon icon={faCheckCircle} />,
     });
   };
 
@@ -84,8 +93,10 @@ const InvestorRegistrationPage = () => {
 
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
+      showErroToast();
     } else {
       registerInvestor();
+      showToast();
     }
   };
 
@@ -99,17 +110,10 @@ const InvestorRegistrationPage = () => {
     };
     try {
       const response = await axios.post("/investor/registration", request);
-      if (response.message === "Check your mail for your otp!") {
-        notify("Registration successful!");
-      }
-      setShowModal(true);
       console.log(response.data);
       navigate("/otp");
     } catch (error) {
-      if (error.response.status === 400) {
-        setModalText(error.response.data);
-        setShowModal(true);
-      }
+      setErrors(error.response.data);
       console.log(error);
     }
   };
@@ -226,25 +230,8 @@ const InvestorRegistrationPage = () => {
             <button type="submit" className="btn-submit" onClick={handleSubmit}>
               Register
             </button>
+            <ToastContainer />
           </div>
-
-          {showModal && (
-            <SuccessModal
-              isOpen={showModal}
-              onRequestClose={() => {
-                setShowModal(false);
-              }}
-              text={modalText}
-              failed={modalIsFailed}
-            />
-          )}
-          <button
-            onClick={(e) => {
-              setShowModal(true);
-            }}
-          >
-            testing
-          </button>
         </div>
       }
     />
