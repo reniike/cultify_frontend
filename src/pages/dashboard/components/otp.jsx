@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/otp.css";
 import CultifyTopNav from "../../dashboard/components/cultifyTopNav";
+import axios from "../../../api/axios";
 
 const Otp = () => {
+  const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
+  const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
+  const email = localStorage.getItem("email");
 
   const handleOtpChange = (e) => {
     setOtp(e.target.value);
@@ -18,8 +23,30 @@ const Otp = () => {
       setError("Invalid OTP. Please enter a 6-digit numeric OTP.");
       return;
     }
-    setOtp("");
+    else{
+      setButtonIsDisabled(true);
+      verifyOtp();
+    }
   };
+
+  const verifyOtp = async ()=>{
+    const request = {
+      emailAddress: email,
+      otp: otp
+    };
+    try {
+      const response = await axios.post("/investor/confirmRegistration", request);
+      alert("Registration successful!");
+      console.log(response.data);
+      navigate("/investor/dashboard");
+    } catch (error) {
+      if(error.response.status === 400){        
+        setError(error.response.data);
+      }
+      setButtonIsDisabled(false);
+      console.log(error);
+    }
+  }
 
   return (
     <CultifyTopNav
@@ -33,7 +60,7 @@ const Otp = () => {
             Please check your email for the one-time password(OTP) <br /> to
             complete the verification process.
           </p>
-          <form onSubmit={handleSubmit}>
+          <div>
             <div className="form-group">
               <label htmlFor="otp">Enter your OTP</label>
               <input
@@ -46,8 +73,8 @@ const Otp = () => {
             </div>
             <a href="#">Resend OTP</a>
             <p className="error">{error}</p>
-            <button type="submit">Verify</button>
-          </form>
+            <button type="submit" disabled={buttonIsDisabled} onClick={handleSubmit}>Verify</button>
+          </div>
         </div>
       }
     />
