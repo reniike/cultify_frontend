@@ -51,7 +51,7 @@ const InvestorDashboard = () => {
       <div className="right-nav pt-4 pr-10 top-15 right-20">
                     <h3 className="dash-board font-bold text-green-500 text-4xl pl-10"> DashBoard</h3>
             <div className="upper-boxes">
-                    <h3 className="welcome font-bold text-black-500 text-2xl pl-10 pt-6" > Welcome, {user.userResponse.firstName}</h3>
+                    <h3 className="welcome font-bold text-black-500 text-2xl pl-10 pt-6" > Welcome, {user?.userResponse.firstName}</h3>
                 <div className="investors-details grid grid-cols-3 h-13 gap-x-20 mr-6 p-6">
                     <div className="number border-1.1 bg-lime-200 w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">Total Number of<br/> Investments</div>
                     <div className="amount border-1.1 bg-lime-200 w-80 rounded-xl font-bold text-black-600 text-lg pl-3">Total Amount <br/>Invested</div>
