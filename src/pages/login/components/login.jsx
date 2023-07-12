@@ -2,7 +2,6 @@ import { React, useState } from "react";
 import CultifyTopNav from "../../dashboard/components/cultifyTopNav";
 import "../styles/login.css";
 import axios from "../../../api/axios";
-import '../styles/submitButton.css'
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
