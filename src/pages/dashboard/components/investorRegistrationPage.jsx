@@ -102,16 +102,17 @@ const InvestorRegistrationPage = () => {
       const response = await axios.post("/investor/registration", request);
       console.log(response.data);
       setToastResponse(response.data.message);
-      navigate("/otp", {state: email});
+      navigate("/otp", { state: email });
     } catch (error) {
       setIsLoading(false);
       let response = error.response.data;
-      if(response === toastResponse) response = String(response).concat(" ");
+      if (response === toastResponse) response = String(response).concat(" ");
       setToastResponse(response);
       console.log(error.response.data);
     }
   };
-  
+
+
   useEffect(() => {
     if (toastResponse) {
       showToast();
@@ -131,45 +132,42 @@ const InvestorRegistrationPage = () => {
             </div>
             <div className="account">
               <p>No account ?</p>
-                <span>Sign in</span>
+              <span>Sign in</span>
             </div>
           </div>
 
-            <div className="userName">
-              <div>
-                <label htmlFor="first-name">First Name:</label>
-                <input
-                  type="text"
-                  id="first-name"
-                  value={firstName}
-                  placeholder="First name"
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className={`userName-input1  ${
-                    errors.firstName ? "input-error " : ""
+          <div className="userName">
+            <div>
+              <label htmlFor="first-name">First Name:</label>
+              <input
+                type="text"
+                id="first-name"
+                value={firstName}
+                placeholder="First name"
+                onChange={(e) => setFirstName(e.target.value)}
+                className={`userName-input1  ${errors.firstName ? "input-error " : ""
                   }`}
-                />
-                <p className="error">{errors.firstName}</p>
-              </div>
+              />
+              <p className="error">{errors.firstName}</p>
+            </div>
 
-              <div>
-                <label htmlFor="last-name">Last Name:</label>
-                <input
-                  type="text"
-                  id="last-name"
-                  value={lastName}
-                  placeholder="Last name"
-                  onChange={(e) => setLastName(e.target.value)}
-                  className={`userName-input2 ${
-                    errors.lastName ? "input-error " : ""
+            <div>
+              <label htmlFor="last-name">Last Name:</label>
+              <input
+                type="text"
+                id="last-name"
+                value={lastName}
+                placeholder="Last name"
+                onChange={(e) => setLastName(e.target.value)}
+                className={`userName-input2 ${errors.lastName ? "input-error " : ""
                   }`}
-                />
-                <p className="error">{errors.lastName}</p>
-              </div>
+              />
+              <p className="error">{errors.lastName}</p>
+            </div>
 
             <div>
               <label htmlFor="phone">Phone Number:</label>
               <input
-                type="number"
                 id="phone"
                 value={phone}
                 placeholder="Phone number"
@@ -201,9 +199,8 @@ const InvestorRegistrationPage = () => {
                 value={password}
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
-                className={` password mb-0 ${
-                  errors.password ? "input-error" : ""
-                }`}
+                className={` password mb-0 ${errors.password ? "input-error" : ""
+                  }`}
               />
               <p className="error">{errors.password}</p>
             </div>
@@ -216,9 +213,8 @@ const InvestorRegistrationPage = () => {
                 value={confirmPassword}
                 placeholder="Comfirm password"
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className={`password ${
-                  errors.confirmPassword ? "input-error" : ""
-                }`}
+                className={`password ${errors.confirmPassword ? "input-error" : ""
+                  }`}
               />
               {errors.confirmPassword && (
                 <p className="error">{errors.confirmPassword}</p>
@@ -226,12 +222,12 @@ const InvestorRegistrationPage = () => {
             </div>
 
             <button
-                type="submit"
-                className={`btn-submit ${isLoading ? "loading" : ""}`}
-                onClick={handleSubmit}
-                disabled={isLoading}
-              >
-                {isLoading ? <div className="loading-indicator"></div> : "Register"}
+              type="submit"
+              className={`btn-submit ${isLoading ? "loading" : ""}`}
+              onClick={handleSubmit}
+              disabled={isLoading}
+            >
+              {isLoading ? <div className="loading-indicator"></div> : "Register"}
             </button>
             <ToastContainer />
           </div>

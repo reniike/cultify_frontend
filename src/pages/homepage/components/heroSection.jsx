@@ -8,9 +8,20 @@ import Transparency from '../../../assets/transparency.svg'
 import Diversity from '../../../assets/diversity.svg'
 import Support from '../../../assets/support.svg'
 import Farmers from '../../../assets/farmers.svg'
+import { useNavigate } from 'react-router-dom'
 
 
 const HeroSection = () => {
+    const navigate = useNavigate();
+
+    const handleLogIn = (e) => {
+        navigate('/login')
+    }
+
+    const handleRegistration = (e) =>{
+        navigate('/registration')
+    }
+
     return (
         <>
             <div className='w-full h-full'>
@@ -25,9 +36,10 @@ const HeroSection = () => {
                             <p className='max-w-xs transition duration-300 ease-in-out hover:scale-110'> About us </p>
                             <p className='max-w-xs transition duration-300 ease-in-out hover:scale-110'> Contact us </p>
                             <p className='rounded-lg border-solid border-[2px] px-4 py-2 max-w-xs transition duration-300 ease-in-out hover:scale-110
-                        hover:bg-custom-green hover:text-white hover:border-0'> Sign in </p>
+                        hover:bg-custom-green hover:text-white hover:border-0' onClick={handleLogIn}> Sign in </p>
                             <p className='rounded-lg border-solid border-[2px] max-w-xs transition duration-300 ease-in-out
-                         hover:scale-110 text-white bg-custom-green px-4 py-2 hover:text-black hover:bg-white hover:border-2 hover:border-black'> Get started </p>
+                         hover:scale-110 text-white bg-custom-green px-4 py-2 hover:text-black
+                          hover:bg-white hover:border-2 hover:border-black' onClick={handleRegistration}> Get started </p>
                         </div>
                     </div>
                 </nav>
@@ -48,7 +60,7 @@ const HeroSection = () => {
                         </div>
                         <div className=''>
                             <button className='rounded-lg border-solid border-[2px] max-w-xs transition duration-300 ease-in-out
-                         hover:scale-110 text-white bg-custom-green px-4 py-2 hover:text-black hover:bg-white hover:border-2 hover:border-black'>Get started</button>
+                         hover:scale-110 text-white bg-custom-green px-4 py-2 hover:text-black hover:bg-white hover:border-2 hover:border-black' onClick={handleRegistration}>Get started</button>
                         </div>
                     </div>
 
@@ -166,7 +178,7 @@ const HeroSection = () => {
 
                     <div className='ml-[55%] mt-[-4%] mb-3'>
                         <button className='rounded-lg border-solid border-[2px] max-w-xs transition duration-300 ease-in-out
-                         hover:scale-110 text-white bg-custom-green px-4 py-2 hover:text-black hover:bg-white hover:border-2 hover:border-black'>Get started</button>
+                         hover:scale-110 text-white bg-custom-green px-4 py-2 hover:text-black hover:bg-white hover:border-2 hover:border-black' onClick={handleRegistration}>Get started</button>
                     </div>
                 </div>
 
