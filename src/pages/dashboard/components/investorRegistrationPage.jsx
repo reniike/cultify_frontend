@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/registrationPage.css";
 import axios from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 import CultifyTopNav from "../../dashboard/components/cultifyTopNav";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+
 
 const InvestorRegistrationPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -12,7 +17,21 @@ const InvestorRegistrationPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
+  const [toastResponse, setToastResponse] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const showToast = () => {
+    toast(toastResponse, {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      theme: "dark",
+      icon: <FontAwesomeIcon icon={faCheckCircle} />,
+    });
+  };
 
   const navigate = useNavigate();
 
@@ -20,6 +39,21 @@ const InvestorRegistrationPage = () => {
     e.preventDefault();
 
     const formErrors = {};
+    const isValidEmail = (email) => {
+      const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+      return emailRegex.test(email);
+    };
+
+    const isValidPhoneNumber = (phone) => {
+      const phoneRegex = /^[0-9]{11}$/;
+      return phoneRegex.test(phone);
+    };
+
+    const isValidPassword = (password) => {
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+      return passwordRegex.test(password);
+    };
     if (!firstName) {
       formErrors.firstName = "*First name is required";
     }
@@ -51,25 +85,9 @@ const InvestorRegistrationPage = () => {
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
     } else {
-      setButtonIsDisabled(true);
+      setIsLoading(true);
       registerInvestor();
     }
-  };
-
-  const isValidEmail = (email) => {
-    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-    return emailRegex.test(email);
-  };
-
-  const isValidPhoneNumber = (phone) => {
-    const phoneRegex = /^[0-9]{11}$/;
-    return phoneRegex.test(phone);
-  };
-
-  const isValidPassword = (password) => {
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-    return passwordRegex.test(password);
   };
 
   const registerInvestor = async () => {
@@ -82,13 +100,24 @@ const InvestorRegistrationPage = () => {
     };
     try {
       const response = await axios.post("/investor/registration", request);
-      alert("Registration successful!");
       console.log(response.data);
-      navigate("/otp");
+      setToastResponse(response.data.message);
+      navigate("/otp", { state: email });
     } catch (error) {
-      console.log(error);
+      setIsLoading(false);
+      let response = error.response.data;
+      if (response === toastResponse) response = String(response).concat(" ");
+      setToastResponse(response);
+      console.log(error.response.data);
     }
   };
+
+
+  useEffect(() => {
+    if (toastResponse) {
+      showToast();
+    }
+  }, [toastResponse]);
 
   return (
     <CultifyTopNav
@@ -103,49 +132,44 @@ const InvestorRegistrationPage = () => {
             </div>
             <div className="account">
               <p>No account ?</p>
-              <>
-                <span>Sign in</span>
-              </>
+              <span onClick={()=>{
+                navigate("/login")
+              }}>Sign in</span>
             </div>
           </div>
 
-          <div>
-            <div className="userName  ">
-              <div>
-                <label htmlFor="first-name">First Name:</label>
-                <input
-                  type="text"
-                  id="first-name"
-                  value={firstName}
-                  placeholder="First name"
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className={`userName-input1  ${
-                    errors.firstName ? "input-error " : ""
+          <div className="userName">
+            <div>
+              <label htmlFor="first-name">First Name:</label>
+              <input
+                type="text"
+                id="first-name"
+                value={firstName}
+                placeholder="First name"
+                onChange={(e) => setFirstName(e.target.value)}
+                className={`userName-input1  ${errors.firstName ? "input-error " : ""
                   }`}
-                />
-                <p className="error">{errors.firstName}</p>
-              </div>
+              />
+              <p className="error">{errors.firstName}</p>
+            </div>
 
-              <div>
-                <label htmlFor="last-name">Last Name:</label>
-                <input
-                  type="text"
-                  id="last-name"
-                  value={lastName}
-                  placeholder="Last name"
-                  onChange={(e) => setLastName(e.target.value)}
-                  className={`userName-input2 ${
-                    errors.lastName ? "input-error " : ""
+            <div>
+              <label htmlFor="last-name">Last Name:</label>
+              <input
+                type="text"
+                id="last-name"
+                value={lastName}
+                placeholder="Last name"
+                onChange={(e) => setLastName(e.target.value)}
+                className={`userName-input2 ${errors.lastName ? "input-error " : ""
                   }`}
-                />
-                <p className="error">{errors.lastName}</p>
-              </div>
+              />
+              <p className="error">{errors.lastName}</p>
             </div>
 
             <div>
               <label htmlFor="phone">Phone Number:</label>
               <input
-                type="number"
                 id="phone"
                 value={phone}
                 placeholder="Phone number"
@@ -163,10 +187,7 @@ const InvestorRegistrationPage = () => {
                 id="email"
                 value={email}
                 placeholder="example@gmail.com"
-                onChange={(e) => {
-                  localStorage.setItem("email", e.target.value)
-                  setEmail(e.target.value)
-                }}
+                onChange={(e) => setEmail(e.target.value)}
                 className={`email mb-0 ${errors.email ? "input-error" : ""}`}
               />
               <p className="error">{errors.email}</p>
@@ -180,14 +201,13 @@ const InvestorRegistrationPage = () => {
                 value={password}
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
-                className={` password mb-0 ${
-                  errors.password ? "input-error" : ""
-                }`}
+                className={` password mb-0 ${errors.password ? "input-error" : ""
+                  }`}
               />
               <p className="error">{errors.password}</p>
             </div>
 
-            <div>
+            <div className="confirmPassword">
               <label htmlFor="confirm-password">Confirm Password:</label>
               <input
                 type="password"
@@ -195,16 +215,23 @@ const InvestorRegistrationPage = () => {
                 value={confirmPassword}
                 placeholder="Comfirm password"
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className={`password ${
-                  errors.confirmPassword ? "input-error" : ""
-                }`}
+                className={`password ${errors.confirmPassword ? "input-error" : ""
+                  }`}
               />
-              <p className="error">{errors.confirmPassword}</p>
+              {errors.confirmPassword && (
+                <p className="error">{errors.confirmPassword}</p>
+              )}
             </div>
 
-            <button type="submit" className="btn-submit" disabled={buttonIsDisabled} onClick={handleSubmit}>
-              Register
+            <button
+              type="submit"
+              className={`btn-submit ${isLoading ? "loading" : ""}`}
+              onClick={handleSubmit}
+              disabled={isLoading}
+            >
+              {isLoading ? <div className="loading-indicator"></div> : "Register"}
             </button>
+            <ToastContainer />
           </div>
         </div>
       }

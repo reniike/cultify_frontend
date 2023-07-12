@@ -8,7 +8,7 @@ const TopNavBar = () => {
 
      
   return (
-    <nav className="body overflow-hidden bg-[]">
+    <nav className="body overflow-hidden bg-blue-100">
         <div className="top-nav bg-white shadow-md p-2 md:p-5 w-full mx-auto h-14 flex justify-between items-center top-0 z-50">
             <img src={cultifyLogo} className="logo h-10 w-30" alt="Logo" />
             <img src={dropDown} className="drop" alt="drop" />

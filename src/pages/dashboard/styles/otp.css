@@ -19,10 +19,12 @@
   animation: dropDown 1s ease-in 0s;
 }
 
-.otpContainer h1 {
+.otpContainer h6 {
   text-align: center;
   margin-bottom: 20px;
   color: #333;
+  font-size: 20px;
+  font-family: Verdana;
 }
 
 .form-group {
@@ -62,6 +64,10 @@ span {
   color: #779341;
 }
 
-p {
-  font-size: 10px;
+.otpContainer p {
+  font-size: 15px;
+}
+
+.otpContainer a {
+  margin-left: 70%;
 }
