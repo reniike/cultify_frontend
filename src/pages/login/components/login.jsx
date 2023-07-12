@@ -68,12 +68,14 @@ const Login = () => {
               <p>
                 Welcome to <span>Cultify</span>
               </p>
-              <h1 className="b">Sign in</h1>
+              <h1 className="b" >Sign in</h1>
             </div>
             <div className="account">
               <p>No account ?</p>
               <>
-                <span>Sign up</span>
+                <span onClick={()=>{
+                navigate("/registration")
+              }}>Sign up</span>
               </>
             </div>
           </div>

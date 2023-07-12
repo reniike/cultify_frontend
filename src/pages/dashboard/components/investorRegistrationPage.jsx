@@ -132,7 +132,9 @@ const InvestorRegistrationPage = () => {
             </div>
             <div className="account">
               <p>No account ?</p>
-              <span>Sign in</span>
+              <span onClick={()=>{
+                navigate("/login")
+              }}>Sign in</span>
             </div>
           </div>
 
