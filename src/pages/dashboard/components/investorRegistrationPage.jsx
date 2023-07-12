@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/registrationPage.css";
 import axios from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import '../styles/submitButton.css'
 
 const InvestorRegistrationPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -16,21 +17,11 @@ const InvestorRegistrationPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [toastResponse, setToastResponse] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const showToast = () => {
-    toast("Registration successfull!", {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: false,
-      theme: "dark",
-    });
-  };
-
-  const showErroToast = () => {
-    toast("Check the credentials supplied !", {
+    toast(toastResponse, {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000,
       hideProgressBar: true,
@@ -93,10 +84,9 @@ const InvestorRegistrationPage = () => {
 
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
-      showErroToast();
     } else {
+      setIsLoading(true);
       registerInvestor();
-      showToast();
     }
   };
 
@@ -111,12 +101,22 @@ const InvestorRegistrationPage = () => {
     try {
       const response = await axios.post("/investor/registration", request);
       console.log(response.data);
-      navigate("/otp");
+      setToastResponse(response.data.message);
+      navigate("/otp", {state: email});
     } catch (error) {
-      setErrors(error.response.data);
-      console.log(error);
+      setIsLoading(false);
+      let response = error.response.data;
+      if(response === toastResponse) response = String(response).concat(" ");
+      setToastResponse(response);
+      console.log(error.response.data);
     }
   };
+  
+  useEffect(() => {
+    if (toastResponse) {
+      showToast();
+    }
+  }, [toastResponse]);
 
   return (
     <CultifyTopNav
@@ -131,14 +131,11 @@ const InvestorRegistrationPage = () => {
             </div>
             <div className="account">
               <p>No account ?</p>
-              <>
                 <span>Sign in</span>
-              </>
             </div>
           </div>
 
-          <div>
-            <div className="userName  ">
+            <div className="userName">
               <div>
                 <label htmlFor="first-name">First Name:</label>
                 <input
@@ -168,7 +165,6 @@ const InvestorRegistrationPage = () => {
                 />
                 <p className="error">{errors.lastName}</p>
               </div>
-            </div>
 
             <div>
               <label htmlFor="phone">Phone Number:</label>
@@ -212,7 +208,7 @@ const InvestorRegistrationPage = () => {
               <p className="error">{errors.password}</p>
             </div>
 
-            <div>
+            <div className="confirmPassword">
               <label htmlFor="confirm-password">Confirm Password:</label>
               <input
                 type="password"
@@ -224,11 +220,18 @@ const InvestorRegistrationPage = () => {
                   errors.confirmPassword ? "input-error" : ""
                 }`}
               />
-              <p className="error">{errors.confirmPassword}</p>
+              {errors.confirmPassword && (
+                <p className="error">{errors.confirmPassword}</p>
+              )}
             </div>
 
-            <button type="submit" className="btn-submit" onClick={handleSubmit}>
-              Register
+            <button
+                type="submit"
+                className={`btn-submit ${isLoading ? "loading" : ""}`}
+                onClick={handleSubmit}
+                disabled={isLoading}
+              >
+                {isLoading ? <div className="loading-indicator"></div> : "Register"}
             </button>
             <ToastContainer />
           </div>

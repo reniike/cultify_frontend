@@ -1,15 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/otp.css";
 import CultifyTopNav from "../../dashboard/components/cultifyTopNav";
 import axios from "../../../api/axios";
+import { useLocation } from "react-router-dom";
+import '../styles/submitButton.css'
+import { ToastContainer, toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
-const Otp = () => {
+const Otp = () => { 
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
-  const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
-  const email = localStorage.getItem("email");
+  const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
+  const [toastResponse, setToastResponse] = useState("");
+  const email = location.state;
+  
+  const showToast = () => {
+    toast(toastResponse, {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      theme: "dark",
+      icon: <FontAwesomeIcon icon={faCheckCircle} />,
+    });
+  };
 
   const handleOtpChange = (e) => {
     setOtp(e.target.value);
@@ -24,7 +44,7 @@ const Otp = () => {
       return;
     }
     else{
-      setButtonIsDisabled(true);
+      setIsLoading(true);
       verifyOtp();
     }
   };
@@ -36,17 +56,27 @@ const Otp = () => {
     };
     try {
       const response = await axios.post("/investor/confirmRegistration", request);
-      alert("Registration successful!");
-      console.log(response.data);
-      navigate("/investor/dashboard");
+      const data = response.data;
+      console.log(data);
+      setToastResponse("You have been registered successfully!")
+      navigate("/investor/dashboard", {state: data});
     } catch (error) {
+      setIsLoading(false);
       if(error.response.status === 400){        
         setError(error.response.data);
       }
-      setButtonIsDisabled(false);
       console.log(error);
     }
   }
+  
+  useEffect(() => {
+    if (email == null) {
+      navigate("/registration");
+    }
+    if (toastResponse) {
+      showToast();
+    }
+  }, [toastResponse]);
 
   return (
     <CultifyTopNav
@@ -73,7 +103,15 @@ const Otp = () => {
             </div>
             <a href="#">Resend OTP</a>
             <p className="error">{error}</p>
-            <button type="submit" disabled={buttonIsDisabled} onClick={handleSubmit}>Verify</button>
+            <button 
+                type="submit"
+                className={`btn-submit ${isLoading ? "loading" : ""}`}
+                onClick={handleSubmit}
+                disabled={isLoading}
+              >
+                {isLoading ? <div className="loading-indicator"></div> : "Verify"}
+            </button>
+            <ToastContainer />
           </div>
         </div>
       }
