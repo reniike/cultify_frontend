@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import '../styles/submitButton.css'
+
 
 const InvestorRegistrationPage = () => {
   const [firstName, setFirstName] = useState("");
