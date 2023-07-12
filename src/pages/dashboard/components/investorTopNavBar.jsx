@@ -1,5 +1,4 @@
 import React from 'react';
-import "../styles/investorDash.css"; 
 import cultifyLogo from '../assets/logo.svg';
 import dropDown from '../assets/dropDownIcon.svg';
 
