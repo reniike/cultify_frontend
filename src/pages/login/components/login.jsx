@@ -1,10 +1,32 @@
 import { React, useState } from "react";
 import CultifyTopNav from "../../dashboard/components/cultifyTopNav";
 import "../styles/login.css";
+import axios from "../../../api/axios";
+import '../styles/submitButton.css'
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
   const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const [toastResponse, setToastResponse] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const showToast = () => {
+    toast("Invalid email or password", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      theme: "dark",
+      icon: <FontAwesomeIcon icon={faCheckCircle} />,
+    });
+  };
 
   const handChangeEmail = (event) => {
     setUsername(event.target.value);
@@ -14,10 +36,29 @@ const Login = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (email === "email" && password === "password") {
-      console.log("Successful");
-    } else console.log("Invalid Email or Password");
+    setIsLoading(true);
+    authenticate();
   };
+
+  const authenticate = async() =>{
+    const request = {
+      email: email,
+      password: password,
+    };
+    try {
+      const response = await axios.post("/login", request);
+      const data = response.data.user;
+      navigate("/investor/dashboard", {state: data});
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error.response.data);
+      if(error.response.status === 403){     
+        if(toastResponse) setToastResponse(String(toastResponse).concat(" "));
+        showToast();
+      }
+    }
+
+  }
 
   return (
     <CultifyTopNav
@@ -51,7 +92,7 @@ const Login = () => {
             <div className="password">
               <label htmlFor="password">Enter your password</label>
               <input
-                type="text"
+                type="password"
                 id="password"
                 value={password}
                 onChange={handleChangePassword}
@@ -60,7 +101,15 @@ const Login = () => {
             </div>
           </form>
           <a href="#">Forgot password</a>
-          <button onClick={handleSubmit}>Sign in</button>
+          <button 
+                type="submit"
+                className={`btn-submit ${isLoading ? "loading" : ""}`}
+                onClick={handleSubmit}
+                disabled={isLoading}
+              >
+                {isLoading ? <div className="loading-indicator"></div> : "Sign in"}
+          </button>
+          <ToastContainer/>
         </div>
       }
     />
