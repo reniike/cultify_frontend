@@ -19,7 +19,7 @@ function App() {
     <Router>
       <Routes>
           <Route path='*' Component={ErrorPage}/>
-          <Route path='/home' element={<HeroSection/>}/>
+          <Route path="/home" element={<HeroSection/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/otp" element={<Otp/>}/>
           <Route path="/registration" element={<InvestorRegistrationPage/>} />

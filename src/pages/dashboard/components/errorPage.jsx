@@ -7,8 +7,14 @@ function ErrorPage() {
   routeToHomePage();
 
   function routeToHomePage(){
+    console.log("My world");
     navigate("/home");
   }
+  return(
+    <>
+    {routeToHomePage()}
+    </>
+  );
 }
 
 export default ErrorPage;

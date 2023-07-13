@@ -46,7 +46,7 @@ const Login = () => {
     };
     try {
       const response = await axios.post("/login", request);
-      const data = response.data.user;
+      const data = response.data;
       navigate("/investor/dashboard", {state: data});
     } catch (error) {
       setIsLoading(false);
