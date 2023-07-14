@@ -1,18 +1,16 @@
 import '../styles/errorPage.css';
+import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
 function ErrorPage() {
   const navigate = useNavigate();
-  console.log("Hello");
-  routeToHomePage();
 
-  function routeToHomePage(){
-    console.log("My world");
-    navigate("/home");
-  }
+  useEffect(()=>{
+    navigate("/home")
+  }, [])
+  
   return(
     <>
-    {routeToHomePage()}
     </>
   );
 }

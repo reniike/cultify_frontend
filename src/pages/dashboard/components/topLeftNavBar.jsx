@@ -3,7 +3,7 @@ import cultifyLogo from '../../../assets/logo.svg'
 import dropDown from '../assets/dropDownIcon.svg';
 import { useNavigate } from 'react-router-dom';
 
-const InvestorTopNavBar = ({content}) => {
+const TopLeftNavBar = ({leftNavBar, content}) => {
     const navigate = useNavigate();
      
   return (
@@ -20,10 +20,9 @@ const InvestorTopNavBar = ({content}) => {
           
             <div className="left-nav list-none text-lg font-sans bg-green-800 w-1/6 rounded-none md:rounded-tr-2xl flex-col gap-6 items-start pl-0">
                 <ul class= "pl-0 pt-6 gap-3">
-                    <li className="dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200" href='/dashboard' >Dashboard</li>
-                    <li className="dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200" href="/investments">Investments</li>
-                    <li className="dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200" href="/farm-projects">Projects</li>
-                    <li className="dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200" href="/profile">Profile</li>
+                    {leftNavBar.map((each, index)=>(
+                        <li className="dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200" href='google.com' >{each}</li>
+                    ))}
                 </ul>
             </div>
             {content}
@@ -33,4 +32,4 @@ const InvestorTopNavBar = ({content}) => {
   );
 };
 
-export default InvestorTopNavBar;
+export default TopLeftNavBar;

@@ -1,11 +1,10 @@
+import TopLeftNavBar from "./topLeftNavBar";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import TopNav from "./topNav";
-import TopLeftNavBar from "./topLeftNavBar";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../api/axios";
 
-const InvestorDashboard = () => {
+const AdminDashboard = () => {
   const [farmProjects, setFarmProduce] = useState([]);
   const [statistics, setStatistics] = useState({});
   const navigate = useNavigate();
@@ -29,10 +28,9 @@ const InvestorDashboard = () => {
       navigate("/login")
     }else{
       email = data.user.userResponse.emailAddress;
-      fetchStatistics();
+    //   fetchStatistics();
     }
   }, []);
-
   const fetchStatistics = async ()=>{    
     try {
       const request = {
@@ -45,7 +43,6 @@ const InvestorDashboard = () => {
       setStatistics(response.data);
     } catch (error) {
       let response = error.response;
-      console.log(error);
       console.log(response);
       if (error.response.status === 403) {
         navigate("/login")
@@ -54,23 +51,23 @@ const InvestorDashboard = () => {
   }
 
   return (
-    <TopLeftNavBar leftNavBar={["Dashboard", "Investments", "Projects", "Profile"]} content={
+    <TopLeftNavBar leftNavBar={["Dashboard", "Investors", "Farmprojects", "Farmers", "Profile"]} content={
       <div className="right-nav pt-4 pr-10 bg-background-green/10 top-15 right-20">
-                    <h3 className="dash-board font-bold text-[#1B4332] text-4xl pl-10">Dashboard</h3>
+                    <h3 className="dash-board font-bold text-[#1B4332] text-4xl pl-10">Admin Dashboard</h3>
             <div className="upper-boxes">
                     <h3 className="welcome font-bold text-black-500 text-2xl pl-10 pt-6" > Welcome, {data?.user?.userResponse.firstName}</h3>
                 <div className="investors-details grid grid-cols-3 h-13 gap-x-20 mr-6 p-6">
                       <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
-                        <h3 className="text-custom-blue">Total Number of<br/> Investments</h3>
-                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-custom-blue">{statistics.totalNumberOfInvestments}</p>
+                        <h3 className="text-custom-blue">Total Number of<br/> Investors</h3>
+                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-custom-blue">{}</p>
                       </div>
                       <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
                         <h3 className="text-custom-blue">Total Amount <br/>Invested</h3>
-                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-custom-blue">{statistics.totalAmountInvested}</p>
+                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-custom-blue">{}</p>
                       </div>
                       <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
-                        <h3 className="text-custom-blue">Upcoming <br/>Payments</h3>
-                        <p className="mt-[18%] ml-[15px] text-right text-[25px] text-custom-blue w-[90%] ">{statistics.upcomingPaymentDate}</p>
+                        <h3 className="text-custom-blue">Next <br/>Redeemed Project</h3>
+                        <p className="mt-[18%] ml-[15px] text-right text-[25px] text-custom-blue w-[90%] ">{}</p>
                       </div>
                 </div>
             </div>
@@ -113,4 +110,4 @@ const InvestorDashboard = () => {
   );
 };
 
-export default InvestorDashboard;
+export default AdminDashboard;
