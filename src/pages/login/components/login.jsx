@@ -47,10 +47,13 @@ const Login = () => {
     try {
       const response = await axios.post("/login", request);
       const data = response.data;
-      navigate("/investor/dashboard", {state: data});
+      console.log(data);
+      const role = data.user.userResponse.roles[0];
+      if(role === "INVESTOR") navigate("/investor/dashboard", {state: data});
+      else navigate("/admin/dashboard", {state: data});
     } catch (error) {
       setIsLoading(false);
-      console.log(error.response.data);
+      console.log(error);
       if(error.response.status === 403){     
         if(toastResponse) setToastResponse(String(toastResponse).concat(" "));
         showToast();
