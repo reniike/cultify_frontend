@@ -13,6 +13,7 @@ import PaystackPayment from './pages/dashboard/components/paystackPayment';
 import PaymentTransfer from './pages/dashboard/components/paystackTransfer';
 import CultifyTopNav from "./pages/dashboard/components/cultifyTopNav";
 import AdminDashboard from "./pages/dashboard/components/adminDasboard";
+import AdminRegistrationPage from "./pages/dashboard/components/adminRegistration";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/registration" element={<InvestorRegistrationPage/>} />
           <Route path="/investor/dashboard" element={<InvestorDashboard/>}/>
           <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
+          <Route path="/admin/registration/:email" element={<AdminRegistrationPage/>}/>
           <Route path="/investor/dashboard/produceDetails" element={<FarmProjectDetails/>}/>
           <Route path="/admin/dashboard/produceUpload" element={<FarmProjects/>}/>
           <Route path="/super-admin/dashboard" element={<SuperAdminDashboardOptions/>}/>
