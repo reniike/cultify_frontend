@@ -86,7 +86,7 @@ const InvestorDashboard = () => {
                       </div>
                       <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
                         <h3 className="text-custom-blue">Total Amount <br/>Invested</h3>
-                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-custom-blue">{statistics.totalAmountInvested}</p>
+                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-custom-blue">#{statistics.totalAmountInvested}</p>
                       </div>
                       <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
                         <h3 className="text-custom-blue">Upcoming <br/>Payments</h3>
