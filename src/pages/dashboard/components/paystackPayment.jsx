@@ -42,6 +42,10 @@ const initializePayment = usePaystackPayment(config);
           <label htmlFor="last-name">Last Name</label>
           <input type="text" id="last-name" />
         </div>
+        <div className="form-group">
+          <label htmlFor="picture">Last Name</label>
+          <input type='file' id="picture" />
+        </div>
         <div>
             <button onClick={() => {
                 initializePayment(onSuccess, onClose)

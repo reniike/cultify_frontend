@@ -96,9 +96,10 @@ const AdminRegistrationPage = () => {
     };
     try {
       const response = await axios.post("/admin/registration", request);
-      console.log(response.data);
+      const data = response.data;
+      console.log(data);
       setToastResponse(response.data.message);
-      navigate("/admin/dashboard", { });
+      navigate("/admin/dashboard", data);
     } catch (error) {
       setIsLoading(false);
       let response = error.response.data;

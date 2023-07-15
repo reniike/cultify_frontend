@@ -1,4 +1,4 @@
-import TopNav from './topNav';
+
 import '../styles/superAdminDashboard.css';
 
 const SuperAdminDashboard = ({content}) => {
@@ -20,7 +20,6 @@ const SuperAdminDashboard = ({content}) => {
 
   return (
     <div className="cultify-super-admin-dashboard">
-        <TopNav links={topNavLinks}/>
         {content}
     </div>
   );
