@@ -1,33 +1,25 @@
 import React from 'react';
-import cultifyLogo from '../../../assets/logo.svg'
+import cultifyLogo from '../../../assets/logo.svg';
 import dropDown from '../assets/dropDownIcon.svg';
 import { useNavigate } from 'react-router-dom';
+import '../styles/topNav.css';
 
-const TopLeftNavBar = ({leftNavBar, content}) => {
-    const navigate = useNavigate();
-     
+const TopLeftNavBar = () => {
+  const navigate = useNavigate();
+
   return (
-    <nav className="body overflow-hidden">
-        <div className="top-nav bg-white shadow-md p-2 md:p-5 w-full mx-auto h-14 flex justify-between items-center top-0 z-50">
-            <img src={cultifyLogo} className="logo h-10 w-30" alt="Logo" onClick={()=>{
-                navigate("/home");
-            }}/>
-            <img src={dropDown} className="drop" alt="drop" />
-        </div >
-        
-        <div className="all flex justify-between">
-      
-          
-            <div className="left-nav list-none text-lg font-sans bg-green-800 w-1/6 rounded-none md:rounded-tr-2xl flex-col gap-6 items-start pl-0">
-                <ul class= "pl-0 pt-6 gap-3">
-                    {leftNavBar.map((each, index)=>(
-                        <li className="dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200" href='google.com' >{each}</li>
-                    ))}
-                </ul>
-            </div>
-            {content}
-        </div>
-        
+    <nav className="top-nav-container fixed top-0 left-0 w-full z-50">
+      <div className="top-nav bg-white shadow-md p-2 md:p-5 mx-auto h-14 flex justify-between items-center">
+        <img
+          src={cultifyLogo}
+          className="logo h-10 w-30 cursor-pointer"
+          alt="Logo"
+          onClick={() => {
+            navigate('/home');
+          }}
+        />
+        <img src={dropDown} className="drop" alt="drop" />
+      </div>
     </nav>
   );
 };

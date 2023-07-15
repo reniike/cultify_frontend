@@ -1,28 +1,22 @@
-.investor-top-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.884);
-    padding: 20px;
-    color: #55a049;
-  }
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
-  color: #55a049;
+.left-nav {
+  height: 100%;
+  position: fixed;
 }
 
-.nav-links li {
-  margin-right: 10px;
+.right-content {
+  padding-left: 16.66667%;
+  padding-top: 5%;
 }
 
-.nav-links a {
-  color: #55a049;
+.left-nav {
+  padding-top: 4%;
 }
 
-.nav-links a:hover {
-  color: #ddd;
+.top-nav-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
 }

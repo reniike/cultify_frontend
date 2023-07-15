@@ -1,27 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import TopNav from "./topNav";
-import TopLeftNavBar from "./topLeftNavBar";
+import InvestorTopLeftNav from "./investorTopLeftNav";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../api/axios";
+import defaultFarmProjectPicture from '../../../assets/images/farmProject.jpg';
 
 const InvestorDashboard = () => {
-  const [farmProjects, setFarmProduce] = useState([]);
+  const [farmProjects, setFarmProjects] = useState([]);
   const [statistics, setStatistics] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
   console.log(data);
   let email = "";
-
+  
   useEffect(() => {
-    fetchFarmProduce();
-  }, [farmProjects]);
+    fetchFarmProjects();
+  }, []);
 
-  const fetchFarmProduce = async () => {
-    // const response = await fetch("/api/farm-produce");
-    // const data = await response.json();
-    // setFarmProduce(data);
+  const fetchFarmProjects = async () => {
+    try {
+      const request = {
+        headers: {
+          Authorization: 'Bearer '.concat(data.access_token),
+        },
+      };
+      const response = await axios.get('/farmProject/getAllFarmProjects', request);
+      console.log(response.data);
+      setFarmProjects(response.data);
+    } catch (error) {
+      let response = error.response.data;
+      console.log(error);
+      console.log(error.response.data);
+    }
   };
   
   useEffect(() => {
@@ -53,10 +64,19 @@ const InvestorDashboard = () => {
     }
   }
 
+  const viewAllProjects = ()=>{    
+    navigate('/investor/dashboard/projects', { state: data });
+  }
+  
+  const viewProjectDetails = (index)=>{
+    console.log(index);
+    navigate("/investor/dashboard/projects/"+index, {state: {"farmProjects": farmProjects, "data": data}});
+  }
+
   return (
-    <TopLeftNavBar leftNavBar={["Dashboard", "Investments", "Projects", "Profile"]} content={
+    <InvestorTopLeftNav data={data} content={
       <div className="right-nav pt-4 pr-10 bg-background-green/10 top-15 right-20">
-                    <h3 className="dash-board font-bold text-[#1B4332] text-4xl pl-10">Dashboard</h3>
+                    <h3 className="dash-board font-bold text-[#1B4332] text-4xl pl-10">Investor Dashboard</h3>
             <div className="upper-boxes">
                     <h3 className="welcome font-bold text-black-500 text-2xl pl-10 pt-6" > Welcome, {data?.user?.userResponse.firstName}</h3>
                 <div className="investors-details grid grid-cols-3 h-13 gap-x-20 mr-6 p-6">
@@ -74,42 +94,37 @@ const InvestorDashboard = () => {
                       </div>
                 </div>
             </div>
-                <h3 className="project font-bold text-black-600 text-2xl pl-10 pt-6"> Farm Projects</h3>
-            <div className="product-details grid grid-cols-2 h-22 gap-x-14 ml p-8">
-                <div className="project-one border-[2px]  border-custom-blue bg-white  rounded-xl h-96 .pl-20 font-bold text-black-600 text-lg pl-4">The Maize Project</div>
-                <div className="project-two border-[2px]  border-custom-blue bg-white  rounded-xl h-96 pl-22 font-bold text-black-600 text-lg pl-4">The Yam Project</div>
+            <h3 className="project font-bold text-black-600 text-2xl pl-10 pt-6">Farm Projects</h3>
+        <div className="product-details grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 p-8">
+          {farmProjects.slice(0, 2).map((project, index) => (
+            <div
+            key={project.id}
+            className={`project-card border-[2px] border-custom-blue bg-white rounded-xl font-bold text-black-600 text-lg p-4 flex`}
+            onClick={()=>viewProjectDetails(index)}
+          >
+            <div className="project-picture w-1/2 h-full mr-4">
+              <img
+                src={project.picture ? project.picture : defaultFarmProjectPicture}
+                alt={project.farmProduceSummary}
+                className="w-full h-full object-cover"
+              />
             </div>
-            <p className="mt-[2%] ml-[15px] text-right text-[25px] text-custom-blue w-[90%] ">view all</p>
+            <div className="project-details w-1/2">
+              <div className="project-name">{project.farmProduceSummary}</div>
+              <div className="project-location">Location: {project.location}</div>
+              <div className="project-startDate">From: {project.investmentPlan.startDate}</div>
+              <div className="project-maturityDate">To: {project.investmentPlan.maturityDate}</div>
+            </div>
+          </div>
+          ))}
+        </div>
+        <div className="text-right">
+          <p className="mt-[2%] ml-[15px] text-[25px] text-custom-blue w-[90%] cursor-pointer">
+            <span onClick={viewAllProjects} className="underline">View all</span>
+          </p>
+        </div>
         </div>
     }/>
-
-    // <div className="investorDashboard">
-    //   {topNav}
-    //   <div className="content">
-    //     <h2>Available Farm Projects</h2>
-    //     {farmProjects.length === 0 ? (
-    //       <p>No farm project available at the moment.</p>
-    //     ) : (
-    //       <ul className="farm-produce-list">
-    //         {farmProjects.map((item) => (
-    //           <li key={item.id}>
-    //             <div className="item-image">
-    //               <img src={item.picture} alt={item.name} />
-    //             </div>
-    //             <div className="item-details">
-    //               <h3>{item.name}</h3>
-    //               <p>{item.description}</p>
-    //               <p>Unit of Measure: {item.uom}</p>
-    //               <p>Quantity: {item.quantity}</p>
-    //               <p>Time: {item.time}</p>
-    //               <button className="btn">Add to Cart</button>
-    //             </div>
-    //           </li>
-    //         ))}
-    //       </ul>
-    //     )}
-    //   </div>
-    // </div>
   );
 };
 

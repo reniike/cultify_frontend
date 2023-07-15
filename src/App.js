@@ -5,7 +5,7 @@ import Otp from './pages/dashboard/components/otp';
 import InvestorRegistrationPage from './pages/dashboard/components/investorRegistrationPage';
 import ErrorPage from './pages/dashboard/components/errorPage';
 import FarmProjectDetails from './pages/dashboard/components/farmProjectDetails';
-import FarmProjects from './pages/dashboard/components/farmProjects';
+import InvestorFarmProjects from "./pages/dashboard/components/investorFarmProjects";
 import SuperAdminDashboardOptions from './pages/dashboard/components/superAdminDashboardOptions';
 import HeroSection from './pages/homepage/components/heroSection';
 import InvestorDashboard from "./pages/dashboard/components/investorDashboard";
@@ -25,8 +25,8 @@ function App() {
           <Route path="/registration" element={<InvestorRegistrationPage/>} />
           <Route path="/investor/dashboard" element={<InvestorDashboard/>}/>
           <Route path="/admin/dashboard" element={<AdminDashboard/>}/>
-          <Route path="/investor/dashboard/produceDetails" element={<FarmProjectDetails/>}/>
-          <Route path="/admin/dashboard/produceUpload" element={<FarmProjects/>}/>
+          <Route path="/investor/dashboard/projects/:id" element={<FarmProjectDetails/>}/>
+          <Route path="/investor/dashboard/projects" element={<InvestorFarmProjects/>}/>
           <Route path="/super-admin/dashboard" element={<SuperAdminDashboardOptions/>}/>
           <Route path="/paystackPayment" element={<PaystackPayment/>}/>
           <Route path="/paystackTransfer" element={<PaymentTransfer/>}/>
