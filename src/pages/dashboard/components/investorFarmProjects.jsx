@@ -36,6 +36,14 @@ const InvestorFarmProjects = () => {
     console.log(index);
     navigate("/investor/dashboard/projects/"+index, {state: {"farmProjects": farmProjects, "data": data}});
   }
+  
+  const getDate = (date)=>{
+    const dateInString = new Date(date);
+    const day = dateInString.getDate();
+    const month = dateInString.getMonth();
+    const year = dateInString.getFullYear();
+    return day+"/"+month+"/"+year;
+  }
 
   return (
     <>
@@ -61,8 +69,9 @@ const InvestorFarmProjects = () => {
                   <div className="project-details w-1/2">
                     <div className="project-name">{project.farmProduceSummary}</div>
                     <div className="project-location">Location: {project.location}</div>
-                    <div className="project-startDate">From: {project.investmentPlan.startDate}</div>
-                    <div className="project-maturityDate">To: {project.investmentPlan.maturityDate}</div>
+                    <div className="project-startDate">Unit price: #{project.investmentPlan.amountPerUnit}</div>
+                    <div className="project-startDate">From: {getDate(project.investmentPlan.startDate)}</div>
+                    <div className="project-maturityDate">To: {getDate(project.investmentPlan.maturityDate)}</div>
                   </div>
                 </div>
               ))}
