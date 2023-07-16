@@ -36,7 +36,7 @@ const FarmProjectDetails = () => {
     const request = {
       "investorId": investor.user.id,
       "farmProjectId": project.id,
-      "amount": amount / 100,
+      "amount": amount / 100, 
       "InvestmentReturnType": "MONEY",
       "startingDate": project.investmentPlan.startDate,
       "redemptionDate": project.investmentPlan.maturityDate
