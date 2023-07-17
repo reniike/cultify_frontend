@@ -1,4 +1,4 @@
-import TopLeftNavBar from "./topLeftNavBar";
+import AdminTopLeftNavBar from "./adminTopLeftNavBar";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -51,7 +51,9 @@ const AdminDashboard = () => {
   }
 
   return (
-    <TopLeftNavBar leftNavBar={["Dashboard", "Investors", "Farmprojects", "Farmers", "Profile"]} content={
+    <AdminTopLeftNavBar 
+      data={data}
+      content={
       <div className="right-nav pt-4 pr-10 bg-background-green/10 top-15 right-20">
                     <h3 className="dash-board font-bold text-[#1B4332] text-4xl pl-10">Admin Dashboard</h3>
             <div className="upper-boxes">

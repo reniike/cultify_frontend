@@ -1,13 +1,12 @@
-import React from "react";
-import { useParams, useLocation, useNavigate, json } from "react-router-dom";
+import {React, useEffect} from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import InvestorTopLeftNav from "./investorTopLeftNav";
 import defaultFarmProjectPicture from "../../../assets/images/farmProject.jpg";
 import { usePaystackPayment } from "react-paystack";
 import axios from "../../../api/axios";
-import { useCallback } from "react";
 
-const FarmProjectDetails = () => {
+const InvestorFarmProjectDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const location = useLocation();
@@ -16,8 +15,44 @@ const FarmProjectDetails = () => {
   const project = farmProjects[id];
   const [amount, setAmount] = useState(0);
   const [units, setUnits] = useState(0);
+  const [projectHasBeenInvested, setProjectHasBeenInvested] = useState(false);
+  const [projectHasNowBeenInvested, setProjectHasNowBeenInvested] = useState(false);
+  const projectIds = [];
   console.log(investor);
   console.log(project);
+
+  useEffect(()=>{
+    getListOfAllInvestorProjectIds();
+  }, [])
+
+  const getListOfAllInvestorProjectIds = async ()=>{    
+    const url = "investment/getAllInvestmentsByEmail/"+investor.user.userResponse.emailAddress;
+    try{
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: 'Bearer '+investor.access_token,
+        },
+      });
+      console.log(response)
+      if (response.status == 200) {
+        const data = response.data;
+        console.log(data)
+        data.forEach(element => {
+          projectIds.push(element.farmProjectId)
+        });
+        console.log(projectIds);
+        setProjectHasBeenInvested(projectIds.includes(project.id));
+      }
+      else {
+        console.log(response);
+      }
+    }catch (error){
+      if(error.response.status == 403) {
+        navigate("/login");
+      }
+      console.log(error.response);
+    }
+  }
 
   const config = {
     reference: (new Date()).getTime().toString(),
@@ -29,6 +64,7 @@ const FarmProjectDetails = () => {
   const onSuccess = (reference) => {
     console.log(reference);
     createInvestment();
+    location.reload();
   };
 
   const createInvestment = async () => {
@@ -50,11 +86,15 @@ const FarmProjectDetails = () => {
         },
       });  
       if (response.status  == 200) {
+        setProjectHasNowBeenInvested(true);
         console.log(response);
       } else {
         console.log("Error:", response.status, response.statusText);
       }
     } catch (error) {
+      if(error.response.status == 403) {
+        navigate("/login");
+      }
       console.error(error);
       console.error("Error:", error.message);
     }
@@ -97,27 +137,39 @@ const FarmProjectDetails = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-3xl font-bold mb-4">{project.farmProduceSummary}</h3>
+                  <h3 className="text-3xl font-bold mb-4">{String(project.farmProduceSummary).toUpperCase()}</h3>
+                  <div className="mb-2 text-xl">Status: {project.status}</div>
                   <div className="mb-2 text-xl">Location: {project.location}</div>
                   <div className="mb-2 text-xl">Unit price: #{project.investmentPlan.amountPerUnit}</div>
+                  <div className="mb-2 text-xl">ROI: {project.investmentPlan.roi}%</div>
                   <div className="mb-2 text-xl">From: {getDate(project.investmentPlan.startDate)}</div>
                   <div className="mb-4 text-xl">To: {getDate(project.investmentPlan.maturityDate)}</div>
-                  <div className="mb-4">
-                    <label className="text-xl">Number of Units:</label>
-                    <input
-                      type="number"
-                      className="ml-2 px-4 py-2 border rounded-lg"
-                      value={units}
-                      onChange={handleChangeUnits}
-                      min={1}
-                    />
-                  </div>
-                  <button 
-                    className="px-4 py-2 bg-green-500 text-white rounded-lg"
-                    onClick={()=>initializePayment(onSuccess, onClose)}
-                  >
-                    Invest Now
-                  </button>
+                  {
+                    projectHasBeenInvested || projectHasNowBeenInvested? (
+                      <h3>Already invested</h3>
+                    ) : (
+                      <>
+                        <div className="mb-4">
+                          <label className="text-xl">Number of Units:</label>
+                          <input
+                            type="number"
+                            className="ml-2 px-4 py-2 border rounded-lg"
+                            value={units}
+                            onChange={handleChangeUnits}
+                            min={1}
+                          />
+                        </div>
+                        <button 
+                          className="px-4 py-2 bg-green-500 text-white rounded-lg"
+                          onClick={()=>initializePayment(onSuccess, onClose)}
+                          disabled={projectHasBeenInvested}
+                        >
+                          Invest Now
+                        </button>
+                      </>
+                    )
+                  }
+
                 </div>
               </div>
               <div className="mt-8 p-6 bg-gray-100 rounded-lg">
@@ -132,4 +184,4 @@ const FarmProjectDetails = () => {
   );
 };
 
-export default FarmProjectDetails;
+export default InvestorFarmProjectDetails;

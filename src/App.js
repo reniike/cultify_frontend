@@ -4,7 +4,7 @@ import Login from "./pages/login/components/login";
 import Otp from "./pages/dashboard/components/otp";
 import InvestorRegistrationPage from "./pages/dashboard/components/investorRegistrationPage";
 import ErrorPage from "./pages/dashboard/components/errorPage";
-import FarmProjectDetails from "./pages/dashboard/components/farmProjectDetails";
+import InvestorFarmProjectDetails from "./pages/dashboard/components/investorFarmProjectDetails";
 import InvestorFarmProjects from "./pages/dashboard/components/investorFarmProjects";
 import SuperAdminDashboardOptions from "./pages/dashboard/components/superAdminDashboardOptions";
 import HeroSection from "./pages/homepage/components/heroSection";
@@ -15,7 +15,8 @@ import CultifyTopNav from "./pages/dashboard/components/cultifyTopNav";
 import AdminDashboard from "./pages/dashboard/components/adminDasboard";
 import AdminRegistrationPage from "./pages/dashboard/components/adminRegistration";
 import AdminFarmProjects from "./pages/dashboard/components/adminFarmProjects";
-import FarmProjectsReequest from "./pages/dashboard/components/farmProjectsReequest";
+import FarmProjectCreation from "./pages/dashboard/components/farmProjectCreation";
+import AdminFarmProjectDetails from "./pages/dashboard/components/adminFarmProjectDetails";
 
 function App() {
   return (
@@ -30,8 +31,12 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route
           path="/investor/dashboard/projects/:id"
-          element={<FarmProjectDetails />}
+          element={<InvestorFarmProjectDetails />}
         />
+        <Route
+        path="/admin/dashboard/projects/:id"
+        element={<AdminFarmProjectDetails />}
+      />
         <Route
           path="/investor/dashboard/projects"
           element={<InvestorFarmProjects />}
@@ -47,8 +52,8 @@ function App() {
         <Route path="/paystackPayment" element={<PaystackPayment />} />
         <Route path="/paystackTransfer" element={<PaymentTransfer />} />
         <Route path="/topNav" element={<CultifyTopNav />} />
-        <Route path="/adminfarmprojects" element={<AdminFarmProjects />} />
-        <Route path="/farmprojectsrequest" element={<FarmProjectsReequest />} />
+        <Route path="/admin/dashboard/projects" element={<AdminFarmProjects />} />
+        <Route path="/farmProjectCreation" element={<FarmProjectCreation />} />
       </Routes>
     </Router>
   );

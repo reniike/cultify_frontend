@@ -3,18 +3,18 @@ import { useNavigate } from "react-router-dom";
 import TopLeftNavBar from "./topLeftNavBar";
 
 import "../styles/topNav.css";
-const AdminTopLeftNavBar = ({ data, content }) => {
+const AdminTopLeftNavBar = ({data, content }) => {
   const navigate = useNavigate();
 
   const handleClick = (e) => {
     console.log(e.target.id);
     const index = e.target.id;
     if (index === "0") {
-      navigate("/investor/dashboard", { state: data });
+      navigate("/admin/dashboard", { state: data });
     }
     if (index === "2") {
       console.log("projects");
-      navigate("/investor/dashboard/projects", { state: data });
+      navigate("/admin/dashboard/projects", { state: data });
     }
   };
 
@@ -24,7 +24,7 @@ const AdminTopLeftNavBar = ({ data, content }) => {
       <div className="flex">
         <div className="left-nav list-none text-lg font-sans bg-green-800 w-1/6 rounded-none md:rounded-tr-2xl flex-col gap-6 items-start pl-0">
           <ul className="pl-0 pt-6 gap-3">
-            {["Dashboard", "Investments", "Projects", "Profile"].map(
+            {["Dashboard", "Investors", "Farm Projects", "Farmers", "Profile"].map(
               (each, index) => (
                 <li
                   key={index}

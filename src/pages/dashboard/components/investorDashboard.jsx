@@ -118,11 +118,13 @@ const InvestorDashboard = () => {
               />
             </div>
             <div className="project-details w-1/2">
-              <div className="project-name">{project.farmProduceSummary}</div>
-              <div className="project-location">Location: {project.location}</div>
-                    <div className="project-startDate">Unit price: #{project.investmentPlan.amountPerUnit}</div>
-              <div className="project-startDate">From: {getDate(project.investmentPlan.startDate)}</div>
-              <div className="project-maturityDate">To: {getDate(project.investmentPlan.maturityDate)}</div>
+                  <h3 className="text-xl font-bold mb-4">{String(project.farmProduceSummary).toUpperCase()}</h3>
+                  <div className="mb-2 text-xl">Status: {project.status}</div>
+                  <div className="mb-2 text-xl">Location: {project.location}</div>
+                  <div className="mb-2 text-xl">Unit price: #{project.investmentPlan.amountPerUnit}</div>
+                  <div className="mb-2 text-xl">ROI: {project.investmentPlan.roi}%</div>
+                  <div className="mb-2 text-xl">From: {getDate(project.investmentPlan.startDate)}</div>
+                  <div className="mb-4 text-xl">To: {getDate(project.investmentPlan.maturityDate)}</div>
             </div>
           </div>
           ))}
