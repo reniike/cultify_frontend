@@ -29,7 +29,7 @@ const InvestorTopLeftNav = ({ data, content }) => {
                 key={index}
                 className="dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200"
                 id={index}
-                onClick={handleClick}
+                onClick={(e)=>handleClick(e)}
               >
                 {each}
               </li>

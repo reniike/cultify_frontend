@@ -7,8 +7,7 @@ const PaystackPayment = () => {
     reference: (new Date()).getTime().toString(),
     email: "ogunsmoyin.m@gmail.com",
     amount: 30000,
-    publicKey: 'pk_test_df4962a615cd623dfe64e3038c7576e6783273a2',
-    channel: ['card', 'bank', 'ussd'],
+    publicKey: 'pk_test_df4962a615cd623dfe64e3038c7576e6783273a2'
   };
 
 
@@ -41,10 +40,6 @@ const initializePayment = usePaystackPayment(config);
         <div className="form-group">
           <label htmlFor="last-name">Last Name</label>
           <input type="text" id="last-name" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="picture">Last Name</label>
-          <input type='file' id="picture" />
         </div>
         <div>
             <button onClick={() => {
