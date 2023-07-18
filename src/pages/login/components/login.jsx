@@ -46,11 +46,14 @@ const Login = () => {
     };
     try {
       const response = await axios.post("/login", request);
-      const data = response.data.user;
-      navigate("/investor/dashboard", {state: data});
+      const data = response.data;
+      console.log(data);
+      const role = data.user.userResponse.roles[0];
+      if(role === "INVESTOR") navigate("/investor/dashboard", {state: data});
+      else navigate("/admin/dashboard", {state: data});
     } catch (error) {
       setIsLoading(false);
-      console.log(error.response.data);
+      console.log(error);
       if(error.response.status === 403){     
         if(toastResponse) setToastResponse(String(toastResponse).concat(" "));
         showToast();
@@ -68,12 +71,14 @@ const Login = () => {
               <p>
                 Welcome to <span>Cultify</span>
               </p>
-              <h1 className="b">Sign in</h1>
+              <h1 className="b" >Sign in</h1>
             </div>
             <div className="account">
               <p>No account ?</p>
               <>
-                <span>Sign up</span>
+                <span onClick={()=>{
+                navigate("/registration")
+              }}>Sign up</span>
               </>
             </div>
           </div>

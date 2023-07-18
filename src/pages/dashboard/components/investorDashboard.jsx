@@ -1,99 +1,141 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import TopNav from "./topNav";
-import "../styles/investorDashboard.css";
-import InvestorTopNavBar from "./investorTopNavBar";
+import InvestorTopLeftNav from "./investorTopLeftNav";
 import { useNavigate } from "react-router-dom";
+import axios from "../../../api/axios";
+import defaultFarmProjectPicture from '../../../assets/images/farmProject.jpg';
 
 const InvestorDashboard = () => {
-  const [farmProjects, setFarmProduce] = useState([]);
+  const [farmProjects, setFarmProjects] = useState([]);
+  const [statistics, setStatistics] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
-  const user = location.state;
-
-  useEffect(() => {
-    if (user == null || user === undefined) {
-      navigate("/home")
-    }
-    fetchFarmProduce();
-  }, [farmProjects]);
-
-  const fetchFarmProduce = async () => {
-    const response = await fetch("/api/farm-produce");
-    const data = await response.json();
-    setFarmProduce(data);
-  };
-
-  const topNav = <TopNav links={
-    [
-      {
-        "name": "Dashboard",
-        "url": "/dashboard"
-      },
-      {
-        "name": "Transactions",
-        "url": "/transactions"
-      },
-      {
-        "name": "Profile",
-        "url": "/profile"
-      },
-      {
-        "name": "Logout",
-        "url": "/logout"
-      }
-    ]
-  }/>
+  const data = location.state;
+  console.log(data);
+  let email = "";
   
+  useEffect(() => {
+    fetchFarmProjects();
+  }, []);
+
+  const fetchFarmProjects = async () => {
+    try {
+      const request = {
+        headers: {
+          Authorization: 'Bearer '.concat(data.access_token),
+        },
+      };
+      const response = await axios.get('/farmProject/getAllFarmProjects', request);
+      console.log(response.data);
+      setFarmProjects(response.data);
+    } catch (error) {
+      let response = error.response.data;
+      console.log(error);
+      console.log(error.response.data);
+    }
+  };
+  
+  useEffect(() => {
+    if (data == null || data === undefined) {
+      navigate("/login")
+    }else{
+      email = data.user.userResponse.emailAddress;
+      fetchStatistics();
+    }
+  }, []);
+
+  const fetchStatistics = async ()=>{    
+    try {
+      const request = {
+        headers: {
+          Authorization: "Bearer ".concat(data.access_token),
+        }
+      }
+      const response = await axios.get("/investment/getDashboardStatistics/".concat(email), request);
+      console.log(response.data);
+      setStatistics(response.data);
+    } catch (error) {
+      let response = error.response;
+      console.log(error);
+      console.log(response);
+      if (error.response.status === 403) {
+        navigate("/login")
+      }
+    }
+  }
+
+  const viewAllProjects = ()=>{    
+    navigate('/investor/dashboard/projects', { state: data });
+  }
+  
+  const viewProjectDetails = (index)=>{
+    console.log(index);
+    navigate("/investor/dashboard/projects/"+index, {state: {"farmProjects": farmProjects, "data": data}});
+  }
+
+  const getDate = (date)=>{
+    const dateInString = new Date(date);
+    const day = dateInString.getDate();
+    const month = dateInString.getMonth();
+    const year = dateInString.getFullYear();
+    return day+"/"+month+"/"+year;
+  }
 
   return (
-    <InvestorTopNavBar content={
-      <div className="right-nav pt-4 pr-10 top-15 right-20">
-                    <h3 className="dash-board font-bold text-green-500 text-4xl pl-10"> DashBoard</h3>
+    <InvestorTopLeftNav data={data} content={
+      <div className="right-nav pt-4 pr-10 bg-background-green/10 top-15 right-20">
+                    <h3 className="dash-board font-bold text-[#1B4332] text-4xl pl-10">Investor Dashboard</h3>
             <div className="upper-boxes">
-                    <h3 className="welcome font-bold text-black-500 text-2xl pl-10 pt-6" > Welcome, {user.userResponse.firstName}</h3>
+                    <h3 className="welcome font-bold text-black-500 text-2xl pl-10 pt-6" > Welcome, {data?.user?.userResponse.firstName}</h3>
                 <div className="investors-details grid grid-cols-3 h-13 gap-x-20 mr-6 p-6">
-                    <div className="number border-1.1 bg-lime-200 w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">Total Number of<br/> Investments</div>
-                    <div className="amount border-1.1 bg-lime-200 w-80 rounded-xl font-bold text-black-600 text-lg pl-3">Total Amount <br/>Invested</div>
-                    <div className="payments border-1.1 bg-lime-200 w-80 rounded-xl font-bold text-black-600 text-lg pl-3">UpComing <br/>Payments</div>
+                      <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
+                        <h3 className="text-custom-blue">Total Number of<br/> Investments</h3>
+                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-custom-blue">{statistics.totalNumberOfInvestments}</p>
+                      </div>
+                      <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
+                        <h3 className="text-custom-blue">Total Amount <br/>Invested</h3>
+                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-custom-blue">#{statistics.totalAmountInvested}</p>
+                      </div>
+                      <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
+                        <h3 className="text-custom-blue">Upcoming <br/>Payments</h3>
+                        <p className="mt-[18%] ml-[15px] text-right text-[25px] text-custom-blue w-[90%] ">{statistics.upcomingPaymentDate}</p>
+                      </div>
                 </div>
             </div>
-                    <h3 className="project font-bold text-black-600 text-2xl pl-10 pt-6"> Farm Projects</h3>
-            <div className="product-details grid grid-cols-2 h-22 gap-x-14 ml p-8">
-                <div className="project-one bg-lime-200  rounded-xl h-96 pl-20 font-bold text-black-600 text-lg pl-4">The Maize Project</div>
-                <div className="project-two  bg-lime-200  rounded-xl h-96 pl-22 font-bold text-black-600 text-lg pl-4">The Yam Project</div>
-    
+            <h3 className="project font-bold text-black-600 text-2xl pl-10 pt-6">Farm Projects</h3>
+        <div className="product-details grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 p-8">
+          {farmProjects.slice(0, 2).map((project, index) => (
+            <div
+            key={project.id}
+            className={`project-card border-[2px] border-custom-blue bg-white rounded-xl font-bold text-black-600 text-lg p-4 flex`}
+            onClick={()=>viewProjectDetails(index)}
+          >
+            <div className="project-picture w-1/2 h-full mr-4">
+              <img
+                src={project.picture ? project.picture : defaultFarmProjectPicture}
+                alt={project.farmProduceSummary}
+                className="w-full h-full object-cover"
+              />
             </div>
+            <div className="project-details w-1/2">
+                  <h3 className="text-xl font-bold mb-4">{String(project.farmProduceSummary).toUpperCase()}</h3>
+                  <div className="mb-2 text-xl">Status: {project.status}</div>
+                  <div className="mb-2 text-xl">Location: {project.location}</div>
+                  <div className="mb-2 text-xl">Unit price: #{project.investmentPlan.amountPerUnit}</div>
+                  <div className="mb-2 text-xl">ROI: {project.investmentPlan.roi}%</div>
+                  <div className="mb-2 text-xl">From: {getDate(project.investmentPlan.startDate)}</div>
+                  <div className="mb-4 text-xl">To: {getDate(project.investmentPlan.maturityDate)}</div>
+            </div>
+          </div>
+          ))}
+        </div>
+        <div className="text-right">
+          <p className="mt-[2%] ml-[15px] text-[25px] text-custom-blue w-[90%] cursor-pointer">
+            <span onClick={viewAllProjects} className="underline">View all</span>
+          </p>
+        </div>
         </div>
     }/>
-
-    // <div className="investorDashboard">
-    //   {topNav}
-    //   <div className="content">
-    //     <h2>Available Farm Projects</h2>
-    //     {farmProjects.length === 0 ? (
-    //       <p>No farm project available at the moment.</p>
-    //     ) : (
-    //       <ul className="farm-produce-list">
-    //         {farmProjects.map((item) => (
-    //           <li key={item.id}>
-    //             <div className="item-image">
-    //               <img src={item.picture} alt={item.name} />
-    //             </div>
-    //             <div className="item-details">
-    //               <h3>{item.name}</h3>
-    //               <p>{item.description}</p>
-    //               <p>Unit of Measure: {item.uom}</p>
-    //               <p>Quantity: {item.quantity}</p>
-    //               <p>Time: {item.time}</p>
-    //               <button className="btn">Add to Cart</button>
-    //             </div>
-    //           </li>
-    //         ))}
-    //       </ul>
-    //     )}
-    //   </div>
-    // </div>
   );
 };
 

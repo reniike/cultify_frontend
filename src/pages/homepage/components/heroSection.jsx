@@ -9,6 +9,7 @@ import Diversity from '../../../assets/diversity.svg'
 import Support from '../../../assets/support.svg'
 import Farmers from '../../../assets/farmers.svg'
 import { useNavigate } from 'react-router-dom'
+import '../styles/homePage.css'
 
 
 const HeroSection = () => {
@@ -23,7 +24,7 @@ const HeroSection = () => {
     }
 
     return (
-        <>
+        <div className='homePageContainer'>
             <div className='w-full h-full'>
                 <nav className='sticky top-0'>
                     <div className='w-full h-[80px] flex justify-between items-center px-[56px] bg-white'>
@@ -204,7 +205,7 @@ const HeroSection = () => {
                 </div>
 
             </div>
-        </>
+        </div>
     )
 }
 

@@ -1,0 +1,14 @@
+@keyframes dropDown{
+    0%{
+        opacity: 0;
+        top: 4%;
+    }
+    100%{
+        opacity: 1;
+        top: 7%;        
+    }
+  }
+
+  .homePageContainer{    
+    animation: dropDown 1s ease-in 0s;
+  }

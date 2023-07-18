@@ -1,20 +1,27 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import './App.css';
-import Login from './pages/login/components/login';
-import Otp from './pages/dashboard/components/otp';
-import InvestorRegistrationPage from './pages/dashboard/components/investorRegistrationPage';
-import ErrorPage from './pages/dashboard/components/errorPage';
-import FarmProjectDetails from './pages/dashboard/components/farmProjectDetails';
-import FarmProjects from './pages/dashboard/components/farmProjects';
-import SuperAdminDashboardOptions from './pages/dashboard/components/superAdminDashboardOptions';
-import Admins from './pages/dashboard/components/admins';
-import HeroSection from './pages/homepage/components/heroSection';
+import Login from "./pages/login/components/login";
+import Otp from "./pages/dashboard/components/otp";
+import InvestorRegistrationPage from "./pages/dashboard/components/investorRegistrationPage";
+import ErrorPage from "./pages/dashboard/components/errorPage";
+import InvestorFarmProjectDetails from "./pages/dashboard/components/investorFarmProjectDetails";
+import InvestorFarmProjects from "./pages/dashboard/components/investorFarmProjects";
+import SuperAdminDashboardOptions from "./pages/dashboard/components/superAdminDashboardOptions";
+import HeroSection from "./pages/homepage/components/heroSection";
 import InvestorDashboard from "./pages/dashboard/components/investorDashboard";
-import PaystackPayment from './pages/dashboard/components/paystackPayment';
-import PaymentTransfer from './pages/dashboard/components/paystackTransfer';
+import PaystackPayment from "./pages/dashboard/components/paystackPayment";
+import PaymentTransfer from "./pages/dashboard/components/paystackTransfer";
 import CultifyTopNav from "./pages/dashboard/components/cultifyTopNav";
 import AdminInvestmentTable from './pages/investment_table/components/adminInvestmentTable'
 import InvestorInvestmentTable from "./pages/investment_table/components/investorInvestmentTable";
+import AdminDashboard from "./pages/dashboard/components/adminDasboard";
+import AdminRegistrationPage from "./pages/dashboard/components/adminRegistration";
+import AdminFarmProjects from "./pages/dashboard/components/adminFarmProjects";
+import FarmProjectCreation from "./pages/dashboard/components/farmProjectCreation";
+import AdminFarmProjectDetails from "./pages/dashboard/components/adminFarmProjectDetails";
+import SuperAdmin from "./pages/dashboard/components/superAdmin";
+import AdminInvitaion from "./pages/dashboard/components/admnInvitaion";
+import SuperAdminTopNavBar from "./pages/dashboard/components/superAdminTopNavBar";
 
 function App() {
   return (
@@ -24,6 +31,8 @@ function App() {
         <Route path='/home' element={<HeroSection />} />
         <Route path='/adminInvestmentTable' element={<AdminInvestmentTable />} />
         <Route path='/investorInvestmentTable' element={<InvestorInvestmentTable />} />
+        <Route path="*" Component={ErrorPage} />
+        <Route path="/home" element={<HeroSection />} />
         <Route path="/login" element={<Login />} />
         <Route path="/otp" element={<Otp />} />
         <Route path="/registration" element={<InvestorRegistrationPage />} />
@@ -35,9 +44,40 @@ function App() {
         <Route path="/paystackPayment" element={<PaystackPayment />} />
         <Route path="/paystackTransfer" element={<PaymentTransfer />} />
         <Route path="/topNav" element={<CultifyTopNav />} />
+=======
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route
+          path="/investor/dashboard/projects/:id"
+          element={<InvestorFarmProjectDetails />}
+        />
+        <Route
+          path="/admin/dashboard/projects/:id"
+          element={<AdminFarmProjectDetails />}
+        />
+        <Route
+          path="/investor/dashboard/projects"
+          element={<InvestorFarmProjects />}
+        />
+        <Route
+          path="/admin/registration/:email"
+          element={<AdminRegistrationPage />}
+        />
+        <Route
+          path="/super-admin/dashboard"
+          element={<SuperAdminDashboardOptions />}
+        />
+        <Route path="/paystackPayment" element={<PaystackPayment />} />
+        <Route path="/paystackTransfer" element={<PaymentTransfer />} />
+        <Route path="/topNav" element={<CultifyTopNav />} />
+        <Route
+          path="/admin/dashboard/projects"
+          element={<AdminFarmProjects />}
+        />
+        <Route path="/farmProjectCreation" element={<FarmProjectCreation />} />
+        <Route path="/superAdmin" element={<SuperAdmin />} />
+        <Route path="/adminInvitationPage" element={<AdminInvitaion />} />
       </Routes>
     </Router>
-
-  )
+  );
 }
 export default App;
