@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
-
 const InvestorRegistrationPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -112,7 +111,6 @@ const InvestorRegistrationPage = () => {
     }
   };
 
-
   useEffect(() => {
     if (toastResponse) {
       showToast();
@@ -132,9 +130,13 @@ const InvestorRegistrationPage = () => {
             </div>
             <div className="account">
               <p>No account ?</p>
-              <span onClick={()=>{
-                navigate("/login")
-              }}>Sign in</span>
+              <span
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Sign in
+              </span>
             </div>
           </div>
 
@@ -147,8 +149,9 @@ const InvestorRegistrationPage = () => {
                 value={firstName}
                 placeholder="First name"
                 onChange={(e) => setFirstName(e.target.value)}
-                className={`userName-input1  ${errors.firstName ? "input-error " : ""
-                  }`}
+                className={`userName-input1  ${
+                  errors.firstName ? "input-error " : ""
+                }`}
               />
               <p className="error">{errors.firstName}</p>
             </div>
@@ -161,8 +164,9 @@ const InvestorRegistrationPage = () => {
                 value={lastName}
                 placeholder="Last name"
                 onChange={(e) => setLastName(e.target.value)}
-                className={`userName-input2 ${errors.lastName ? "input-error " : ""
-                  }`}
+                className={`userName-input2 ${
+                  errors.lastName ? "input-error " : ""
+                }`}
               />
               <p className="error">{errors.lastName}</p>
             </div>
@@ -201,8 +205,9 @@ const InvestorRegistrationPage = () => {
                 value={password}
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
-                className={` password mb-0 ${errors.password ? "input-error" : ""
-                  }`}
+                className={` password mb-0 ${
+                  errors.password ? "input-error" : ""
+                }`}
               />
               <p className="error">{errors.password}</p>
             </div>
@@ -215,8 +220,9 @@ const InvestorRegistrationPage = () => {
                 value={confirmPassword}
                 placeholder="Comfirm password"
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className={`password ${errors.confirmPassword ? "input-error" : ""
-                  }`}
+                className={`password ${
+                  errors.confirmPassword ? "input-error" : ""
+                }`}
               />
               {errors.confirmPassword && (
                 <p className="error">{errors.confirmPassword}</p>
@@ -229,7 +235,11 @@ const InvestorRegistrationPage = () => {
               onClick={handleSubmit}
               disabled={isLoading}
             >
-              {isLoading ? <div className="loading-indicator"></div> : "Register"}
+              {isLoading ? (
+                <div className="loading-indicator"></div>
+              ) : (
+                "Register"
+              )}
             </button>
             <ToastContainer />
           </div>
