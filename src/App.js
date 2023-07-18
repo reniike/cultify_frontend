@@ -17,6 +17,10 @@ import AdminRegistrationPage from "./pages/dashboard/components/adminRegistratio
 import AdminFarmProjects from "./pages/dashboard/components/adminFarmProjects";
 import FarmProjectCreation from "./pages/dashboard/components/farmProjectCreation";
 import AdminFarmProjectDetails from "./pages/dashboard/components/adminFarmProjectDetails";
+import AdminInvestorsList from "./pages/dashboard/components/adminInvestorsList";
+
+
+
 
 function App() {
   return (
@@ -54,6 +58,7 @@ function App() {
         <Route path="/topNav" element={<CultifyTopNav />} />
         <Route path="/admin/dashboard/projects" element={<AdminFarmProjects />} />
         <Route path="/farmProjectCreation" element={<FarmProjectCreation />} />
+        <Route path="/adminInvestorsList" element={<AdminInvestorsList />} />
       </Routes>
     </Router>
   );
