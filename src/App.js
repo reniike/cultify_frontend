@@ -13,24 +13,28 @@ import InvestorDashboard from "./pages/dashboard/components/investorDashboard";
 import PaystackPayment from './pages/dashboard/components/paystackPayment';
 import PaymentTransfer from './pages/dashboard/components/paystackTransfer';
 import CultifyTopNav from "./pages/dashboard/components/cultifyTopNav";
+import AdminInvestmentTable from './pages/investment_table/components/adminInvestmentTable'
+import InvestorInvestmentTable from "./pages/investment_table/components/investorInvestmentTable";
 
 function App() {
   return (
     <Router>
       <Routes>
-          <Route path='*' Component={ErrorPage}/>
-          <Route path='/home' element={<HeroSection/>}/>
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/otp" element={<Otp/>}/>
-          <Route path="/registration" element={<InvestorRegistrationPage/>} />
-          <Route path="/investor/dashboard" element={<InvestorDashboard/>}/>
-          <Route path="/investor/dashboard/produceDetails" element={<FarmProjectDetails/>}/>
-          <Route path="/admin/dashboard/produceUpload" element={<FarmProjects/>}/>
-          <Route path="/super-admin/dashboard" element={<SuperAdminDashboardOptions/>}/>
-          <Route path="/super-admin/dashboard/admins" element={<Admins/>}/>
-          <Route path="/paystackPayment" element={<PaystackPayment/>}/>
-          <Route path="/paystackTransfer" element={<PaymentTransfer/>}/>
-          <Route path="/topNav" element={<CultifyTopNav />} />
+        <Route path='*' Component={ErrorPage} />
+        <Route path='/home' element={<HeroSection />} />
+        <Route path='/adminInvestmentTable' element={<AdminInvestmentTable />} />
+        <Route path='/investorInvestmentTable' element={<InvestorInvestmentTable />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/otp" element={<Otp />} />
+        <Route path="/registration" element={<InvestorRegistrationPage />} />
+        <Route path="/investor/dashboard" element={<InvestorDashboard />} />
+        <Route path="/investor/dashboard/produceDetails" element={<FarmProjectDetails />} />
+        <Route path="/admin/dashboard/produceUpload" element={<FarmProjects />} />
+        <Route path="/super-admin/dashboard" element={<SuperAdminDashboardOptions />} />
+        <Route path="/super-admin/dashboard/admins" element={<Admins />} />
+        <Route path="/paystackPayment" element={<PaystackPayment />} />
+        <Route path="/paystackTransfer" element={<PaymentTransfer />} />
+        <Route path="/topNav" element={<CultifyTopNav />} />
       </Routes>
     </Router>
 
