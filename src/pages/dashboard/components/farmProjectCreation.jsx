@@ -22,50 +22,54 @@ const FarmProjectCreation = () => {
     formData.append("file", imageUrl);
     formData.append("upload_preset", "cultify");
 
-    await axios
+    axios
       .post("https://api.cloudinary.com/v1_1/sgreen/image/upload", formData)
       .then((response) => {
         console.log(response.data.url);
-        createFarmProject(response.data.url); 
+        createFarmProject(response.data.url);
       });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    uploadImage();   
+    uploadImage();
   };
 
-  const createFarmProject = async (imageUrl)=>{
+  const createFarmProject = async (imageUrl) => {
     const data = {
-      "farmProduceSummary": farmProduceSummary,
-      "description": description,
+      farmProduceSummary: farmProduceSummary,
+      description: description,
       startDate: startDate,
       maturityDate: maturityDate,
-      "amountPerUnit": pricePerUnit,
-      "maximumNumberOfUnit": maximumUnit,
-      "roi": roi,
-      "picture": imageUrl,  
-      "location": location,
+      amountPerUnit: pricePerUnit,
+      maximumNumberOfUnit: maximumUnit,
+      roi: roi,
+      picture: imageUrl,
+      location: location,
     };
 
     console.log(data);
     try {
-      const response = await axios.post("/farmProject/createFarmProject", data, {
-        "headers": {
-          "Authorization": 'Bearer '+admin.access_token,
-        },
-      });
+      const response = await axios.post(
+        "/farmProject/createFarmProject",
+        data,
+        {
+          headers: {
+            Authorization: "Bearer " + admin.access_token,
+          },
+        }
+      );
 
       if (response.status == 200) {
-        console.log(response)
-        navigate("/admin/dashboard/projects", {state: admin});
+        console.log(response);
+        navigate("/admin/dashboard/projects", { state: admin });
       } else {
         console.log("failed");
       }
     } catch (error) {
       console.log("Error:", error);
     }
-  }
+  };
 
   return (
     <AdminTopLeftNavBar
@@ -76,7 +80,9 @@ const FarmProjectCreation = () => {
             <div>
               <label htmlFor="summary"> Farm produce summary</label>
               <input
-              onChange={(e)=>{setFarmProduceSummary(e.target.value)}}
+                onChange={(e) => {
+                  setFarmProduceSummary(e.target.value);
+                }}
                 type="text"
                 id="summary"
                 required
@@ -85,7 +91,9 @@ const FarmProjectCreation = () => {
 
               <label htmlFor="description"> Description</label>
               <input
-                onChange={(e)=>{setDescription(e.target.value)}}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
                 type="text"
                 id="description"
                 required
@@ -94,7 +102,9 @@ const FarmProjectCreation = () => {
 
               <label htmlFor="location"> Location</label>
               <input
-                onChange={(e)=>{setLocation(e.target.value)}}
+                onChange={(e) => {
+                  setLocation(e.target.value);
+                }}
                 type="text"
                 id="location"
                 required
@@ -102,7 +112,9 @@ const FarmProjectCreation = () => {
               />
               <label htmlFor="start_date"> Start date</label>
               <input
-                onChange={(e)=>{setStartDate(e.target.value)}}
+                onChange={(e) => {
+                  setStartDate(e.target.value);
+                }}
                 type="date"
                 id="start_date"
                 required
@@ -110,31 +122,39 @@ const FarmProjectCreation = () => {
               />
               <label htmlFor="maturity_date"> Maturiry date</label>
               <input
-                onChange={(e)=>{setMaturityDate(e.target.value)}}
+                onChange={(e) => {
+                  setMaturityDate(e.target.value);
+                }}
                 type="date"
                 id="maturity_date"
                 required
                 className="border border-custom-blue w-[550px] rounded"
               />
               <label htmlFor="price_per_unit"> Price per unit</label>
-              <input              
-                onChange={(e)=>{setPricePerUnit(e.target.value)}}
+              <input
+                onChange={(e) => {
+                  setPricePerUnit(e.target.value);
+                }}
                 type="text"
                 id="price_per_unit"
                 required
                 className="border border-custom-blue w-[550px] rounded"
               />
               <label htmlFor="roi"> ROI</label>
-              <input              
-                onChange={(e)=>{setRoi(e.target.value)}}
+              <input
+                onChange={(e) => {
+                  setRoi(e.target.value);
+                }}
                 type="number"
                 id="Roi"
                 required
                 className="border border-custom-blue w-[550px] rounded mb-4"
               />
               <label htmlFor="maximum_unit"> Maximum Number of Unit</label>
-              <input              
-                onChange={(e)=>{setMaximumUnit(e.target.value)}}
+              <input
+                onChange={(e) => {
+                  setMaximumUnit(e.target.value);
+                }}
                 type="number"
                 id="Maximum_Unit"
                 required

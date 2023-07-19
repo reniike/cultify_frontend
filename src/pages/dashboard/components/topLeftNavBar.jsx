@@ -1,8 +1,8 @@
-import React from 'react';
-import cultifyLogo from '../../../assets/logo.svg';
-import dropDown from '../assets/dropDownIcon.svg';
-import { useNavigate } from 'react-router-dom';
-import '../styles/topNav.css';
+import React from "react";
+import cultifyLogo from "../../../assets/logo.svg";
+import dropDown from "../assets/dropDownIcon.svg";
+import { useNavigate } from "react-router-dom";
+import "../styles/topNav.css";
 
 const TopLeftNavBar = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const TopLeftNavBar = () => {
           className="logo h-10 w-30 cursor-pointer"
           alt="Logo"
           onClick={() => {
-            navigate('/home');
+            navigate("/home");
           }}
         />
         <img src={dropDown} className="drop" alt="drop" />

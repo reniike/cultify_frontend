@@ -18,8 +18,9 @@ import AdminFarmProjects from "./pages/dashboard/components/adminFarmProjects";
 import FarmProjectCreation from "./pages/dashboard/components/farmProjectCreation";
 import AdminFarmProjectDetails from "./pages/dashboard/components/adminFarmProjectDetails";
 import AdminInvestorsList from "./pages/dashboard/components/adminInvestorsList";
-
-
+import SuperAdmin from "./pages/dashboard/components/superAdmin";
+import AdminInvitaion from "./pages/dashboard/components/admnInvitaion";
+import SuperAdminTopNavBar from "./pages/dashboard/components/superAdminTopNavBar";
 
 
 function App() {
@@ -38,9 +39,9 @@ function App() {
           element={<InvestorFarmProjectDetails />}
         />
         <Route
-        path="/admin/dashboard/projects/:id"
-        element={<AdminFarmProjectDetails />}
-      />
+          path="/admin/dashboard/projects/:id"
+          element={<AdminFarmProjectDetails />}
+        />
         <Route
           path="/investor/dashboard/projects"
           element={<InvestorFarmProjects />}
@@ -56,9 +57,14 @@ function App() {
         <Route path="/paystackPayment" element={<PaystackPayment />} />
         <Route path="/paystackTransfer" element={<PaymentTransfer />} />
         <Route path="/topNav" element={<CultifyTopNav />} />
-        <Route path="/admin/dashboard/projects" element={<AdminFarmProjects />} />
+        <Route
+          path="/admin/dashboard/projects"
+          element={<AdminFarmProjects />}
+        />
         <Route path="/farmProjectCreation" element={<FarmProjectCreation />} />
         <Route path="/adminInvestorsList" element={<AdminInvestorsList />} />
+        <Route path="/superAdmin" element={<SuperAdmin />} />
+        <Route path="/adminInvitationPage" element={<AdminInvitaion />} />
       </Routes>
     </Router>
   );
