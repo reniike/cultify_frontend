@@ -51,7 +51,7 @@ const InvestorDashboard = () => {
           Authorization: "Bearer ".concat(data.access_token),
         }
       }
-      const response = await axios.get("/investment/getDashboardStatistics/".concat(email), request);
+      const response = await axios.get("/getInvestorDashboardStatistics/".concat(email), request);
       console.log(response.data);
       setStatistics(response.data);
     } catch (error) {

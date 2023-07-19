@@ -8,9 +8,13 @@ const AdminFarmProjectDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const location = useLocation();
-  const farmProjects = location.state.farmProjects;
-  const investor = location.state.data;
+  const data = location.state;
+  const farmProjects = data.farmProjects;
+  const admin = data.data;
+  const leftBar = data.leftBar;
   const project = farmProjects[id];
+  console.log(admin);
+  console.log(leftBar);
 
   const getDate = (date) => {
     const dateInString = new Date(date);
@@ -21,15 +25,16 @@ const AdminFarmProjectDetails = () => {
   }
   
   useEffect(() => {
-    if (investor == null || investor === undefined) {
+    if (admin == null || admin === undefined) {
       navigate("/login")
     }
   }, []);
 
   return (
     <>
-      <AdminTopLeftNavBar 
-        data={investor}
+      <AdminTopLeftNavBar
+        leftBar={leftBar}
+        data={admin}
         content={          
           <div className="flex justify-center items-center mt-8">
             <div className="max-w-4xl w-full rounded-lg shadow-lg overflow-hidden">

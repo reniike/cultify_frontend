@@ -9,7 +9,12 @@ import defaultFarmProjectPicture from '../../../assets/images/farmProject.jpg';
 
 const AdminFarmProjects = () => {
   const navigate = useNavigate();
-  const data = useLocation().state;
+  const location = useLocation();
+  const data = location.state;
+  console.log(data);
+  const admin = data.data;
+  const leftBar = data.leftBar;
+  console.log("leftbar", leftBar);
   const [farmProjects, setFarmProjects] = useState([]);
 
   useEffect(()=>{
@@ -21,7 +26,7 @@ const AdminFarmProjects = () => {
     try {
       const response = await axios.get(url, {
         headers: {
-          Authorization: 'Bearer '+data.access_token,
+          Authorization: 'Bearer '+admin.access_token,
         },
       })
       if (response.status == 200) {
@@ -49,7 +54,7 @@ const AdminFarmProjects = () => {
   
   const viewProjectDetails = (index)=>{
     console.log(index);
-    navigate("/admin/dashboard/projects/"+index, {state: {"farmProjects": farmProjects, "data": data}});
+    navigate("/admin/dashboard/projects/"+index, {state: {"leftBar": leftBar, "farmProjects": farmProjects, "data": admin}});
   }
   
   const projectBox = (project, index)=>(
@@ -79,6 +84,8 @@ const AdminFarmProjects = () => {
 
   return (
     <AdminTopLeftNavBar
+      data={admin}
+      leftBar={leftBar}
       content={
         <div className="pt-4 pr-10 bg-background-green/10 w-full">
           <div className="flex justify-between mt-3">
@@ -86,7 +93,7 @@ const AdminFarmProjects = () => {
               Available Farm Projects{" "}
             </h1>
             <button
-              onClick={()=>{navigate("/farmProjectCreation", {state: data})}}
+              onClick={()=>{navigate("/farmProjectCreation", {state: {"leftBar": leftBar, "farmProjects": farmProjects, "data": admin}})}}
               className="bg-green-800 text-white text-[15px] w-30 p-1 rounded"
             >
               Add farm projects

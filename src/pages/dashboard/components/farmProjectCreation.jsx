@@ -15,7 +15,9 @@ const FarmProjectCreation = () => {
   const [roi, setRoi] = useState(0);
   const [maximumUnit, setMaximumUnit] = useState(0);
   const [location, setLocation] = useState("");
-  const admin = useLocation().state;
+  const data = useLocation().state;
+  const admin = data.data;
+  const leftBar = data.leftBar;
 
   const uploadImage = async () => {
     const formData = new FormData();
@@ -62,7 +64,7 @@ const FarmProjectCreation = () => {
 
       if (response.status == 200) {
         console.log(response);
-        navigate("/admin/dashboard/projects", { state: admin });
+        navigate("/admin/dashboard/projects", {state: {"leftBar": leftBar, "data": admin}});
       } else {
         console.log("failed");
       }
@@ -73,6 +75,8 @@ const FarmProjectCreation = () => {
 
   return (
     <AdminTopLeftNavBar
+      data={admin}
+      leftBar={leftBar}
       content={
         <div className=" grid grid-cols-1 ml-20 w-[700px] h-20 pt-20 pb-10">
           <div className="project-one border-[2px]  border-custom-blue bg-white  rounded-xl h-[585px] .pl-20 font-bold text-black-600 text-lg pl-4">
