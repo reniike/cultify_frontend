@@ -3,14 +3,18 @@ import { ToastContainer, toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import SuperAdminTopNavBar from "./superAdminTopNavBar";
-import { useNavigate } from "react-router-dom";
+import AdminTopLeftNavBar from "./adminTopLeftNavBar";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "../../../api/axios";
 
 const AdminInvitaion = () => {
   const [email, setEmail] = useState("");
   const [toastResponse, setToastResponse] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const data = location.state;
+  const admin = data.data;
+  const leftBar = data.leftBar;
 
   const showToast = () => {
     toast(toastResponse, {
@@ -60,24 +64,29 @@ const AdminInvitaion = () => {
 
   return (
     <div>
-      <SuperAdminTopNavBar />
-      <form className="mt-[130px]">
-        <input
-          type="text"
-          id="email"
-          placeholder="example@gmail.com"
-          onChange={(e) => setEmail(e.target.value)}
-          className="border border-custom-blue w-[550px] rounded mb-4 ml-[300px] py-2 pl-2"
-        />
-        <br />
-        <button
-          onClick={handleSubmit}
-          className="bg-green-800 text-white text-[15px] w-50 p-1 rounded ml-[500px]"
-        >
-          Invite Admin
-        </button>
-        <ToastContainer />
-      </form>
+      <AdminTopLeftNavBar 
+        data={admin}
+        leftBar={leftBar}
+        content={          
+              <form className="mt-[130px]">
+              <input
+                type="text"
+                id="email"
+                placeholder="example@gmail.com"
+                onChange={(e) => setEmail(e.target.value)}
+                className="border border-custom-blue w-[550px] rounded mb-4 ml-[300px] py-2 pl-2"
+              />
+              <br />
+              <button
+                onClick={handleSubmit}
+                className="bg-green-800 text-white text-[15px] w-50 p-1 rounded ml-[500px]"
+              >
+                Invite Admin
+              </button>
+              <ToastContainer />
+            </form>
+        }
+      />
     </div>
   );
 };

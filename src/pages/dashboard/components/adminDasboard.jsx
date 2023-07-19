@@ -10,8 +10,9 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
-  console.log(data);
-  let email = "";
+  const admin = data.data;
+  const leftBar = data.leftBar;
+  console.log(admin); 
 
   useEffect(() => {
     fetchFarmProduce();
@@ -24,21 +25,19 @@ const AdminDashboard = () => {
   };
   
   useEffect(() => {
-    if (data == null || data === undefined) {
+    if (admin == null || admin === undefined) {
       navigate("/login")
-    }else{
-      email = data.user.userResponse.emailAddress;
-    //   fetchStatistics();
-    }
+    }fetchStatistics();
   }, []);
+
   const fetchStatistics = async ()=>{    
     try {
       const request = {
         headers: {
-          Authorization: "Bearer ".concat(data.access_token),
+          Authorization: "Bearer "+admin.access_token,
         }
       }
-      const response = await axios.get("/investment/getDashboardStatistics/".concat(email), request);
+      const response = await axios.get("/getAdminDashboardStatistics", request);
       console.log(response.data);
       setStatistics(response.data);
     } catch (error) {
@@ -51,64 +50,45 @@ const AdminDashboard = () => {
   }
 
   return (
-    <AdminTopLeftNavBar 
-      data={data}
+    <AdminTopLeftNavBar
+      leftBar={leftBar}
+      data={admin}
       content={
       <div className="right-nav pt-4 pr-10 bg-background-green/10 top-15 right-20">
                     <h3 className="dash-board font-bold text-[#1B4332] text-4xl pl-10">Admin Dashboard</h3>
             <div className="upper-boxes">
-                    <h3 className="welcome font-bold text-black-500 text-2xl pl-10 pt-6" > Welcome, {data?.user?.userResponse.firstName}</h3>
+                    <h3 className="welcome font-bold text-black-500 text-2xl pl-10 pt-6" > Welcome, {admin?.user?.userResponse.firstName}</h3>
                 <div className="investors-details grid grid-cols-3 h-13 gap-x-20 mr-6 p-6">
-                      <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
+                      <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3 mb-16">
+                        <h3 className="text-custom-blue">Total Number of<br/> Ongoing Farm projects</h3>
+                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-custom-blue">{statistics.totalNumberOfOngoingFarmProject}</p>
+                      </div>
+                      <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3 mb-16">
+                        <h3 className="text-custom-blue">Total Amount of Money<br/>Invested by the <br />Investors</h3>
+                        <p className="mt-[9%] mr-[7%] text-[30px] text-right text-custom-blue">#{statistics.totalAmountOfMoneyInvestedByTheInvestors}</p>
+                      </div>
+                      <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3 mb-16">
+                        <h3 className="text-custom-blue">Next <br/>Next Redeemed Project</h3>
+                        <p className="mt-[18%] ml-[15px] text-right text-[25px] text-custom-blue w-[90%] ">{statistics.nextRedeemedProject}</p>
+                      </div>
+                      <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3 mb-16">
+                        <h3 className="text-custom-blue">Total Number of<br/> Farmers</h3>
+                        <p className="mt-[18%] ml-[15px] text-right text-[25px] text-custom-blue w-[90%] ">{statistics.totalNumberOfFarmers}</p>
+                      </div>
+                      <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3 mb-16">
                         <h3 className="text-custom-blue">Total Number of<br/> Investors</h3>
-                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-custom-blue">{}</p>
+                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-custom-blue">{statistics.totalNumberOfInvestors}</p>
                       </div>
-                      <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
-                        <h3 className="text-custom-blue">Total Amount <br/>Invested</h3>
-                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-custom-blue">{}</p>
-                      </div>
-                      <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
-                        <h3 className="text-custom-blue">Next <br/>Redeemed Project</h3>
-                        <p className="mt-[18%] ml-[15px] text-right text-[25px] text-custom-blue w-[90%] ">{}</p>
-                      </div>
-                </div>
+                      {admin.user.userResponse.roles[0] === "SUPER_ADMIN"? (
+                        <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3 mb-16">
+                          <h3 className="text-custom-blue">Total Number of<br/> System Administrators</h3>
+                          <p className="mt-[18%] mr-[7%] text-[30px] text-right text-custom-blue">{statistics.totalNumberOfSystemAdmin}</p>
+                        </div>
+                      ): null}
+                </div>  
             </div>
-                <h3 className="project font-bold text-black-600 text-2xl pl-10 pt-6"> Farm Projects</h3>
-            <div className="product-details grid grid-cols-2 h-22 gap-x-14 ml p-8">
-                <div className="project-one border-[2px]  border-custom-blue bg-white  rounded-xl h-96 .pl-20 font-bold text-black-600 text-lg pl-4">The Maize Project</div>
-                <div className="project-two border-[2px]  border-custom-blue bg-white  rounded-xl h-96 pl-22 font-bold text-black-600 text-lg pl-4">The Yam Project</div>
-            </div>
-            <p className="mt-[2%] ml-[15px] text-right text-[25px] text-custom-blue w-[90%] ">view all</p>
         </div>
     }/>
-
-    // <div className="investorDashboard">
-    //   {topNav}
-    //   <div className="content">
-    //     <h2>Available Farm Projects</h2>
-    //     {farmProjects.length === 0 ? (
-    //       <p>No farm project available at the moment.</p>
-    //     ) : (
-    //       <ul className="farm-produce-list">
-    //         {farmProjects.map((item) => (
-    //           <li key={item.id}>
-    //             <div className="item-image">
-    //               <img src={item.picture} alt={item.name} />
-    //             </div>
-    //             <div className="item-details">
-    //               <h3>{item.name}</h3>
-    //               <p>{item.description}</p>
-    //               <p>Unit of Measure: {item.uom}</p>
-    //               <p>Quantity: {item.quantity}</p>
-    //               <p>Time: {item.time}</p>
-    //               <button className="btn">Add to Cart</button>
-    //             </div>
-    //           </li>
-    //         ))}
-    //       </ul>
-    //     )}
-    //   </div>
-    // </div>
   );
 };
 

@@ -12,6 +12,9 @@ const InvestorTopLeftNav = ({ data, content }) => {
     if (index === '0') {
       navigate('/investor/dashboard', { state: data });
     }
+    if (index === '1') {
+      navigate('/investor/dashboard/investments', { state: data });
+    }
     if (index === '2') {
       console.log('projects');
       navigate('/investor/dashboard/projects', { state: data });
