@@ -12,6 +12,9 @@ const InvestorFarmProjects = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+      if (data == null || data === undefined) {
+        navigate("/login")
+      }
     fetchFarmProjects();
   }, []);
 

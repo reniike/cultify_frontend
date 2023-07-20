@@ -2,16 +2,24 @@ import axios from '../../../api/axios';
 import React, { useState, useEffect } from 'react';
 import InvestorTopLeftNav from './investorTopLeftNav';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const InvestorInvestmentTable = () => {    
     const location = useLocation();
     const data = location.state;
+    const navigate = useNavigate();
 
     const [investmentTable, setInvestmentTable] = useState([]);
 
     const processWithdrawal = ()=>{
 
     }
+
+    useEffect(() => {
+        if (data == null || data === undefined) {
+          navigate("/login")
+        }
+      }, []);
 
     const getAllInvestments = async () => {
         const url = '/investment/getAllInvestmentsByEmail/'+data.user.userResponse.emailAddress;
@@ -67,13 +75,13 @@ const InvestorInvestmentTable = () => {
         <InvestorTopLeftNav
             data={data}
             content={
-                <div className="right-nav pt-4 pr-10 top-15 right-20 overflow-hidden">
-                    <h3 className="font-bold text-green-500 text-2xl pl-10 mb-[-24%] mt-4">Ongoing investments</h3>
+                <div className="right-nav pr-10 top-15 right-20 overflow-hidden">
+                    <h3 className="font-bold text-green-500 text-2xl pl-10">Ongoing investments</h3>
 
-                    <div className='w-full border-spacing-[10px] mt-8'>
-                        <div className='w-full justify-center items-center flex h-[1000px] overflow-hidden'>
+                    <div className='w-full border-spacing-[10px] mt-3'>
+                        <div className='w-full justify-center items-center flex h-[100%] overflow-hidden'>
                             <table className='w-[950px] h-fit rounded-xl z-10 table bg-custom-green/5 border-spacing-[10px] table-auto border-collapse'>
-                                <thead className='m-10'>
+                                <thead className=''>
                                     <tr>
                                         <th className='border-b-2 border-b-custom-blue border-solid'>S/N</th>
                                         <th className='border-b-2 border-b-custom-blue border-solid'>Project Name</th>

@@ -18,6 +18,9 @@ const AdminFarmProjects = () => {
   const [farmProjects, setFarmProjects] = useState([]);
 
   useEffect(()=>{
+      if (data == null || data === undefined) {
+        navigate("/login")
+      }
     fetchFarmProjects();
   }, []);
 

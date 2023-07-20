@@ -22,7 +22,7 @@ const InvestorDashboard = () => {
     try {
       const request = {
         headers: {
-          Authorization: 'Bearer '.concat(data.access_token),
+          Authorization: 'Bearer '+data.access_token,
         },
       };
       const response = await axios.get('/farmProject/getAllFarmProjects', request);
@@ -88,17 +88,17 @@ const InvestorDashboard = () => {
             <div className="upper-boxes">
                     <h3 className="welcome font-bold text-black-500 text-2xl pl-10 pt-6" > Welcome, {data?.user?.userResponse.firstName}</h3>
                 <div className="investors-details grid grid-cols-3 h-13 gap-x-20 mr-6 p-6">
-                      <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
-                        <h3 className="text-custom-blue">Total Number of<br/> Investments</h3>
-                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-custom-blue">{statistics.totalNumberOfInvestments}</p>
+                      <div className="number border-[2px] border-custom-green bg-[#e6f2e3] w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
+                        <h3 className="text-[#000000]">Total Number of<br/> Investments</h3>
+                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-[#000000]">{statistics.totalNumberOfInvestments}</p>
                       </div>
-                      <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
-                        <h3 className="text-custom-blue">Total Amount <br/>Invested</h3>
-                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-custom-blue">#{statistics.totalAmountInvested}</p>
+                      <div className="number border-[2px] border-custom-green bg-[#e6f2e3] w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
+                        <h3 className="text-[#000000]">Total Amount <br/>Invested</h3>
+                        <p className="mt-[18%] mr-[7%] text-[30px] text-right text-[#000000]">#{statistics.totalAmountInvested}</p>
                       </div>
-                      <div className="number border-[2px] border-custom-green bg-white w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
-                        <h3 className="text-custom-blue">Upcoming <br/>Payments</h3>
-                        <p className="mt-[18%] ml-[15px] text-right text-[25px] text-custom-blue w-[90%] ">{statistics.upcomingPaymentDate}</p>
+                      <div className="number border-[2px] border-custom-green bg-[#e6f2e3] w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3">
+                        <h3 className="text-[#000000]">Upcoming <br/>Payments</h3>
+                        <p className="mt-[18%] ml-[15px] text-right text-[25px] text-[#000000] w-[90%] ">{statistics.upcomingPaymentDate}</p>
                       </div>
                 </div>
             </div>
