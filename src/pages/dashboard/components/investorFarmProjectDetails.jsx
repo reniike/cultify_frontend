@@ -40,6 +40,10 @@ const InvestorFarmProjectDetails = () => {
   };
 
   useEffect(()=>{
+      if (investor == null || investor === undefined) {
+        navigate("/login")
+      }
+    setAmount((project.investmentPlan.amountPerUnit * units)*100);
     getListOfAllInvestorProjectIds();
   }, [])
 
@@ -142,9 +146,11 @@ const InvestorFarmProjectDetails = () => {
   const validateUnit = ()=>{
     const remainingUnit = project.investmentPlan.maximumNumberOfUnit - project.numberOfUnitInvestedSoFar;
     if (units == 0) {
+      setToastResponse("Unit must be at least 1");     
       showToast();      
     }
     else if (units > remainingUnit) {
+      setToastResponse("Only "+remainingUnit+ "unit(s) is/are available.");
       showToast();
     }else {
       initializePayment(onSuccess, onClose)

@@ -96,17 +96,28 @@ const AdminRegistrationPage = () => {
     };
     try {
       const response = await axios.post("/admin/registration", request);
-      const data = response.data;
-      console.log(data);
-      setToastResponse(response.data.message);
-      navigate("/admin/dashboard", data);
+      if (response.status == 200) {
+        const data = response.data;
+        console.log(response);
+        console.log(data);
+        setIsLoading(false);
+        navigate("/admin/dashboard", {state: {"data": data, "leftBar": ["Dashboard", "Farm Projects", "Investments", "Investors", "Farmers", "Profile"]}});   
+      }
+      console.log(response);
     } catch (error) {
       setIsLoading(false);
+      console.log(error);
+      if (error.response.status == 403) {
+        const error = {};
+        error.confirmPassword = "This link is invalid! Please contact the management.";
+        setErrors(error);  
+      }else{
       let response = error.response.data;
       if (response === toastResponse) response = String(response).concat(" ");
       setToastResponse(response);
       console.log(error.response.data);
     }
+  }
   };
 
 

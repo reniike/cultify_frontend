@@ -2,6 +2,7 @@ import axios from '../../../api/axios';
 import React, { useState, useEffect } from 'react';
 import AdminTopLeftNavBar from './adminTopLeftNavBar';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const AdminInvestmentTable = () => {    
     const location = useLocation();
@@ -10,6 +11,7 @@ const AdminInvestmentTable = () => {
     const leftBar = data.leftBar;
     console.log(admin);
     const [investmentTable, setInvestmentTable] = useState([]);
+    const navigate = useNavigate();
 
     const processWithdrawal = ()=>{
 
@@ -34,6 +36,9 @@ const AdminInvestmentTable = () => {
     };
 
     useEffect(() => {
+          if (data == null || data === undefined) {
+            navigate("/login")
+          }
         getAllOngoingProjectInvestmentsStatistics();
     }, []);
 
@@ -75,8 +80,8 @@ const AdminInvestmentTable = () => {
 
                     <div className='w-full border-spacing-[10px]'>
                         <div className='w-full justify-center items-center flex h-[1000px] overflow-hidden'>
-                            <table className='w-[950px] h-fit rounded-xl z-10 mt-[-75%] table bg-custom-green/5 border-spacing-[10px] table-auto border-collapse'>
-                                <thead className='m-10'>
+                            <table className='w-[950px] h-fit mt-[-70%] rounded-xl z-10 table bg-custom-green/5 border-spacing-[10px] table-auto border-collapse'>
+                                <thead>
                                     <tr>
                                         <th className='border-b-2 border-b-custom-blue border-solid'>S/N</th>
                                         <th className='border-b-2 border-b-custom-blue border-solid'>Project Name</th>

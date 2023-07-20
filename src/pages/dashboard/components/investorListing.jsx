@@ -10,6 +10,14 @@ const InvestorListing = () => {
   const admin = data.data;
   const leftBar = data.leftBar;
   const [investors, setInvestors] = useState([]);
+  const navigate = useNavigate();
+
+  
+  useEffect(() => {
+    if (data == null || data === undefined) {
+      navigate("/login")
+    }
+  }, []);
 
   const fetchAllInvestors = async () => {
     const url = '/investor/getAllInvestors';

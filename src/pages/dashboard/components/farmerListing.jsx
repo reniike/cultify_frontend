@@ -10,6 +10,7 @@ const FarmerListing = () => {
   const admin = data.data;
   const leftBar = data.leftBar;
   const [farmers, setFarmers] = useState([]);
+  const navigate = useNavigate();
 
   const fetchAllFarmers = async () => {
     const url = '/farmer/getAllFarmers';
@@ -30,6 +31,9 @@ const FarmerListing = () => {
 };
 
 useEffect(() => {
+    if (data == null || data === undefined) {
+      navigate("/login")
+    }
   fetchAllFarmers();
 }, []);
 
