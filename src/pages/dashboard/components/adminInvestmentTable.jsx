@@ -79,8 +79,8 @@ const AdminInvestmentTable = () => {
                     <h3 className="font-bold text-green-500 text-2xl pl-10 mt-4">Ongoing investments</h3>
 
                     <div className='w-full border-spacing-[10px]'>
-                        <div className='w-full justify-center items-center flex h-[1000px] overflow-hidden'>
-                            <table className='w-[950px] h-fit mt-[-70%] rounded-xl z-10 table bg-custom-green/5 border-spacing-[10px] table-auto border-collapse'>
+                        <div className='w-full justify-center items-top flex h-[1000px] overflow-hidden mt-[2%]'>
+                            <table className='w-[950px] h-fit rounded-xl z-10 table bg-custom-green/5 border-spacing-[10px] table-auto border-collapse'>
                                 <thead>
                                     <tr>
                                         <th className='border-b-2 border-b-custom-blue border-solid'>S/N</th>

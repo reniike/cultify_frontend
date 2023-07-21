@@ -198,7 +198,7 @@ const HeroSection = () => {
                         </div>
                         <div className='ml-[60%]'>
                             <p>Contact us</p>
-                            <p>Cultify@gmail.com</p>
+                            <p>GrowWithCultify@gmail.com</p>
                             <p>090123456789</p>
                         </div>
                     </div>
