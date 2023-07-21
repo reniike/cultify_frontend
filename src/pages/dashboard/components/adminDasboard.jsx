@@ -64,7 +64,7 @@ const AdminDashboard = () => {
                 <div className="investors-details grid grid-cols-3 h-13 gap-x-20 mr-6 p-6">
                       <div className="number border-[2px] border-custom-green bg-[#e6f2e3] w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3 mb-16">
                         <h3 className="text-[#000000]">Total Number of<br/> Ongoing Farm projects</h3>
-                        <img className="h-[50%] mt-[3%]" src={ongoingProject} alt="" />
+                        {/* <img className="h-[50%] mt-[3%]" src={ongoingProject} alt="" /> */}
                         <p className="mt-[-12.5%] mr-[7%] text-[30px] text-right text-[#000000]">{statistics.totalNumberOfOngoingFarmProject}</p>
                       </div>
                       <div className="number border-[2px] border-custom-green bg-[#e6f2e3] w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3 mb-16">
@@ -73,7 +73,7 @@ const AdminDashboard = () => {
                       </div>
                       <div className="number border-[2px] border-custom-green bg-[#e6f2e3] w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3 mb-16">
                         <h3 className="text-custom-blue">Next <br/>Next Redeemed Project</h3>
-                        <img className="h-[50%] mt-[3%]" src={date} alt="" />
+                        {/* <img className="h-[50%] mt-[3%]" src={date} alt="" /> */}
                         <p className="mt-[-12%] ml-[15px] text-right text-[25px] text-[#000000] w-[90%] ">{statistics.nextRedeemedProject}</p>
                       </div>
                       <div className="number border-[2px] border-custom-green bg-[#e6f2e3] w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3 mb-16">
