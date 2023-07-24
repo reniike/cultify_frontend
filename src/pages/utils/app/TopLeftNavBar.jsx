@@ -6,18 +6,69 @@ import PenIcon from "../../../assets/images/penIcon.svg";
 import CameraIcon from "../../../assets/images/cameraIcon.svg";
 import { useNavigate } from "react-router-dom";
 import "./styles/topNav.css";
+import axios from "../../../api/axios";
 
-const TopLeftNavBar = () => {
+const TopLeftNavBar = ({data}) => {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [firstName, setFirstName] = useState("investor");
-  const [lastName, setLastName] = useState("investorrrrr");
-  const [email, setEmail] = useState("example@example.com");
-  const [contact, setContact] = useState("09054442324");
+  const [firstName, setFirstName] = useState(data.user.userResponse.firstName);
+  const [lastName, setLastName] = useState(data.user.userResponse.lastName);
+  const [email, setEmail] = useState(data.user.userResponse.emailAddress);
+  const [contact, setContact] = useState(data.user.userResponse.phoneNumber);
   const [editMode, setEditMode] = useState(false);
-  const [profilePicture, setProfilePicture] = useState(DefaultProfilePicture);
+  const [profilePicture, setProfilePicture] = useState(data.user.userResponse.profilePicture);
   const [showCameraIcon, setShowCameraIcon] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
+  const [image, setImage] = useState("");
+  console.log("user", data);
 
   const navigate = useNavigate();
+
+    
+  const uploadImage = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "cultify");
+
+    axios
+      .post("https://api.cloudinary.com/v1_1/sgreen/image/upload", formData)
+      .then((response) => {
+        console.log(response.data.url);
+        setProfilePicture(response.data.url);
+        updateProfile(response.data.url);
+      });
+  };
+
+  const updateProfile = async (imageUrl)=>{
+    const requestData = {
+      "firstName": firstName,
+      "lastName": lastName,
+      "phoneNumber": contact,
+      "profilePicture": imageUrl,
+      "emailAddress": email,
+    };
+
+    console.log(requestData);
+    try {
+      const response = await axios.patch(
+        "/user/updateProfile",
+        requestData,
+        {
+          headers: {
+            Authorization: "Bearer " + data.access_token,
+          },
+        }
+      );
+
+      if (response.status == 200) {
+        console.log(response);
+      } else {
+        console.log("failed");
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  }
+
 
   const handleProfilePictureChange = (event) => {
     const file = event.target.files[0];
@@ -25,7 +76,7 @@ const TopLeftNavBar = () => {
     if (file && file.type.startsWith('image/')) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        setProfilePicture(e.target.result);
+        uploadImage(file);
       };
       reader.readAsDataURL(file);
     } else {
@@ -61,6 +112,7 @@ const TopLeftNavBar = () => {
   };
 
   const handleSaveChanges = () => {
+    updateProfile();
     setEditMode(false);
   };
 
@@ -116,7 +168,7 @@ const TopLeftNavBar = () => {
                   />
                 )}
                 <img
-                  src={profilePicture}
+                  src={profilePicture == null? DefaultProfilePicture: profilePicture}
                   alt="Profile"
                   className="object-cover w-full h-full"
                 />
@@ -179,7 +231,7 @@ const TopLeftNavBar = () => {
                     <p className='text-center'>Email:</p>
                     <div className="mb-1 ml-14 border-custom-green border-[3px] w-[65%] justify-center items-center rounded-md px-2 py-1"> example@example.com</div>
                   </>) : (
-                  <div className=''>Email: example@example.com</div>
+                  <div className=''>Email: {email}</div>
                 )}
               </div>
             </li>

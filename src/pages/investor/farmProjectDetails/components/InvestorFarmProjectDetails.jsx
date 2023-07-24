@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import axios from "../../../../api/axios";
 
+
 const InvestorFarmProjectDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -145,7 +146,7 @@ const InvestorFarmProjectDetails = () => {
 
   const validateUnit = () => {
     const remainingUnit = project.investmentPlan.maximumNumberOfUnit - project.numberOfUnitInvestedSoFar;
-    if (units == 0) {
+    if (units < 1) {
       setToastResponse("Unit must be at least 1");
       showToast();
     }
@@ -243,5 +244,6 @@ const InvestorFarmProjectDetails = () => {
     </>
   );
 };
+
 
 export default InvestorFarmProjectDetails;
