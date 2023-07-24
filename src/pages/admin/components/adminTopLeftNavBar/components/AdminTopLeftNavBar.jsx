@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import TopLeftNavBar from "../../../../admin/components/adminTopLeftNavBar/components/AdminTopLeftNavBar";
+import TopLeftNavBar from "../../../../utils/app/TopLeftNavBar";
 import "../styles/topNav.css";
 
 const AdminTopLeftNavBar = ({ data, content, leftBar }) => {
   const navigate = useNavigate();
+  console.log(leftBar);
 
   useEffect(() => {
     if (data == null || data === undefined) {
