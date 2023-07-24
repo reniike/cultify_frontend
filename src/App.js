@@ -22,6 +22,9 @@ import InvestorInvestmentTable from "./pages/dashboard/components/investorInvest
 import AdminInvestmentTable from "./pages/dashboard/components/adminInvestmentTable";
 import InvestorListing from "./pages/dashboard/components/investorListing";
 import FarmerListing from "./pages/dashboard/components/farmerListing";
+import ProfilePage from "./pages/profile/components/profilePage";
+import TopLeftNavBar from "./pages/dashboard/components/topLeftNavBar";
+
 
 function App() {
   return (
@@ -29,6 +32,8 @@ function App() {
       <Routes>
         <Route path="*" Component={ErrorPage} />
         <Route path="/home" element={<HeroSection />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/topLeftNav" element={<TopLeftNavBar />} />
         <Route path="/login" element={<Login />} />
         <Route path="/otp" element={<Otp />} />
         <Route path="/registration" element={<InvestorRegistrationPage />} />
