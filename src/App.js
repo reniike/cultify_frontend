@@ -23,6 +23,7 @@ import InvestorListing from './pages/admin/components/investorListing/components
 import FarmerListing from './pages/farmer/components/FarmerListing.jsx'
 
 
+
 function App() {
   return (
     <Router>
@@ -30,8 +31,8 @@ function App() {
         <Route path="*" Component={ErrorPage} />
         <Route path="/home" element={<Home />} />
          <Route path="/login" element={<Login />}/>
+        <Route path="/login" element={<Login />} />
         <Route path="/otp" element={<Otp />} />
-        
         <Route path="/registration" element={<InvestorRegistrationPage />} />
         <Route path="/investor/dashboard" element={<InvestorDashboard />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />

@@ -181,7 +181,7 @@ const FarmProjectCreation = () => {
         <div className="border-2 border-green-500 bg-white rounded-xl p-6 font-medium text-gray-700">
             <h3 className="text-xl font-bold mb-4">ADD PROJECT DETAILS</h3>
             <div className="space-y-4">
-              <label htmlFor="summary" className="text-lg font-medium"> Farm produce summary</label>
+              <label htmlFor="summary" className="text-lg font-medium"> Farm produce name</label>
               <input
                 onChange={(e) => {
                   setErrors((prevErrors) => ({
