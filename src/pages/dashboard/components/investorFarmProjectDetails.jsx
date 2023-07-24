@@ -145,7 +145,7 @@ const InvestorFarmProjectDetails = () => {
 
   const validateUnit = ()=>{
     const remainingUnit = project.investmentPlan.maximumNumberOfUnit - project.numberOfUnitInvestedSoFar;
-    if (units == 0) {
+    if (units < 1) {
       setToastResponse("Unit must be at least 1");     
       showToast();      
     }
