@@ -1,36 +1,37 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import './App.css';
-import Login from "./pages/login/components/login";
-import Otp from "./pages/dashboard/components/otp";
-import InvestorRegistrationPage from "./pages/dashboard/components/investorRegistrationPage";
-import ErrorPage from "./pages/dashboard/components/errorPage";
-import InvestorFarmProjectDetails from "./pages/dashboard/components/investorFarmProjectDetails";
-import InvestorFarmProjects from "./pages/dashboard/components/investorFarmProjects";
-import HeroSection from "./pages/homepage/components/heroSection";
-import InvestorDashboard from "./pages/dashboard/components/investorDashboard";
-import PaystackPayment from "./pages/dashboard/components/paystackPayment";
-import PaymentTransfer from "./pages/dashboard/components/paystackTransfer";
-import CultifyTopNav from "./pages/dashboard/components/cultifyTopNav";
-import AdminDashboard from "./pages/dashboard/components/adminDasboard";
-import AdminRegistrationPage from "./pages/dashboard/components/adminRegistration";
-import AdminFarmProjects from "./pages/dashboard/components/adminFarmProjects";
-import FarmProjectCreation from "./pages/dashboard/components/farmProjectCreation";
-import AdminFarmProjectDetails from "./pages/dashboard/components/adminFarmProjectDetails";
-import SuperAdminListing from "./pages/dashboard/components/superAdminListing";
-import AdminInvitaion from "./pages/dashboard/components/admnInvitaion";
-import InvestorInvestmentTable from "./pages/dashboard/components/investorInvestmentTable";
-import AdminInvestmentTable from "./pages/dashboard/components/adminInvestmentTable";
-import InvestorListing from "./pages/dashboard/components/investorListing";
-import FarmerListing from "./pages/dashboard/components/farmerListing";
+import Login from '../src/pages/authentication/login/components/Login.jsx';
+import Otp from './pages/authentication/otp/components/Otp.jsx'
+import InvestorRegistrationPage from './pages/authentication/registration/components/InvestorRegistrationPage.jsx'
+import ErrorPage from './pages/utils/error/components/ErrorPage.jsx'
+import InvestorFarmProjects from './pages/investor/farmProjects/components/InvestorFarmProjects.jsx'
+import InvestorFarmProjectDetails from './pages/investor/farmProjectDetails/components/InvestorFarmProjectDetails.jsx'
+import Home from './pages/homepage/components/Home.jsx'
+import InvestorDashboard from './pages/investor/dashboard/components/InvestorDashboard.jsx'
+import PaystackPayment from './pages/utils/paystack/PaystackPayment.jsx'
+import CultifyTopNav from "./pages/utils/app/CultifyTopNav.jsx";
+import PaymentTransfer from './pages/utils/paystack/PaystackTransfer.jsx'
+import AdminDashboard from './pages/admin/components/adminDashboard/components/AdminDasboard.jsx'
+import AdminRegistrationPage from './pages/authentication/registration/components/AdminRegistration.jsx'
+import AdminFarmProjects from './pages/admin/components/adminFarmProjects/components/AdminFarmProjects.jsx'
+import FarmProjectCreation from './pages/farmer/components/FarmProjectCreation.jsx'
+import AdminFarmProjectDetails from "./pages/admin/components/adminFarmProjectDetails/components/AdminFarmProjectDetails.jsx";
+import SuperAdminListing from './pages/superAdmin/components/SuperAdminListing.jsx'
+import AdminInvitaion from './pages/admin/components/adminInvitation/components/AdmnInvitaion.jsx'
+import InvestorInvestmentTable from './pages/investor/investmentTable/components/InvestorInvestmentTable.jsx'
+import AdminInvestmentTable from './pages/admin/components/adminInvestmentTable/components/AdminInvestmentTable.jsx'
+import InvestorListing from './pages/admin/components/investorListing/components/InvestorListing.jsx'
+import FarmerListing from './pages/farmer/components/FarmerListing.jsx'
+
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="*" Component={ErrorPage} />
-        <Route path="/home" element={<HeroSection />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+         <Route path="/login" element={<Login />}/>
         <Route path="/otp" element={<Otp />} />
+        
         <Route path="/registration" element={<InvestorRegistrationPage />} />
         <Route path="/investor/dashboard" element={<InvestorDashboard />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
@@ -73,7 +74,7 @@ function App() {
           path="/super-admin/dashboard/investments"
           element={<AdminInvestmentTable/>}
         />
-      </Routes>
+      </Routes> 
     </Router>
   );
 }
