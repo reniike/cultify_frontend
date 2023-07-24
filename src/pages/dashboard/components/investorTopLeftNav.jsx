@@ -5,6 +5,7 @@ import '../styles/topNav.css';
 
 const InvestorTopLeftNav = ({ data, content }) => {
   const navigate = useNavigate();
+  console.log("data", data);
 
   const handleClick = (e) => {
     console.log(e.target.id);
@@ -23,7 +24,7 @@ const InvestorTopLeftNav = ({ data, content }) => {
 
   return (
     <>
-      <TopLeftNavBar />
+      <TopLeftNavBar data={data}/>
       <div className="flex">
         <div className="left-nav list-none text-lg font-sans bg-green-800 w-1/6 rounded-none md:rounded-tr-2xl flex-col gap-6 items-start pl-0">
           <ul className="pl-0 pt-6 gap-3">
