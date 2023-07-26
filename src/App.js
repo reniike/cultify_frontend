@@ -21,6 +21,7 @@ import InvestorInvestmentTable from './pages/investor/investmentTable/components
 import AdminInvestmentTable from './pages/admin/components/adminInvestmentTable/components/AdminInvestmentTable.jsx'
 import InvestorListing from './pages/admin/components/investorListing/components/InvestorListing.jsx'
 import FarmerListing from './pages/farmer/components/FarmerListing.jsx'
+import FarmersRegistrationPage from "./pages/authentication/registration/components/farmersRegistration.jsx";
 
 
 
@@ -62,8 +63,9 @@ function App() {
         />
         <Route
           path="/admin/dashboard/farmers"
-          element={<FarmerListing />}
+          element={<FarmersRegistrationPage />}
         />
+
         <Route path="/paystackPayment" element={<PaystackPayment />} />
         <Route path="/paystackTransfer" element={<PaymentTransfer />} />
         <Route path="/topNav" element={<CultifyTopNav />} />

@@ -11,6 +11,7 @@ const FarmerListing = () => {
   const leftBar = data.leftBar;
   const [farmers, setFarmers] = useState([]);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState()
 
   const fetchAllFarmers = async () => {
     const url = '/farmer/getAllFarmers';
@@ -30,12 +31,17 @@ const FarmerListing = () => {
     }
 };
 
+
 useEffect(() => {
     if (data == null || data === undefined) {
       navigate("/login")
     }
   fetchAllFarmers();
 }, []);
+
+const handleSubmit =()=>{
+  
+}
 
   return (
     <AdminTopLeftNavBar
@@ -48,6 +54,15 @@ useEffect(() => {
               FARMERS
             </h1>
           </div>
+
+          <button
+                type="submit"
+                className={`btn-submit ml-[60%] w-40 ${isLoading ? "loading" : "bg-green-800 text-white text-[15px] w-50 p-1 rounded ml-[500px]"}`}
+                onClick={handleSubmit}
+                disabled={isLoading}
+              >
+                {isLoading ? <div className="loading-indicator"></div> : "Create Project"}
+              </button>
 
           <table class="w-full ">
             <thead className="border-b-2 border-gray-200 text-left">
@@ -74,6 +89,7 @@ useEffect(() => {
               )))}
             </tbody>
           </table>
+
         </div>
       }
     />
