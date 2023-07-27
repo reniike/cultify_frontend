@@ -74,6 +74,7 @@ const InvestorInvestmentTable = () => {
     return (
         <InvestorTopLeftNav
             data={data}
+            navIndex={1}
             content={
                 <div className="right-nav pr-10 top-15 right-20 overflow-hidden">
                     <h3 className="font-bold text-green-500 text-2xl pl-10">Ongoing investments</h3>

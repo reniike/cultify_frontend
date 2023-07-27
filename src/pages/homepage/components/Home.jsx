@@ -197,14 +197,9 @@ const HeroSection = () => {
                                     support you may need. Reach out to us today!
                                 </p>
                             </div>
-                            <div className='ml-[60%]'>
+                            <div className='ml-[50%]'>
                                 <p>Contact us</p>
                                 <p>GrowWithCultify@gmail.com</p>
-                            </div>
-                            <div className='ml-[60%]'>
-                                <p>Contact us</p>
-                                <p>GrowWithCultify@gmail.com</p>
-                                <p>090123456789</p>
                             </div>
                         </div>
                     </div>

@@ -11,9 +11,13 @@ const CultifyModal = ({ subject, text, isDisplayed, onClose }) => {
           <div className="otpContainer">
             <h6 className="text-center mb-3">{subject}</h6>
             <p className="mb-3">{text}</p>
-            <button className="closeButton" onClick={onClose}>
+            {onClose != null ? (
+              <button className="closeButton" onClick={onClose}>
               Close
             </button>
+            ) : 
+             (<></>)
+            }
           </div>
         </div>
       ) : (

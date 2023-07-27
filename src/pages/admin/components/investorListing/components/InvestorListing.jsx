@@ -43,6 +43,7 @@ const InvestorListing = () => {
 
     return (
         <AdminTopLeftNavBar
+            navIndex={3}
             leftBar={leftBar}
             data={admin}
             content={

@@ -101,7 +101,7 @@ const AdminRegistrationPage = () => {
         console.log(response);
         console.log(data);
         setIsLoading(false);
-        navigate("/admin/dashboard", {state: {"data": data, "leftBar": ["Dashboard", "Farm Projects", "Investments", "Investors", "Farmers", "Profile"]}});   
+        navigate("/admin/dashboard", {state: {"data": data, "leftBar": ["Dashboard", "Farm Projects", "Investments", "Investors", "Farmers"]}});   
       }
       console.log(response);
     } catch (error) {

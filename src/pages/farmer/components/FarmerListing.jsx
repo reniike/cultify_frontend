@@ -11,6 +11,7 @@ const FarmerListing = () => {
   const leftBar = data.leftBar;
   const [farmers, setFarmers] = useState([]);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState()
 
   const fetchAllFarmers = async () => {
     const url = '/farmer/getAllFarmers';
@@ -30,6 +31,7 @@ const FarmerListing = () => {
     }
 };
 
+
 useEffect(() => {
     if (data == null || data === undefined) {
       navigate("/login")
@@ -37,8 +39,13 @@ useEffect(() => {
   fetchAllFarmers();
 }, []);
 
+const handleSubmit =()=>{
+  
+}
+
   return (
     <AdminTopLeftNavBar
+      navIndex={4}
       leftBar={leftBar}
       data={admin}
       content={
@@ -47,15 +54,23 @@ useEffect(() => {
             <h1 className="ml-3 font-bold text-[20px] text-custom-green">
               FARMERS
             </h1>
+            <button
+              onClick={() => {
+                navigate("/admin/dashboard/farmers/farmersCreation", {state: {"leftBar": leftBar, "data": admin}});
+              }}
+              className="bg-green-800 text-white text-[15px] w-40 p-1 rounded"
+            >
+              Register a Farmer
+            </button>
           </div>
-
           <table class="w-full ">
             <thead className="border-b-2 border-gray-200 text-left">
               <tr>
                 <th class="px-4 py-2 ">First Name</th>
                 <th class="px-4 py-2 ">Last Name</th>
-                <th class="px-4 py-2 ">Email Address</th>
                 <th class="px-4 py-2 ">Phone Number</th>
+                <th class="px-4 py-2 ">Location</th>
+                <th class="px-4 py-2 ">Specialization</th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -66,14 +81,16 @@ useEffect(() => {
                 ) : (
                 farmers.map((farmer, index)=>(
                 <tr>
-                  <td class="px-4 py-2 ">{farmer.userResponse.firstName}</td>
-                  <td class="px-4 py-2">{farmer.userResponse.lastName}</td>
-                  <td class="px-4 py-2">{farmer.userResponse.emailAddress}</td>
-                  <td class="px-4 py-2">{farmer.userResponse.phoneNumber}</td>
+                  <td class="px-4 py-2 ">{farmer.firstName}</td>
+                  <td class="px-4 py-2">{farmer.lastName}</td>
+                  <td class="px-4 py-2">{farmer.phoneNumber}</td>
+                  <td class="px-4 py-2">{farmer.location}</td>
+                  <td class="px-4 py-2">{farmer.specialization}</td>
                 </tr>
               )))}
             </tbody>
           </table>
+
         </div>
       }
     />
