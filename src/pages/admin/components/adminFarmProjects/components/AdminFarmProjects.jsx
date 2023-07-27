@@ -87,6 +87,7 @@ const AdminFarmProjects = () => {
 
   return (
     <AdminTopLeftNavBar
+      navIndex={1}
       data={admin}
       leftBar={leftBar}
       content={

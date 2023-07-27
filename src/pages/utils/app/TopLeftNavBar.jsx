@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import cultifyLogo from "../../../assets/images/cultifylogo.svg";
 import dropDown from "../../../assets/assets/dropDownIcon.svg";
 import DefaultProfilePicture from "../../../assets/images/defaultProfilePicture.svg";
@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import "./styles/topNav.css";
 import axios from "../../../api/axios";
 
-const TopLeftNavBar = ({data}) => {
+const  TopLeftNavBar = ({data}) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [firstName, setFirstName] = useState(data.user.userResponse.firstName);
   const [lastName, setLastName] = useState(data.user.userResponse.lastName);
@@ -23,6 +23,9 @@ const TopLeftNavBar = ({data}) => {
 
   const navigate = useNavigate();
 
+  useEffect(()=>{if (data == null) {
+    navigate("/home")
+  }}, [])
     
   const uploadImage = async (file) => {
     const formData = new FormData();
@@ -105,6 +108,9 @@ const TopLeftNavBar = ({data}) => {
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
+    if (editMode) {
+      setEditMode(!editMode);
+    }
   };
 
   const handleEditClick = () => {
@@ -117,7 +123,7 @@ const TopLeftNavBar = ({data}) => {
   };
 
   const handleLogout = () => {
-    navigate('/logout');
+    navigate('/login');
   };
 
   const handleContactChange = (e) => {
@@ -139,9 +145,9 @@ const TopLeftNavBar = ({data}) => {
             navigate("/home");
           }}
         />
-        <div className="w-[5%] h-[6%] pb-8">
+        <div className="w-[3.5%] h-[3%] pb-8">
           <img
-            src={dropDown}
+            src={DefaultProfilePicture}
             className="drop cursor-pointer"
             alt="drop down"
             onClick={toggleDropdown}
@@ -149,7 +155,7 @@ const TopLeftNavBar = ({data}) => {
         </div>
       </div>
       {showDropdown && (
-        <div className="w-[20%] h-20 ml-[77%] mt-[-4px]">
+        <div className="w-[25%] h-20 ml-auto mt-[-4px]">
           <ul className="bg-white border-4 text-center border-custom-green mt-2 p-2 rounded-lg ">
             <li className="flex justify-center items-center mt-4 relative">
               <div

@@ -13,7 +13,7 @@ import PaymentTransfer from './pages/utils/paystack/PaystackTransfer.jsx'
 import AdminDashboard from './pages/admin/components/adminDashboard/components/AdminDasboard.jsx'
 import AdminRegistrationPage from './pages/authentication/registration/components/AdminRegistration.jsx'
 import AdminFarmProjects from './pages/admin/components/adminFarmProjects/components/AdminFarmProjects.jsx'
-import FarmProjectCreation from './pages/farmer/components/FarmProjectCreation.jsx'
+import FarmProjectCreation from './pages/admin/components/adminFarmProjects/components/FarmProjectCreation.jsx'
 import AdminFarmProjectDetails from "./pages/admin/components/adminFarmProjectDetails/components/AdminFarmProjectDetails.jsx";
 import SuperAdminListing from './pages/superAdmin/components/SuperAdminListing.jsx'
 import AdminInvitaion from './pages/admin/components/adminInvitation/components/AdmnInvitaion.jsx'
@@ -21,6 +21,7 @@ import InvestorInvestmentTable from './pages/investor/investmentTable/components
 import AdminInvestmentTable from './pages/admin/components/adminInvestmentTable/components/AdminInvestmentTable.jsx'
 import InvestorListing from './pages/admin/components/investorListing/components/InvestorListing.jsx'
 import FarmerListing from './pages/farmer/components/FarmerListing.jsx'
+import EmailVerification from "./pages/authentication/emailVerification/components/EmailVerification.jsx";
 import FarmersRegistrationPage from "./pages/authentication/registration/components/farmersRegistration.jsx";
 
 
@@ -40,6 +41,10 @@ function App() {
         <Route
           path="/investor/dashboard/projects/:id"
           element={<InvestorFarmProjectDetails />}
+        />
+        <Route
+          path="/investor/emailVerification/:encryptedEmail"
+          element={<EmailVerification/>}
         />
         <Route
           path="/admin/dashboard/projects/:id"
@@ -63,7 +68,11 @@ function App() {
         />
         <Route
           path="/admin/dashboard/farmers"
-          element={<FarmersRegistrationPage />}
+          element={<FarmerListing />}
+        />
+        <Route
+          path="/admin/dashboard/farmers/farmersCreation"
+          element={<FarmersRegistrationPage/>}
         />
 
         <Route path="/paystackPayment" element={<PaystackPayment />} />

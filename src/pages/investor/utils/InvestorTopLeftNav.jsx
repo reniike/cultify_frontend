@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import TopLeftNavBar from '../../utils/app/TopLeftNavBar';
 import './styles/topNav.css';
 
-const InvestorTopLeftNav = ({ data, content }) => {
+const InvestorTopLeftNav = ({ data, content, navIndex }) => {
   const navigate = useNavigate();
   console.log("data", data);
 
@@ -24,14 +24,16 @@ const InvestorTopLeftNav = ({ data, content }) => {
 
   return (
     <>
-      <TopLeftNavBar data={data}/>
+      <TopLeftNavBar data={data} />
       <div className="flex">
         <div className="left-nav list-none text-lg font-sans bg-green-800 w-1/6 rounded-none md:rounded-tr-2xl flex-col gap-6 items-start pl-0">
-          <ul className="pl-0 pt-6 gap-3">
-            {['Dashboard', 'Investments', 'Projects', 'Profile'].map((each, index) => (
+        <ul className="pl-0 pt-6 gap-3">
+            {['Dashboard', 'Investments', 'Projects'].map((each, index) => (
               <li
                 key={index}
-                className="dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200"
+                className={`dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200 ${
+                  navIndex === index? 'border border-white' : ''
+                }`}
                 id={index}
                 onClick={(e) => handleClick(e)}
               >

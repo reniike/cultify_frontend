@@ -50,8 +50,8 @@ const Login = () => {
       console.log(data);
       const role = data.user.userResponse.roles[0];
       if(role === "INVESTOR") navigate("/investor/dashboard", {state: data});
-      else if(role === "ORDINARY_ADMIN") navigate("/admin/dashboard", {state: {"data": data, "leftBar": ["Dashboard", "Farm Projects", "Investments", "Investors", "Farmers", "Profile"]}});
-      else navigate("/admin/dashboard", {state: {"data": data, "leftBar": ["Dashboard", "Farm Projects", "Investments", "Investors", "Farmers", "System Administrators", "Profile"]}});
+      else if(role === "ORDINARY_ADMIN") navigate("/admin/dashboard", {state: {"data": data, "leftBar": ["Dashboard", "Farm Projects", "Investments", "Investors", "Farmers"]}});
+      else navigate("/admin/dashboard", {state: {"data": data, "leftBar": ["Dashboard", "Farm Projects", "Investments", "Investors", "Farmers", "System Administrators"]}});
     } catch (error) {
       setIsLoading(false);
       console.log(error);

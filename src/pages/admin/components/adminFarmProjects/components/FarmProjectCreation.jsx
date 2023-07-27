@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import AdminTopLeftNavBar from "../../admin/components/adminTopLeftNavBar/components/AdminTopLeftNavBar.jsx";
+import AdminTopLeftNavBar from "../../adminTopLeftNavBar/components/AdminTopLeftNavBar.jsx";
 import { useNavigate } from "react-router-dom";
-import axios from "../../../api/axios";
+import axios from "../../../../../api/axios.js";
 import { useLocation } from "react-router-dom";
 import '../styles/submitButton.css';
 
@@ -174,6 +174,7 @@ const FarmProjectCreation = () => {
 
   return (
     <AdminTopLeftNavBar
+      navIndex={1}
       data={admin}
       leftBar={leftBar}
       content={
