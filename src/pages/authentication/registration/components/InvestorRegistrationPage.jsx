@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import CultifyModal from "../../otp/components/Otp";
 
 const InvestorRegistrationPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -241,6 +242,9 @@ const InvestorRegistrationPage = () => {
                 "Register"
               )}
             </button>
+            <CultifyModal 
+              isDisplayed={true}
+              text="A verification link has been sent to your email. Please check to complete your registration."/>
             <ToastContainer />
           </div>
         </div>

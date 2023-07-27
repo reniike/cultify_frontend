@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import "./styles/topNav.css";
 import axios from "../../../api/axios";
 
-const TopLeftNavBar = ({data}) => {
+const  TopLeftNavBar = ({data}) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [firstName, setFirstName] = useState(data.user.userResponse.firstName);
   const [lastName, setLastName] = useState(data.user.userResponse.lastName);
