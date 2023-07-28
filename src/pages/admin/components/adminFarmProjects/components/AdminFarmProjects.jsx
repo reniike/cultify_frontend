@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import axios from "../../../../../api/axios";
 import defaultFarmProjectPicture from '../../../../../assets/images/farmProject.jpg';
-
+import { setDataInStorage, getDataFromStorage } from "../../../../utils/app/Storage.js";
 
 const AdminFarmProjects = () => {
   const navigate = useNavigate();
@@ -15,7 +15,10 @@ const AdminFarmProjects = () => {
   const admin = data.data;
   const leftBar = data.leftBar;
   console.log("leftbar", leftBar);
-  const [farmProjects, setFarmProjects] = useState([]);
+  const [farmProjects, setFarmProjects] = useState(()=>{
+    const obj = getDataFromStorage(admin.user.id+"farmProjects");
+    return obj != null ? obj: []
+  });
 
   useEffect(() => {
     if (data == null || data === undefined) {
@@ -34,6 +37,7 @@ const AdminFarmProjects = () => {
       })
       if (response.status == 200) {
         console.log(response);
+        setDataInStorage(admin.user.id+"farmProjects", response.data)
         setFarmProjects(response.data);
       }
       else {

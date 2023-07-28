@@ -3,13 +3,17 @@ import { useNavigate } from "react-router-dom";
 import AdminTopLeftNavBar from "../../adminTopLeftNavBar/components/AdminTopLeftNavBar";
 import { useLocation } from "react-router-dom";
 import axios from "../../../../../api/axios";
+import { setDataInStorage, getDataFromStorage } from "../../../../utils/app/Storage";
 
 const InvestorListing = () => {
     const location = useLocation();
     const data = location.state;
     const admin = data.data;
     const leftBar = data.leftBar;
-    const [investors, setInvestors] = useState([]);
+    const [investors, setInvestors] = useState(()=>{
+        const obj = getDataFromStorage(admin.user.id+"investors");
+        return obj != null ? obj: []
+      });
     const navigate = useNavigate();
 
 
@@ -30,6 +34,7 @@ const InvestorListing = () => {
                 });
             if (response.status === 200) {
                 console.log(response.data)
+                setDataInStorage(admin.user.id+"investors", response.data)
                 setInvestors(response.data)
             } else console.log(response)
         } catch (error) {

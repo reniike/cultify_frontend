@@ -4,11 +4,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/farmProjects.css';
 import axios from '../../../../api/axios';
 import defaultFarmProjectPicture from '../../../../assets/images/farmProject.jpg';
+import { setDataInStorage, getDataFromStorage } from '../../../utils/app/Storage';
 
 const InvestorFarmProjects = () => {
   const location = useLocation();
   const data = location.state;
-  const [farmProjects, setFarmProjects] = useState([]);
+  const [farmProjects, setFarmProjects] = useState(()=>{
+    const obj = getDataFromStorage(data.user.id+"farmProjects");
+    return obj != null ? obj: []
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +31,7 @@ const InvestorFarmProjects = () => {
       };
       const response = await axios.get('/farmProject/getAllFarmProjects', request);
       console.log(response.data);
+      setDataInStorage(data.user.id+"farmProjects", response.data)
       setFarmProjects(response.data);
     } catch (error) {
       let response = error.response.data;
