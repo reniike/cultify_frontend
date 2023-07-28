@@ -151,7 +151,7 @@ const  TopLeftNavBar = ({data}) => {
         />
         <div className="w-[3.5%] h-[3%] pb-8">
           <img
-            src={DefaultProfilePicture}
+            src={profilePicture == null? DefaultProfilePicture: profilePicture}
             className="drop cursor-pointer"
             alt="drop down"
             onClick={toggleDropdown}
