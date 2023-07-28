@@ -31,7 +31,7 @@ const InvestorTopLeftNav = ({ data, content, navIndex }) => {
             {['Dashboard', 'Investments', 'Projects'].map((each, index) => (
               <li
                 key={index}
-                className={`dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200 ${
+                className={`dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200 cursor-pointer ${
                   navIndex === index? 'border border-white' : ''
                 }`}
                 id={index}

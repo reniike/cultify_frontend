@@ -62,6 +62,7 @@ const InvestorListing = () => {
                     <table class="w-full ">
                         <thead className="border-b-2 border-gray-200 text-left">
                             <tr>
+                                <th class="px-4 py-2 ">S/N</th>
                                 <th class="px-4 py-2 ">First Name</th>
                                 <th class="px-4 py-2 ">Last Name</th>
                                 <th class="px-4 py-2 ">Email Address</th>
@@ -76,6 +77,7 @@ const InvestorListing = () => {
                             ) : (
                                 investors.map((investor, index) => (
                                     <tr>
+                                        <td class="px-4 py-2 ">{index+1}</td>
                                         <td class="px-4 py-2 ">{investor.userResponse.firstName}</td>
                                         <td class="px-4 py-2">{investor.userResponse.lastName}</td>
                                         <td class="px-4 py-2">{investor.userResponse.emailAddress}</td>
