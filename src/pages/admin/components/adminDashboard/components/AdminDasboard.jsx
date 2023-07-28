@@ -3,15 +3,19 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../../../api/axios";
+import { setDataInStorage, getDataFromStorage } from "../../../../utils/app/Storage";
 
 const AdminDashboard = () => {
-  const [statistics, setStatistics] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
-  const admin = data.data;
-  const leftBar = data.leftBar;
+  const admin = data?.data;
+  const leftBar = data?.leftBar;
   console.log(admin); 
+  const [statistics, setStatistics] = useState(()=>{
+    const obj = getDataFromStorage(admin?.user?.id+"statistics");
+    return obj != null ? obj: {}
+  });
   
   useEffect(() => {
     if (admin == null || admin === undefined) {
@@ -28,11 +32,12 @@ const AdminDashboard = () => {
       }
       const response = await axios.get("/getAdminDashboardStatistics", request);
       console.log(response.data);
+      setDataInStorage(admin.user.id+"statistics", response.data)
       setStatistics(response.data);
     } catch (error) {
       let response = error.response;
       console.log(response);
-      if (error.response.status === 403) {
+      if (error?.response?.status === 403) {
         navigate("/login")
       }
     }
@@ -71,7 +76,7 @@ const AdminDashboard = () => {
                         <h3 className="text-[#000000]">Total Number of<br/> Investors</h3>
                         <p className="mt-[18%] mr-[7%] text-[30px] text-right text-[#000000]">{statistics.totalNumberOfInvestors}</p>
                       </div>
-                      {admin.user.userResponse.roles[0] === "SUPER_ADMIN"? (
+                      {admin?.user?.userResponse?.roles[0] === "SUPER_ADMIN"? (
                         <div className="number border-[2px] shadow-lg bg-[#e6f2e3] w-80 h-40 rounded-xl font-bold text-black-600 text-lg pl-3 mb-16 hover:shadow-xl transition duration-100 ease-in-out">
                           <h3 className="text-[#000000]">Total Number of<br/> System Administrators</h3>
                           <p className="mt-[18%] mr-[7%] text-[30px] text-right text-[#000000]">{statistics.totalNumberOfSystemAdmin}</p>

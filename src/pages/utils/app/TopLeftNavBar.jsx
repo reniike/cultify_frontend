@@ -9,23 +9,27 @@ import "./styles/topNav.css";
 import axios from "../../../api/axios";
 
 const  TopLeftNavBar = ({data}) => {
+
+  const navigate = useNavigate();
+  
+  useEffect(()=>{
+    if (data == null || data == undefined) {
+      console.log("useEffect");
+      navigate("/login")
+    }
+  }, [])
+
   const [showDropdown, setShowDropdown] = useState(false);
-  const [firstName, setFirstName] = useState(data.user.userResponse.firstName);
-  const [lastName, setLastName] = useState(data.user.userResponse.lastName);
-  const [email, setEmail] = useState(data.user.userResponse.emailAddress);
-  const [contact, setContact] = useState(data.user.userResponse.phoneNumber);
+  const [firstName, setFirstName] = useState(data?.user.userResponse.firstName);
+  const [lastName, setLastName] = useState(data?.user.userResponse.lastName);
+  const [email, setEmail] = useState(data?.user.userResponse.emailAddress);
+  const [contact, setContact] = useState(data?.user.userResponse.phoneNumber);
   const [editMode, setEditMode] = useState(false);
-  const [profilePicture, setProfilePicture] = useState(data.user.userResponse.profilePicture);
+  const [profilePicture, setProfilePicture] = useState(data?.user.userResponse.profilePicture);
   const [showCameraIcon, setShowCameraIcon] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [image, setImage] = useState("");
   console.log("user", data);
-
-  const navigate = useNavigate();
-
-  useEffect(()=>{if (data == null) {
-    navigate("/home")
-  }}, [])
     
   const uploadImage = async (file) => {
     const formData = new FormData();

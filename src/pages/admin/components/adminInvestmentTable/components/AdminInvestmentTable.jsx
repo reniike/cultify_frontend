@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import AdminTopLeftNavBar from '../../adminTopLeftNavBar/components/AdminTopLeftNavBar';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { setDataInStorage, getDataFromStorage } from '../../../../utils/app/Storage';
 
 const AdminInvestmentTable = () => {
     const location = useLocation();
@@ -10,7 +11,10 @@ const AdminInvestmentTable = () => {
     const admin = data.data;
     const leftBar = data.leftBar;
     console.log(admin);
-    const [investmentTable, setInvestmentTable] = useState([]);
+    const [investmentTable, setInvestmentTable] = useState(()=>{
+        const obj = getDataFromStorage(admin.user.id+"investments");
+        return obj != null ? obj: []
+      });
     const navigate = useNavigate();
 
     const processWithdrawal = () => {
@@ -28,6 +32,7 @@ const AdminInvestmentTable = () => {
                 });
             if (response.status === 200) {
                 console.log(response.data)
+                setDataInStorage(admin.user.id+"investments", response.data)
                 setInvestmentTable(response.data)
             } else console.log(response)
         } catch (error) {

@@ -3,13 +3,17 @@ import React, { useState, useEffect } from 'react';
 import InvestorTopLeftNav from '../../../investor/utils/InvestorTopLeftNav';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { setDataInStorage, getDataFromStorage } from '../../../utils/app/Storage';
 
 const InvestorInvestmentTable = () => {    
     const location = useLocation();
     const data = location.state;
     const navigate = useNavigate();
 
-    const [investmentTable, setInvestmentTable] = useState([]);
+    const [investmentTable, setInvestmentTable] = useState(()=>{
+        const obj = getDataFromStorage(data.user.id+"investments");
+        return obj != null ? obj: []
+      });
 
     const processWithdrawal = ()=>{
 
@@ -32,6 +36,7 @@ const InvestorInvestmentTable = () => {
                 })
             if (response.status === 200) {
                 console.log(response.data)
+                setDataInStorage(data.user.id+"investments", response.data)
                 setInvestmentTable(response.data)
             } else console.log(response)
         } catch (error) {

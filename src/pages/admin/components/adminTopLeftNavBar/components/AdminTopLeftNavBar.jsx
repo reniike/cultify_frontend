@@ -44,7 +44,7 @@ const AdminTopLeftNavBar = ({ data, content, leftBar, navIndex }) => {
       <div className="flex">
         <div className="left-nav list-none text-lg font-sans bg-green-800 w-1/6 rounded-none md:rounded-tr-2xl flex-col gap-6 items-start pl-0">
           <ul className="pl-0 pt-6 gap-3">
-            {leftBar.map(
+            {leftBar?.map(
               (each, index) => (
                 <li
                   key={index}

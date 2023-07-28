@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AdminTopLeftNavBar from "../../admin/components/adminTopLeftNavBar/components/AdminTopLeftNavBar";
 import { useLocation } from "react-router-dom";
 import axios from "../../../api/axios";
+import { setDataInStorage, getDataFromStorage } from "../../utils/app/Storage";
 
 const SuperAdminListing = () => {
   const navigate = useNavigate();
@@ -10,8 +11,14 @@ const SuperAdminListing = () => {
   const data = location.state;
   const admin = data.data;
   const leftBar = data.leftBar;
-  const [systemAdministrators, setSystemAdministrators] = useState([]);
-  const [adminPendingInvitation, setAdminPendingInvitation] = useState([]);
+  const [systemAdministrators, setSystemAdministrators] = useState(()=>{
+    const obj = getDataFromStorage(admin.user.id+"admins");
+    return obj != null ? obj: []
+  });
+  const [adminPendingInvitation, setAdminPendingInvitation] = useState(()=>{
+    const obj = getDataFromStorage(admin.user.id+"adminsPendingInvitation");
+    return obj != null ? obj: []
+  });
 
   const fetchAllAdministrators = async () => {
     const url = '/admin/findAll';
@@ -24,6 +31,7 @@ const SuperAdminListing = () => {
             });
         if (response.status === 200) {
             console.log(response.data)
+            setDataInStorage(admin.user.id+"admins", response.data)
             setSystemAdministrators(response.data)
         } else console.log(response)
     } catch (error) {
@@ -42,6 +50,7 @@ const fetchAllAdministratorsPendingInvitation = async () => {
           });
       if (response.status === 200) {
           console.log(response.data.data)
+          setDataInStorage(admin.user.id+"adminsPendingInvitation", response.data.data)
           setAdminPendingInvitation(response.data.data)
       } else console.log(response)
   } catch (error) {

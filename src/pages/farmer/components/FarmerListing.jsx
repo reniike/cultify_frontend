@@ -3,13 +3,17 @@ import { useNavigate } from "react-router-dom";
 import AdminTopLeftNavBar from "../../admin/components/adminTopLeftNavBar/components/AdminTopLeftNavBar";
 import { useLocation } from "react-router-dom";
 import axios from "../../../api/axios";
+import { setDataInStorage, getDataFromStorage } from "../../utils/app/Storage";
 
 const FarmerListing = () => {
   const location = useLocation();
   const data = location.state;
   const admin = data.data;
   const leftBar = data.leftBar;
-  const [farmers, setFarmers] = useState([]);
+  const [farmers, setFarmers] = useState(()=>{
+    const obj = getDataFromStorage(admin.user.id+"farmers");
+    return obj != null ? obj: []
+  });
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState()
 
@@ -24,6 +28,7 @@ const FarmerListing = () => {
             });
         if (response.status === 200) {
             console.log(response.data)
+            setDataInStorage(admin.user.id+"farmers", response.data)
             setFarmers(response.data)
         } else console.log(response)
     } catch (error) {

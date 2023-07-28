@@ -4,15 +4,32 @@ import InvestorTopLeftNav from "../../utils/InvestorTopLeftNav";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../../api/axios";
 import defaultFarmProjectPicture from "../../../../assets/images/farmProject.jpg";
+import { setDataInStorage, getDataFromStorage } from "../../../utils/app/Storage";
 
 const InvestorDashboard = () => {
-  const [farmProjects, setFarmProjects] = useState([]);
-  const [statistics, setStatistics] = useState({});
-  const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
+  const navigate = useNavigate();
   console.log(data);
   let email = "";
+  const [farmProjects, setFarmProjects] = useState(()=>{
+    const obj = getDataFromStorage(data?.user?.id+"farmProjects");
+    return obj != null ? obj: []
+  }); 
+  const [statistics, setStatistics] = useState(()=>{
+    const obj = getDataFromStorage(data?.user?.id+"statistics");
+    return obj != null ? obj: {}
+  });
+
+  useEffect(() => {
+    if (data == null || data === undefined) {
+      navigate("/login");
+    } else {
+      email = data.user.userResponse.emailAddress;
+      fetchStatistics();
+    }
+  }, []);
+
 
   useEffect(() => {
     fetchFarmProjects();
@@ -30,22 +47,13 @@ const InvestorDashboard = () => {
         request
       );
       console.log(response.data);
+      setDataInStorage(data.user.id+"farmProjects", response.data)
       setFarmProjects(response.data);
     } catch (error) {
-      let response = error.response.data;
       console.log(error);
-      console.log(error.response.data);
+      console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (data == null || data === undefined) {
-      navigate("/login");
-    } else {
-      email = data.user.userResponse.emailAddress;
-      fetchStatistics();
-    }
-  }, []);
 
   const fetchStatistics = async () => {
     try {
@@ -59,6 +67,7 @@ const InvestorDashboard = () => {
         request
       );
       console.log(response.data);
+      setDataInStorage(data.user.id+"statistics", response.data)
       setStatistics(response.data);
     } catch (error) {
       let response = error.response;

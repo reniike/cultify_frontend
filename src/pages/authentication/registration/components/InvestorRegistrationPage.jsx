@@ -122,7 +122,7 @@ const InvestorRegistrationPage = () => {
   return (
     <CultifyTopNav
       content={
-        <div className="registrationPageContainer">
+        <div className="registrationPageContainer mt-10">
           <div className="sign-in">
             <div className="top w-[100%]">
               <p>
@@ -132,7 +132,7 @@ const InvestorRegistrationPage = () => {
             </div>
             <div className="account">
               <p>Already have an account?</p>
-              <span
+              <span className="cursor-pointer"
                 onClick={() => {
                   navigate("/login");
                 }}
