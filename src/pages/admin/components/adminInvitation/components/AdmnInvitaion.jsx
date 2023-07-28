@@ -99,6 +99,7 @@ const AdminInvitaion = () => {
   return (
     <div>
       <AdminTopLeftNavBar
+        navIndex={5}
         data={admin}
         leftBar={leftBar}
         content={

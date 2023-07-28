@@ -72,6 +72,7 @@ const AdminInvestmentTable = () => {
 
     return (
         <AdminTopLeftNavBar
+            navIndex={2}
             leftBar={leftBar}
             data={admin}
             content={

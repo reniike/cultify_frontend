@@ -14,16 +14,19 @@ import AdminDashboard from './pages/admin/components/adminDashboard/components/A
 import AdminRegistrationPage from './pages/authentication/registration/components/AdminRegistration.jsx'
 import AdminFarmProjects from './pages/admin/components/adminFarmProjects/components/AdminFarmProjects.jsx'
 import FarmProjectCreation from './pages/admin/components/farmProjectCreation/components/FarmProjectCreation.jsx'
-import AdminFarmProjectDetails from "./pages/admin/components/adminFarmProjectDetails/components/AdminFarmProjectDetails.jsx";
-import SuperAdminListing from './pages/superAdmin/components/SuperAdminListing.jsx'
 import AdminInvitaion from './pages/admin/components/adminInvitation/components/AdmnInvitaion.jsx'
-import InvestorInvestmentTable from './pages/investor/investmentTable/components/InvestorInvestmentTable.jsx'
 import AdminInvestmentTable from './pages/admin/components/adminInvestmentTable/components/AdminInvestmentTable.jsx'
 import InvestorListing from './pages/admin/components/investorListing/components/InvestorListing.jsx'
-import FarmerListing from './pages/admin/components/farmerListing/components/FarmerListing.jsx'
 import ForgotPassword from "./pages/authentication/forgotPassword/components/ForgotPassword.jsx";
 import ResetPassword from "./pages/authentication/forgotPassword/components/ResetPassword.jsx";
 import { ToastContainer } from "react-toastify";
+import FarmerListing from './pages/admin/components/farmerListing/components/FarmerListing.jsx'
+import EmailVerification from "./pages/authentication/emailVerification/components/EmailVerification.jsx";
+import FarmersRegistrationPage from "./pages/authentication/registration/components/farmersRegistration.jsx";
+import AdminFarmProjectDetails from './pages/admin/components/adminFarmProjectDetails/components/AdminFarmProjectDetails.jsx'
+import InvestorInvestmentTable from './pages/investor/investmentTable/components/InvestorInvestmentTable.jsx'
+import SuperAdminListing from './pages/superAdmin/components/SuperAdminListing.jsx'
+
 
 
 function App() {
@@ -43,6 +46,10 @@ function App() {
         <Route
           path="/investor/dashboard/projects/:id"
           element={<InvestorFarmProjectDetails />}
+        />
+        <Route
+          path="/investor/emailVerification/:encryptedEmail"
+          element={<EmailVerification/>}
         />
         <Route
           path="/admin/dashboard/projects/:id"
@@ -68,6 +75,11 @@ function App() {
           path="/admin/dashboard/farmers"
           element={<FarmerListing />}
         />
+        <Route
+          path="/admin/dashboard/farmers/farmersCreation"
+          element={<FarmersRegistrationPage/>}
+        />
+
         <Route path="/paystackPayment" element={<PaystackPayment />} />
         <Route path="/paystackTransfer" element={<PaymentTransfer />} />
         <Route path="/topNav" element={<CultifyTopNav />} />

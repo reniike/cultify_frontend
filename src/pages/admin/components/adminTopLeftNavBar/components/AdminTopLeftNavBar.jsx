@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import TopLeftNavBar from "../../../../utils/app/TopLeftNavBar";
 import "../styles/topNav.css";
 
-const AdminTopLeftNavBar = ({ data, content, leftBar }) => {
+const AdminTopLeftNavBar = ({ data, content, leftBar, navIndex }) => {
   const navigate = useNavigate();
   console.log(leftBar);
 
@@ -48,7 +48,9 @@ const AdminTopLeftNavBar = ({ data, content, leftBar }) => {
               (each, index) => (
                 <li
                   key={index}
-                  className="dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200"
+                  className={`dash text-white pl-4 pt-6 pb-6 hover:bg-emerald-900 rounded-xl hover:text-lime-200 ${
+                    navIndex === index? 'border border-white' : ''
+                  }`}
                   id={each}
                   onClick={handleClick}
                 >

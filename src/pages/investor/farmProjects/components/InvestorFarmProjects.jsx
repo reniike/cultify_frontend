@@ -77,6 +77,7 @@ const InvestorFarmProjects = () => {
     <>
       <InvestorTopLeftNav
         data={data}
+        navIndex={2}
         content={
           <div className="main-content">
             <h3 className="dash-board font-bold text-[#1B4332] text-4xl pl-10">Explore Farm Projects</h3><br />

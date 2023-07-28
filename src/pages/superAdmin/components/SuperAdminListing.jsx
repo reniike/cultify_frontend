@@ -56,6 +56,7 @@ useEffect(() => {
 
   return (
     <AdminTopLeftNavBar
+      navIndex={5}
       leftBar={leftBar}
       data={admin}
       content={

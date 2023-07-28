@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import CultifyModal from "../../otp/components/Otp";
 
 const InvestorRegistrationPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -17,6 +18,7 @@ const InvestorRegistrationPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [toastResponse, setToastResponse] = useState("");
+  const [modalIsDisplayed, setModalIsDisplayed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const showToast = () => {
@@ -98,10 +100,10 @@ const InvestorRegistrationPage = () => {
       password: password,
     };
     try {
-      const response = await axios.post("/investor/registration", request);
+      const response = await axios.post("/investor/sendVerificationMail", request);
       console.log(response.data);
-      setToastResponse(response.data.message);
-      navigate("/otp", { state: email });
+      setIsLoading(false);
+      setModalIsDisplayed(true);
     } catch (error) {
       setIsLoading(false);
       let response = error.response.data;
@@ -122,7 +124,7 @@ const InvestorRegistrationPage = () => {
       content={
         <div className="registrationPageContainer mt-6">
           <div className="sign-in">
-            <div>
+            <div className="top w-[100%]">
               <p>
                 Welcome to <span>Cultify</span>
               </p>
@@ -237,6 +239,15 @@ const InvestorRegistrationPage = () => {
                 "Register"
               )}
             </button>
+            <CultifyModal 
+              subject="EMAIL VERIFICATION"
+              isDisplayed={modalIsDisplayed}
+              text="A verification link has been sent to your email. Please check to complete your registration."
+              onClose={()=>{
+                setModalIsDisplayed(false);
+                navigate("/home");
+              }}
+            />
             <ToastContainer />
           </div>
         </div>
