@@ -191,7 +191,7 @@ const HeroSection = () => {
 
                         <div className='flex'>
                             <div>
-                                <p>
+                                <p className='w-[500%]'>
                                     Need help or have a question? Contact our friendly <br />
                                     team.We're here to assist you with any inquiries or <br />
                                     support you may need. Reach out to us today!

@@ -11,7 +11,7 @@ const CultifyTopNav = ({ content }) => {
             <img src={cultifyLogo} alt="Cultify Logo" className="w-20" />
           </div>
           <nav>
-            <span className="text-lg">Home</span>
+            <span className="text-lg cursor-pointer">Home</span>
           </nav>
         </div>
       </header>

@@ -13,26 +13,30 @@ import PaymentTransfer from './pages/utils/paystack/PaystackTransfer.jsx'
 import AdminDashboard from './pages/admin/components/adminDashboard/components/AdminDasboard.jsx'
 import AdminRegistrationPage from './pages/authentication/registration/components/AdminRegistration.jsx'
 import AdminFarmProjects from './pages/admin/components/adminFarmProjects/components/AdminFarmProjects.jsx'
-import FarmProjectCreation from './pages/farmer/components/FarmProjectCreation.jsx'
+import FarmProjectCreation from './pages/admin/components/farmProjectCreation/components/FarmProjectCreation.jsx'
 import AdminFarmProjectDetails from "./pages/admin/components/adminFarmProjectDetails/components/AdminFarmProjectDetails.jsx";
 import SuperAdminListing from './pages/superAdmin/components/SuperAdminListing.jsx'
 import AdminInvitaion from './pages/admin/components/adminInvitation/components/AdmnInvitaion.jsx'
 import InvestorInvestmentTable from './pages/investor/investmentTable/components/InvestorInvestmentTable.jsx'
 import AdminInvestmentTable from './pages/admin/components/adminInvestmentTable/components/AdminInvestmentTable.jsx'
 import InvestorListing from './pages/admin/components/investorListing/components/InvestorListing.jsx'
-import FarmerListing from './pages/farmer/components/FarmerListing.jsx'
-
+import FarmerListing from './pages/admin/components/farmerListing/components/FarmerListing.jsx'
+import ForgotPassword from "./pages/authentication/forgotPassword/components/ForgotPassword.jsx";
+import ResetPassword from "./pages/authentication/forgotPassword/components/ResetPassword.jsx";
+import { ToastContainer } from "react-toastify";
 
 
 function App() {
   return (
     <Router>
+      <ToastContainer />
       <Routes>
         <Route path="*" Component={ErrorPage} />
         <Route path="/home" element={<Home />} />
-         <Route path="/login" element={<Login />}/>
         <Route path="/login" element={<Login />} />
         <Route path="/otp" element={<Otp />} />
+        <Route path="/resetPassword/:encryptedEmail" element={<ResetPassword />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/registration" element={<InvestorRegistrationPage />} />
         <Route path="/investor/dashboard" element={<InvestorDashboard />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
@@ -50,7 +54,7 @@ function App() {
         />
         <Route
           path="/investor/dashboard/investments"
-          element={<InvestorInvestmentTable/>}
+          element={<InvestorInvestmentTable />}
         />
         <Route
           path="/admin/registration/:email"
@@ -67,15 +71,15 @@ function App() {
         <Route path="/paystackPayment" element={<PaystackPayment />} />
         <Route path="/paystackTransfer" element={<PaymentTransfer />} />
         <Route path="/topNav" element={<CultifyTopNav />} />
-        <Route path="/admin/dashboard/projects" element={<AdminFarmProjects />}/>
+        <Route path="/admin/dashboard/projects" element={<AdminFarmProjects />} />
         <Route path="/farmProjectCreation" element={<FarmProjectCreation />} />
         <Route path="/super-admin/administrators" element={<SuperAdminListing />} />
         <Route path="/adminInvitationPage" element={<AdminInvitaion />} />
         <Route
           path="/super-admin/dashboard/investments"
-          element={<AdminInvestmentTable/>}
+          element={<AdminInvestmentTable />}
         />
-      </Routes> 
+      </Routes>
     </Router>
   );
 }

@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import AdminTopLeftNavBar from "../../admin/components/adminTopLeftNavBar/components/AdminTopLeftNavBar.jsx";
+import AdminTopLeftNavBar from "../../adminTopLeftNavBar/components/AdminTopLeftNavBar.jsx";
 import { useNavigate } from "react-router-dom";
-import axios from "../../../api/axios";
+import axios from "../../../../../api/axios.js";
 import { useLocation } from "react-router-dom";
-import '../styles/submitButton.css';
+import '../../../styles/submitButton.css'
 
 const FarmProjectCreation = () => {
   const navigate = useNavigate();
@@ -22,13 +22,13 @@ const FarmProjectCreation = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  
+
   useEffect(() => {
     if (data == null || data === undefined) {
       navigate("/login")
     }
   }, []);
-  
+
   const uploadImage = async () => {
     const formData = new FormData();
     formData.append("file", imageUrl);
@@ -45,9 +45,9 @@ const FarmProjectCreation = () => {
   const handleSubmit = async (e) => {
     setIsLoading(true);
     e.preventDefault();
-    if (validateInputs() && validateDatesDifference()) {   
-      uploadImage(); 
-    }else setIsLoading(false)
+    if (validateInputs() && validateDatesDifference()) {
+      uploadImage();
+    } else setIsLoading(false)
   };
 
   const createFarmProject = async (imageUrl) => {
@@ -77,7 +77,7 @@ const FarmProjectCreation = () => {
 
       if (response.status == 200) {
         console.log(response);
-        navigate("/admin/dashboard/projects", {state: {"leftBar": leftBar, "data": admin}});
+        navigate("/admin/dashboard/projects", { state: { "leftBar": leftBar, "data": admin } });
       } else {
         console.log("failed");
         setIsLoading(false);
@@ -90,55 +90,55 @@ const FarmProjectCreation = () => {
 
   const validateInputs = () => {
     const errors = {};
-  
+
     if (!farmProduceSummary) {
       errors.farmProduceSummary = "Farm produce summary is required.";
     }
-  
+
     if (!description) {
       errors.description = "Description is required.";
     }
-  
+
     if (!location) {
       errors.location = "Location is required.";
     }
-  
+
     if (!startDate) {
       errors.startDate = "Start date is required.";
     }
-  
+
     if (!maturityDate) {
       errors.maturityDate = "Maturity date is required.";
     }
-  
+
     if (!pricePerUnit) {
       errors.pricePerUnit = "Price per unit is required.";
     }
 
     if (pricePerUnit < 5000) {
-      errors.pricePerUnit = "Minimum price per unit must be #5,000.";      
+      errors.pricePerUnit = "Minimum price per unit must be #5,000.";
     }
-  
+
     if (roi <= 0) {
       errors.roi = "ROI must be greater than 0.";
     }
-  
+
     if (maximumUnit <= 0) {
       errors.maximumUnit = "Maximum Number of Unit must be greater than 0.";
     }
     if (!imageUrl) {
       errors.imageUrl = "Please select an image for the farm project.";
     }
-  
+
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
-  const validateDatesDifference = ()=>{
+  const validateDatesDifference = () => {
     var startDateInSeconds = Date.parse(startDate);
     var maturityDateInSeconds = Date.parse(maturityDate);
     var dateDifference = maturityDateInSeconds - startDateInSeconds;
-    var dateDifferenceInMonth = ((((dateDifference/60)/60)/24)/30)/1000;
+    var dateDifferenceInMonth = ((((dateDifference / 60) / 60) / 24) / 30) / 1000;
     var currentDateInSeconds = Date.now();
     if ((currentDateInSeconds - startDateInSeconds) > 1) {
       setErrors((prevErrors) => ({
@@ -146,7 +146,7 @@ const FarmProjectCreation = () => {
         startDate: "Project start date must not be lesser than or equals to the current date"
       }));
       return false;
-    }else{
+    } else {
       setErrors((prevErrors) => ({
         ...prevErrors,
         startDate: ""
@@ -158,7 +158,7 @@ const FarmProjectCreation = () => {
         maturityDate: "Project duration must not be less than 3 months"
       }));
       return false;
-    }else{
+    } else {
       setErrors((prevErrors) => ({
         ...prevErrors,
         maturityDate: ""
@@ -167,10 +167,10 @@ const FarmProjectCreation = () => {
     return true;
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     validateDatesDifference();
   }, [startDate, maturityDate])
-  
+
 
   return (
     <AdminTopLeftNavBar
@@ -178,7 +178,7 @@ const FarmProjectCreation = () => {
       leftBar={leftBar}
       content={
         <div className="grid grid-cols-1 ml-[20%] w-[700px] h-auto pt-10 pb-10">
-        <div className="border-2 border-green-500 bg-white rounded-xl p-6 font-medium text-gray-700">
+          <div className="border-2 border-green-500 bg-white rounded-xl p-6 font-medium text-gray-700">
             <h3 className="text-xl font-bold mb-4">ADD PROJECT DETAILS</h3>
             <div className="space-y-4">
               <label htmlFor="summary" className="text-lg font-medium"> Farm produce name</label>

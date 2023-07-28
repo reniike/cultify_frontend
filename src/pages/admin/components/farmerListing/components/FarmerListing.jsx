@@ -1,8 +1,8 @@
-import {React, useEffect,useState} from "react";
+import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminTopLeftNavBar from "../../admin/components/adminTopLeftNavBar/components/AdminTopLeftNavBar";
+import AdminTopLeftNavBar from "../../adminTopLeftNavBar/components/AdminTopLeftNavBar";
 import { useLocation } from "react-router-dom";
-import axios from "../../../api/axios";
+import axios from "../../../../../api/axios";
 
 const FarmerListing = () => {
   const location = useLocation();
@@ -15,27 +15,27 @@ const FarmerListing = () => {
   const fetchAllFarmers = async () => {
     const url = '/farmer/getAllFarmers';
     try {
-        const response = await axios
-            .get(url, {
-                "headers": {
-                    "Authorization": "Bearer "+admin.access_token,
-                }
-            });
-        if (response.status === 200) {
-            console.log(response.data)
-            setFarmers(response.data)
-        } else console.log(response)
+      const response = await axios
+        .get(url, {
+          "headers": {
+            "Authorization": "Bearer " + admin.access_token,
+          }
+        });
+      if (response.status === 200) {
+        console.log(response.data)
+        setFarmers(response.data)
+      } else console.log(response)
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
-};
+  };
 
-useEffect(() => {
+  useEffect(() => {
     if (data == null || data === undefined) {
       navigate("/login")
     }
-  fetchAllFarmers();
-}, []);
+    fetchAllFarmers();
+  }, []);
 
   return (
     <AdminTopLeftNavBar
@@ -59,19 +59,19 @@ useEffect(() => {
               </tr>
             </thead>
             <tbody className="divide-y">
-                {farmers.length === 0 ? (
-                    <tr className='text-center'>
-                        <div className='p-20 text-center'>NO REGISTERED FARMERS YET</div>
-                    </tr>
-                ) : (
-                farmers.map((farmer, index)=>(
-                <tr>
-                  <td class="px-4 py-2 ">{farmer.userResponse.firstName}</td>
-                  <td class="px-4 py-2">{farmer.userResponse.lastName}</td>
-                  <td class="px-4 py-2">{farmer.userResponse.emailAddress}</td>
-                  <td class="px-4 py-2">{farmer.userResponse.phoneNumber}</td>
+              {farmers.length === 0 ? (
+                <tr className='text-center'>
+                  <div className='p-20 text-center'>NO REGISTERED FARMERS YET</div>
                 </tr>
-              )))}
+              ) : (
+                farmers.map((farmer, index) => (
+                  <tr>
+                    <td class="px-4 py-2 ">{farmer.userResponse.firstName}</td>
+                    <td class="px-4 py-2">{farmer.userResponse.lastName}</td>
+                    <td class="px-4 py-2">{farmer.userResponse.emailAddress}</td>
+                    <td class="px-4 py-2">{farmer.userResponse.phoneNumber}</td>
+                  </tr>
+                )))}
             </tbody>
           </table>
         </div>

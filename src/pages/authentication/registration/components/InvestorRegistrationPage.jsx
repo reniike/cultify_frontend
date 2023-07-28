@@ -120,13 +120,13 @@ const InvestorRegistrationPage = () => {
   return (
     <CultifyTopNav
       content={
-        <div className="registrationPageContainer">
+        <div className="registrationPageContainer mt-6">
           <div className="sign-in">
             <div>
               <p>
                 Welcome to <span>Cultify</span>
               </p>
-              <h1 className="b">Sign up</h1>
+              <h4 className='font-bold text-3xl'>Sign up</h4>
             </div>
             <div className="account">
               <p>Already have an account?</p>
@@ -149,9 +149,8 @@ const InvestorRegistrationPage = () => {
                 value={firstName}
                 placeholder="First name"
                 onChange={(e) => setFirstName(e.target.value)}
-                className={`userName-input1  ${
-                  errors.firstName ? "input-error " : ""
-                }`}
+                className={`userName-input1  ${errors.firstName ? "input-error " : ""
+                  }`}
               />
               <p className="error">{errors.firstName}</p>
             </div>
@@ -164,9 +163,8 @@ const InvestorRegistrationPage = () => {
                 value={lastName}
                 placeholder="Last name"
                 onChange={(e) => setLastName(e.target.value)}
-                className={`userName-input2 ${
-                  errors.lastName ? "input-error " : ""
-                }`}
+                className={`userName-input2 ${errors.lastName ? "input-error " : ""
+                  }`}
               />
               <p className="error">{errors.lastName}</p>
             </div>
@@ -205,9 +203,8 @@ const InvestorRegistrationPage = () => {
                 value={password}
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
-                className={` password mb-0 ${
-                  errors.password ? "input-error" : ""
-                }`}
+                className={` password mb-0 ${errors.password ? "input-error" : ""
+                  }`}
               />
               <p className="error">{errors.password}</p>
             </div>
@@ -220,9 +217,8 @@ const InvestorRegistrationPage = () => {
                 value={confirmPassword}
                 placeholder="Comfirm password"
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className={`password ${
-                  errors.confirmPassword ? "input-error" : ""
-                }`}
+                className={`password ${errors.confirmPassword ? "input-error" : ""
+                  }`}
               />
               {errors.confirmPassword && (
                 <p className="error">{errors.confirmPassword}</p>

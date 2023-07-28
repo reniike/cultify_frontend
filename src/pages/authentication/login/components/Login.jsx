@@ -39,7 +39,11 @@ const Login = () => {
     authenticate();
   };
 
-  const authenticate = async() =>{
+  const handleForgotPassword = () => {
+    navigate('/forgotPassword')
+  }
+
+  const authenticate = async () => {
     const request = {
       email: email,
       password: password,
@@ -49,14 +53,14 @@ const Login = () => {
       const data = response.data;
       console.log(data);
       const role = data.user.userResponse.roles[0];
-      if(role === "INVESTOR") navigate("/investor/dashboard", {state: data});
-      else if(role === "ORDINARY_ADMIN") navigate("/admin/dashboard", {state: {"data": data, "leftBar": ["Dashboard", "Farm Projects", "Investments", "Investors", "Farmers", "Profile"]}});
-      else navigate("/admin/dashboard", {state: {"data": data, "leftBar": ["Dashboard", "Farm Projects", "Investments", "Investors", "Farmers", "System Administrators", "Profile"]}});
+      if (role === "INVESTOR") navigate("/investor/dashboard", { state: data });
+      else if (role === "ORDINARY_ADMIN") navigate("/admin/dashboard", { state: { "data": data, "leftBar": ["Dashboard", "Farm Projects", "Investments", "Investors", "Farmers", "Profile"] } });
+      else navigate("/admin/dashboard", { state: { "data": data, "leftBar": ["Dashboard", "Farm Projects", "Investments", "Investors", "Farmers", "System Administrators", "Profile"] } });
     } catch (error) {
       setIsLoading(false);
       console.log(error);
-      if(error.response.status === 403){     
-        if(toastResponse) setToastResponse(String(toastResponse).concat(" "));
+      if (error.response.status === 403) {
+        if (toastResponse) setToastResponse(String(toastResponse).concat(" "));
         showToast();
       }
     }
@@ -66,20 +70,20 @@ const Login = () => {
   return (
     <CultifyTopNav
       content={
-        <div className="login-page ">
+        <div className="login-page mt-6">
           <div className="sign-in">
             <div>
               <p>
                 Welcome to <span>Cultify</span>
               </p>
-              <h1 className="b" >Sign in</h1>
+              <h4 className='font-bold text-3xl mt-3'>Sign in</h4>
             </div>
             <div className="account">
               <p>No account ?</p>
               <>
-                <span onClick={()=>{
-                navigate("/registration")
-              }}>Sign up</span>
+                <span onClick={() => {
+                  navigate("/registration")
+                }}>Sign up</span>
               </>
             </div>
           </div>
@@ -105,16 +109,16 @@ const Login = () => {
               ></input>
             </div>
           </form>
-          <a href="#">Forgot password</a>
-          <button 
-                type="submit"
-                className={`btn-submit ${isLoading ? "loading" : ""}`}
-                onClick={handleSubmit}
-                disabled={isLoading}
-              >
-                {isLoading ? <div className="loading-indicator"></div> : "Sign in"}
+          <a href="#" onClick={handleForgotPassword} >Forgot password</a>
+          <button
+            type="submit"
+            className={`btn-submit ${isLoading ? "loading" : ""}`}
+            onClick={handleSubmit}
+            disabled={isLoading}
+          >
+            {isLoading ? <div className="loading-indicator"></div> : "Sign in"}
           </button>
-          <ToastContainer/>
+          <ToastContainer />
         </div>
       }
     />
